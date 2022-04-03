@@ -13,7 +13,7 @@ output:
 site: distill::distill_website  
 ---
 
-Hi - I’m **Kristina**. I am fortunate to be a graduate student
+Hi - I’m **Kristina**. I am a graduate student 
 in the Department of Social and Behavioral Sciences at University of Massachusetts Amherst
 in the Data Analytics and Computation for Social Sciences program.
 
