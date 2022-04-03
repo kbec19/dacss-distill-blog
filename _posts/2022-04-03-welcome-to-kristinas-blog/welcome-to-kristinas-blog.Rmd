@@ -23,6 +23,10 @@ knitr::opts_chunk$set(echo = FALSE)
 Hi! I’m **Kristina Becvar**, a graduate student in the [Department of
 Social and Behavioral Sciences](https://www.umass.edu/sbs/){target="_blank"} at [University of Massachusetts Amherst](https://www.umass.edu/){target="_blank"}. I’ve decided to start this blog to document my learning and development in data analysis.
 
+It's not news to anyone that coding is difficult, and it's somewhat above and beyond my time constraints right now to learn more in order to build this blog. But I think (!) I **finally** got this thing going.
+
+Thank you to [Steve Linberg](https://www.slinberg.net/){target="_blank"}. for your guidance getting the process of setting up a distill site through RStudio and for generally being a fabulous classmate!
+
 Feel free to pull up a chair, leave a comment, and join me so that we can navigate some things together.
  
 
