@@ -1,5 +1,24 @@
 ---
-title: "Kristina's DACSS Blog"
-site: distill::distill_website
-listing: posts
+title: "Welcome!"
+image: "data/images/square_profile.jpg"
+links:
+  - label: '<i class="fab fa-github fa-1x"></i>'
+    url: "https://github.com/kbec19"
+  - label: '<i class="fab fa-twitter fa-1x"></i>'
+    url: "https://twitter.com/kitka2001"
+  - label: '<i class="fab fa-linkedin-in fa-1x"></i>'
+    url: "https://www.linkedin.com/in/kbecvar/"
+output:
+  postcards::jolla
+site: distill::distill_website  
 ---
+
+Hi - I’m **Kristina**. I am fortunate to be a graduate student
+in the Department of Social and Behavioral Sciences at University of Massachusetts Amherst
+in the Data Analytics and Computation for Social Sciences program.
+
+
+This is my personal website which contains info about my research and where I
+blog about various topics of interest in the realm of social sciences and data analytics.
+
+Please browse around, and feel free to leave a comment.
