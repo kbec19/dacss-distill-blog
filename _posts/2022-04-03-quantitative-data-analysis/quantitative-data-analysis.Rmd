@@ -1,5 +1,5 @@
 ---
-title: "Quantitative Data Analysis Assignment 1"
+title: "DACSS 603 Assignment 1"
 description: |
   Assignment 1 for DACSS 603 course 'Quantitative Data Analysis': "Descriptive Statistics, Probability, Statistical Inference, and Comparing Two Means"
 categories:
