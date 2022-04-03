@@ -4,7 +4,7 @@ description: |
   My academic and transitional personal site. Course projects and some posts on issues involving 
   data analytics for social sciences in the wild
 output_dir: "_site"
-favicon: data/images/square_profile.jpg
+favicon: data/images/initials.png
 base_url: https://www.kristinabecvar.com/
 repository_url: https://github.com/kbec19/dacss-distill-blog
 theme: css/theme.css

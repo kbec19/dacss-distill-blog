@@ -1,6 +1,6 @@
 ---
 title: "Welcome!"
-image: "data/images/square_profile.jpg"
+image: "data/images/initials.png"
 links:
   - label: '<i class="fab fa-github fa-1x"></i>'
     url: "https://github.com/kbec19"

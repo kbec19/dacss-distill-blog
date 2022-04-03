@@ -1,22 +1,5 @@
 [
   {
-    "path": "posts/2022-04-03-struggling/",
-    "title": "Struggling",
-    "description": "A short description of the post.",
-    "author": [
-      {
-        "name": "Kristina Becvar",
-        "url": {}
-      }
-    ],
-    "date": "2022-04-03",
-    "categories": [],
-    "contents": "\r\nIt’s not news to anyone that coding is difficult, and it’s somewhat above and beyond my time constraints right now to learn more in order to build this blog. But I think (!) I finally got this thing going.\r\nThank you to Steve Linberg. for your guidance getting the process of setting up a distill site through RStudio and for generally being a fabulous classmate!\r\n\r\n\r\n\r\n",
-    "preview": {},
-    "last_modified": "2022-04-03T15:49:19-05:00",
-    "input_file": "Networks.knit.md"
-  },
-  {
     "path": "posts/2022-04-03-networks/",
     "title": "Networks",
     "description": "A brief summary of the course 'Social and Political Network Analysis'",
@@ -33,7 +16,7 @@
     "contents": "\r\nSocial network analysis (SNA) is the process of investigating social structures through the use of networks and graph theory. It characterizes networked structures in terms of nodes (individual actors, people, or things within the network) and the ties, edges, or links (relationships or interactions) that connect them. Examples of social structures commonly visualized through social network analysis include social media networks, memes spread, information circulation, friendship and acquaintance networks, business networks, knowledge networks, difficult working relationships, social networks, collaboration graphs, kinship, disease transmission, and sexual relationships. These networks are often visualized through sociograms in which nodes are represented as points and ties are represented as lines. These visualizations provide a means of qualitatively assessing networks by varying the visual representation of their nodes and edges to reflect attributes of interest.\r\nSocial network analysis has emerged as a key technique in modern sociology. It has also gained significant popularity in anthropology, biology, demography, communication studies, economics, geography, history, information science, organizational studies, political science, public health, social psychology, development studies, sociolinguistics, and computer science, and is now commonly available as a consumer tool.\r\n\r\n\r\n\r\n",
     "preview": {},
     "last_modified": "2022-04-03T15:53:46-05:00",
-    "input_file": "networks.knit.md"
+    "input_file": {}
   },
   {
     "path": "posts/2022-04-03-welcome-to-kristinas-blog/",
@@ -52,6 +35,6 @@
     "contents": "\r\nHi! I’m Kristina Becvar, a graduate student in the Department of Social and Behavioral Sciences at University of Massachusetts Amherst. I’ve decided to start this blog to document my learning and development in data analysis.\r\nIt’s not news to anyone that coding is difficult, and it’s somewhat above and beyond my time constraints right now to learn more in order to build this blog. But I think (!) I finally got this thing going.\r\nThank you to Steve Linberg. for your guidance getting the process of setting up a distill site through RStudio and for generally being a fabulous classmate!\r\nFeel free to pull up a chair, leave a comment, and join me so that we can navigate some things together.\r\n\r\n\r\n\r\n",
     "preview": {},
     "last_modified": "2022-04-03T15:53:18-05:00",
-    "input_file": "welcome-to-kristinas-blog.knit.md"
+    "input_file": {}
   }
 ]
