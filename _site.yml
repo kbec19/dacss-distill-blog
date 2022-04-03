@@ -1,12 +1,30 @@
 name: "dacss-blog"
-title: "Kristina's DACSS Blog"
+title: "Kristina Becvar | DACSS Blog"
 description: |
-  Kristina's DACSS Blog
+  My academic and transitional personal site. Course projects and some posts on issues involving 
+  data analytics for social sciences in the wild
 output_dir: "_site"
+favicon: data/images/square_profile.jpg
+base_url: https://www.kristinabecvar.com/
+repository_url: https://github.com/kbec19/dacss-distill-blog
+theme: css/theme.css
 navbar:
+  logo:
+    image: data/images/square_profile.jpg
+    href: https://www.kristinabecvar.com
   right:
     - text: "Home"
       href: index.html
+    - text: "Blog"
+      href: blog.html
     - text: "About"
       href: about.html
-output: distill::distill_article
+collections:
+  posts:
+    share: [twitter, linkedin]
+    feed_items_max: false
+output: 
+  distill::distill_article:
+    includes:
+      in_header: html/giscus.html
+
