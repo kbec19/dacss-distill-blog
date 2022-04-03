@@ -10,7 +10,6 @@ author:
 slug: kbec2022networks
 date: 04-03-2022
 base_url: https://www.kristinabecvar.com
-preview: images/square_profile.jpg
 output:
   distill::distill_article:
     self_contained: false

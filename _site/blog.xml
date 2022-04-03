@@ -23,15 +23,6 @@ data analytics for social sciences in the wild
       <pubDate>Sun, 03 Apr 2022 00:00:00 +0000</pubDate>
     </item>
     <item>
-      <title>Welcome to Kristina's Blog</title>
-      <dc:creator>Kristina Becvar</dc:creator>
-      <link>https://www.kristinabecvar.com/posts/2022-04-03-welcome-to-kristinas-blog</link>
-      <description>Detailing my academic projects in the course of pursuing a M.S. in Data Science and Computation for Social Sciences at UMass Amherst</description>
-      <category>personal</category>
-      <guid>https://www.kristinabecvar.com/posts/2022-04-03-welcome-to-kristinas-blog</guid>
-      <pubDate>Sun, 03 Apr 2022 00:00:00 +0000</pubDate>
-    </item>
-    <item>
       <title>Networks</title>
       <dc:creator>Kristina Becvar</dc:creator>
       <link>https://www.kristinabecvar.com/posts/2022-04-03-networks</link>
@@ -39,6 +30,15 @@ data analytics for social sciences in the wild
       <category>networks</category>
       <guid>https://www.kristinabecvar.com/posts/2022-04-03-networks</guid>
       <pubDate>Sun, 03 Apr 2022 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Welcome to Kristina's Blog</title>
+      <dc:creator>Kristina Becvar</dc:creator>
+      <link>https://www.kristinabecvar.com/posts/2022-04-03-welcome-to-kristinas-blog</link>
+      <description>Detailing my academic projects in the course of pursuing a M.S. in Data Science and Computation for Social Sciences at UMass Amherst</description>
+      <category>personal</category>
+      <guid>https://www.kristinabecvar.com/posts/2022-04-03-welcome-to-kristinas-blog</guid>
+      <pubDate>Sat, 02 Apr 2022 00:00:00 +0000</pubDate>
     </item>
   </channel>
 </rss>

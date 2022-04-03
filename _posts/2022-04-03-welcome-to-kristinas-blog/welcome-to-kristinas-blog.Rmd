@@ -8,7 +8,7 @@ author:
   - name: Kristina Becvar
     url: https://www.kristinabecvar.com
 slug: kbec2022welcome
-date: 04-03-2022
+date: 04-02-2022
 base_url: https://www.kristinabecvar.com
 preview: images/square_profile.jpg
 output:
