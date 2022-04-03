@@ -11,10 +11,10 @@
     ],
     "date": "2022-04-03",
     "categories": [],
-    "contents": "\r\nDistill is a publication format for scientific and technical writing, native to the web.\r\nLearn more about using Distill at https://rstudio.github.io/distill.\r\n\r\n\r\n\r\n",
+    "contents": "\r\nIt’s not news to anyone that coding is difficult, and it’s somewhat above and beyond my time constraints right now to learn more in order to build this blog. But I think (!) I finally got this thing going.\r\nThank you to Steve Linberg. for your guidance getting the process of setting up a distill site through RStudio and for generally being a fabulous classmate!\r\n\r\n\r\n\r\n",
     "preview": {},
-    "last_modified": "2022-04-03T14:59:29-05:00",
-    "input_file": {}
+    "last_modified": "2022-04-03T15:39:20-05:00",
+    "input_file": "struggling.knit.md"
   },
   {
     "path": "posts/2022-04-03-welcome-to-kristinas-blog/",
@@ -30,9 +30,9 @@
     "categories": [
       "personal"
     ],
-    "contents": "\r\nWelcome!\r\nHi! I’m Kristina Becvar, a graduate student in the Department of Social and Behavioral Sciences at University of Massachusetts Amherst. I’ve decided to start blogging to document my learning and development in data analysis.\r\nFeel free to pull up a chair, leave a comment, and join me so that we can navigate some things together.\r\n\r\n\r\n\r\n",
+    "contents": "\r\nHi! I’m Kristina Becvar, a graduate student in the Department of Social and Behavioral Sciences at University of Massachusetts Amherst. I’ve decided to start this blog to document my learning and development in data analysis.\r\nFeel free to pull up a chair, leave a comment, and join me so that we can navigate some things together.\r\n\r\n\r\n\r\n",
     "preview": {},
-    "last_modified": "2022-04-03T13:52:39-05:00",
-    "input_file": {}
+    "last_modified": "2022-04-03T15:39:46-05:00",
+    "input_file": "welcome-to-kristinas-blog.knit.md"
   }
 ]
