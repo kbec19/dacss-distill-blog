@@ -1,14 +1,15 @@
 ---
-title: "Networks"
+title: "Networks Assignment 2"
 description: |
-  A brief summary of the course 'Social and Political Network Analysis'
+  Intro Assignment for DACSS 697E course 'Social and Political Network Analysis'
 categories:
   - networks
+  - homework
 author:
   - name: Kristina Becvar
     url: https://www.kristinabecvar.com
-slug: kbec2022networks
-date: 04-03-2022
+slug: kbec2022networks1
+date: 02-04-2022
 base_url: https://www.kristinabecvar.com
 output:
   distill::distill_article:

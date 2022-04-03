@@ -1,0 +1,429 @@
+---
+title: "DACSS 603 Assignment 2"
+description: |
+  Assignment 2 for DACSS 603 course 'Quantitative Data Analysis': "Regression Background, Simple Linear Regression, & Multiple Regression"
+categories:
+  - statistics
+  - homework
+author:
+  - name: Kristina Becvar
+    url: https://www.kristinabecvar.com
+slug: kbec2022qda2
+date: 03-11-2022
+base_url: https://www.kristinabecvar.com
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(dplyr)
+library(ggplot2)
+library(alr4)
+library(tidyverse)
+library(cowplot) 
+library(colorspace) 
+library(ggrepel)
+library(gridExtra)
+library(GGally)
+library(smss)
+library(purrr)
+library(pastecs)
+```
+
+## Question 1
+
+### United Nations
+
+United Nations (Data file: UN11) The data in the file UN11 contains several variables, including ppgdp, the gross national product per person in U.S. dollars, and fertility, the birth rate per 1000 females, both from the year 2009. The data are for 199 localities, mostly UN member countries, but also other areas such as Hong Kong that are not independent countries. The data were collected from the United Nations (2011). We will study the dependence of fertility on ppgdp.
+
+* 1.1.1. Identify the predictor and the response. 
+
+* 1.1.2 Draw the scatterplot of fertility on the vertical axis versus ppgdp on the horizontal axis and summarize the information in this graph. Does a straight-line mean function seem to be plausible for a summary of this graph?
+
+* 1.1.3 Draw the scatterplot of log(fertility) versus log(ppgdp) using natural logarithms. Does the simple linear regression model seem plausible for a summary of this graph? If you use a different base of logarithms, the shape of the graph won’t change, but the values on the axes will change.
+
+
+## Answer 1
+
+First, I load in the appropriate data. Then I look at the head() info to preview the dataset, and use the function "?UN11" to get details on this data. 
+
+The defining measure of the variables I am examining are:
+
+> ppgdp, representing "per capita gross domestic product in US dollars", and 
+> fertility, representing "number of children per woman".
+
+* 1.1.1: The predictor variable is the ppgdp and the response variable is fertility.
+
+Next, I create the scatterplot and add a theoretical regression line using the smooth() function and applying the 'lm' method in ggplot2. Using "smooth()" in this way allows me to see patterns in the graph representing a potential linear regression line.
+
+```{r code_folding=TRUE}
+
+#First, I loaded the data, used the head() function to preview the dataset, and used the "?UN11" function to get additional details on the data represented in the dataset. 
+
+data("UN11")
+
+#Then, I created a dataframe with the relevant variables and plotted them using ggplot2
+
+df1 <- UN11 %>% 
+  select(c(ppgdp, fertility))
+
+gg1a <- ggplot(df1, aes(x=ppgdp, y=fertility)) +
+  geom_point() +
+  geom_smooth(method=lm,se=FALSE,fullrange=TRUE,color="goldenrod") +
+   labs(title= "Fertility and GDP",
+        x= "GNP (Per Person in US Dollars)", 
+        y = "Fertility (Births Per Woman)") +
+   theme_classic()
+
+gg1a
+
+```
+
+* 1.1.2: The scatterplot indicates that this graph does not support a straight-line mean function.
+
+Finally, I add the log() functions to analyze the linear model and again use "smooth()" to look at patterns in the graph representing a regression line on a linear model.
+
+```{r code_folding=TRUE}
+
+gg1b <- ggplot(df1, aes(x=log(ppgdp), y=log(fertility))) +
+  geom_point() +
+  geom_smooth(method=lm,se=TRUE,fullrange=TRUE,color="goldenrod") +
+   labs(title= "Log: Fertility and GDP",
+        x= "GNP (Per Person in US Dollars)",
+        y = "Fertility (Births Per Woman)") +
+   theme_classic()
+
+gg1b
+
+
+```
+
+* 1.1.3: It seems the simple linear regression model is plausible. The consistent downward line would be the best fit for most of the data points.
+
+*Additionally, the summary() call of the linear model "lm()" function allows me to confirm that the p-value is statistically significant to a high level of confidence (< 0.001)* 
+
+```{r code_folding=TRUE}
+
+fit1 <- lm(fertility ~ ppgdp, data = df1)
+summary(fit1)
+
+```
+
+## Question 2
+
+Annual income, in dollars, is an explanatory variable in a regression analysis. For a British version of the report on the analysis, all responses are converted to British pounds sterling (1 pound equals about 1.33 dollars, as of 2016).
+
+* (a) How, if at all, does the slope of the prediction equation change?
+
+* (b) How, if at all, does the correlation change?
+
+## Answer 2
+
+* (a) The slope will change - if slope = "s", the new slope becomes (s/1.33). This is because we are looking at the response variable. When converting an explanatory variable, there is an inverse relationship to the slope and we would multiply the old slope by 1.33.
+
+* (b) The correlation will not change. This is because correlation is not affected by a change in units.
+
+
+## Question 3
+
+### Water Runoff in the Sierras
+
+Can Southern California’s water supply in future years be predicted from past data? One factor affecting water availability is stream runoff. If runoff could be predicted, engineers, planners, and policy makers could do their jobs more efficiently. The data file contains 43 years’ worth of precipitation measurements taken at six sites in the Sierra Nevada mountains (labeled APMAM, APSAB, APSLAKE, OPBPC, OPRC, and OPSLAKE) and stream runoff volume at a site near Bishop, California, labeled BSAAM. 
+
+* Draw the scatterplot matrix for these data and summarize the information available from these plots.
+
+## Answer 3
+
+First, I load in the appropriate data. Then I look at the head() info to preview the dataset, and use the function "?water" to get details on this "California water" data.  I can now create a scatterplot matrix for the data using the plot() function. This allows me to make an initial look into the existence of linear relationships in the data. 
+
+```{r code_folding=TRUE}
+
+#First I load the data
+
+data("water")
+
+#Next, I create the dataframe object from the data
+
+df3 <- water
+
+#Then, I make an initial scatterplot matrix
+
+pairs(df3)
+
+```
+Using the plot() function allows me to identify visually the positive linear correlations between these variables. Those appear to me at first glance to be, leading with the strongest visual representation:
+
+* OPSLAKE and OPRC
+* OPSLAKE and OPBPC
+* BSAAM and OPSLAKE
+* BSAAM and OPRC
+* BSAAM and OPBPC
+
+Still clear but weaker positive linear correlations:
+
+* OPRC and OPBPC
+* APMAM and APSAB
+* APMAM and APSLAKE
+* APSAB and APSLAKE
+
+There are no apparent positive (or negative!) linear correlations between the 'Year' variable and any other variable.
+
+This is helpful in visualizing relationships, but I have better opportunities to visualize this scatterplot matrix in R. I also would like to look at the statistical correlation evaluations of these relationships.
+
+One opportunity is a package called "GGally" that builds upon ggplot2 to look at more than just the general scatterplot matrix. The primary difference between the GGally "ggpairs()" function and the pairs function of base R is that the diagonal consists of the densities of the variables and the upper panels consist of the Pearson correlation coefficients between the variables using the argument "pearson".
+
+```{r code_folding=TRUE}
+
+ggpairs(df3, method = c("everything", "pearson"))
+
+```
+
+Using this representation, I can see both the visual correlations and the statistical correlations of the pairs. This allows me to compare my predictions to the correlation scores. Highest significant correlations are:
+
+* OPSLAKE and OPBPC
+* BSAAM and OPSLAKE
+* BSAAM and OPRC
+* OPSLAKE and OPRC
+* APSLAKE and APSAB
+* BSAAM and OPBPC
+* OPRC and OPBPC
+* APSAB and APMAM
+* APSLAKE and APMAM
+
+The results confirm that although my visual evaluation using the initial scatterplot matrix was not necessarily 100% accurate, it served as a reliable estimate of positive linear statistical correlation. 
+
+Finally, I want to use a third option for visualizing these correlations that is even more simple and graphically pleasing, the "ggcorr()" function in GGally. This method cleanly demonstrates the strong correlations we have evaluated in a simple way.
+
+```{r code_folding=TRUE}
+
+ggcorr(df3, method = c("everything", "pearson")) 
+
+```
+
+## Question 4
+
+### Professor Ratings
+
+In the website and online forum RateMyProfessors.com, students rate and comment on their instructors. Launched in 1999, the site includes millions of ratings on thousands of instructors. The data file includes the summaries of the ratings of 364 instructors at a large campus in the Midwest (Bleske-Rechek and Fritsch, 2011). Each instructor included in the data had at least 10 ratings over a several year period. Students provided ratings of 1–5 on quality, helpfulness, clarity, easiness of instructor’s courses, and raterInterest in the subject matter covered in the instructor’s courses. The data file provides the averages of these five ratings. Use R to reproduce the scatterplot matrix in Figure 1.13 in the ALR book (page 20). Provide a brief description of the relationships between the five ratings. (The variables don’t have to be in the same order)
+
+## Answer 4
+
+First, I load in the appropriate data. Then I look at the head() info to preview the dataset, and use the function "?Rateprof" to get details on this dataset. I create a dataframe of the variables of interest from the Rateprof dataset.
+
+```{r code_folding=TRUE}
+
+#First I load the data
+
+data("Rateprof")
+
+#Then create a data frame object of the relevant variables
+
+df4 <- Rateprof %>% 
+  select(c(quality, helpfulness, clarity, easiness, raterInterest))
+
+#I preview the data to understand what type of data is represented
+
+head(df4)
+
+```
+
+Using the pairs() function, I am now able to create a scatterplot matrix that matches the one in the book (ALR, Problem 1.6).
+
+```{r code_folding=TRUE}
+
+pairs(df4)
+
+```
+
+The relationships illustrated by the correlations represented in this scatterplot matrix indicate a strong, positive linear relationship between quality and helpfulness. There is also a strong, positive linear relationship between quality and clarity, but for one outlier. These tell me that as the rankings given to a professor on quality, helpfulness, and clarity each rise, they can expect the other variables in that group to rise as well. HOwever, I cannot guess or speculate as to the cause of these correlations.
+
+In comparison, there is a moderate positive linear relationship between positive ratings of easiness with each variable except for raterInterest. The variable raterInterest has a horizontal correlation with all of the other 4 variables, indicating either no correlation or a very weak correlation between them.
+
+## Question 5
+
+For the student.survey data file in the smss package, conduct regression analyses relating 
+(i) y = political ideology and x = religiosity, 
+(ii) y = high school GPA and x = hours of TV watching. 
+
+(You can use ?student.survey in the R console, after loading the package, to see what each variable means.)
+
+* (a) Use graphical ways to portray the individual variables and their relationship. 
+* (b) Interpret descriptive statistics for summarizing the individual variables and their relationship. 
+* (c) Summarize and interpret results of inferential analyses.
+
+
+## Answer 5
+
+After installing the "smss" package and loading the relevant library, I again inspect the data and package info.
+
+```{r code_folding=TRUE}
+
+#First I load the data
+
+data("student.survey")
+
+#Then I create a data frame with the data set and look at the content
+
+df5 <- student.survey
+
+head(student.survey)
+
+```
+
+* (a) First, I use the generalized "plot()" command to take a preliminary look at the graphical data.
+
+```{r code_folding=TRUE}
+
+#To plot y = political ideology and x = religiosity, the relative variable names are "pi" and "re".
+
+plot1 <- plot(pi ~ re, data = student.survey)
+
+```
+```{r code_folding=TRUE}
+
+#To plot y = high school GPA and x = hours of TV watching, the relative variable names are "hi" and "tv".
+
+plot2 <- plot(hi ~ tv, data = student.survey)
+
+```
+These initial representations really don't tell me much about the relationships between the variables.
+
+Now I need to do some data cleaning, and convert the categorical variables for political ideology and religiosity into numeric variables. I will also rename the columns for the sake of clarity.
+
+For political ideology ("pi"), "as.integer" represents the categorical variables with values of 1 to 7, starting with very liberal (1) and increasing in assigned value to very conservative (7). For religiousity, "as.integer" represents the categorical variables with values of 1 to 4, starting with never (attending religious services) (1) to every week (4). For religiosity ("re") this was how often you attend religious services, “never” = 1, “occasionally” = 2, “most weeks” = 3, “every week” = 4
+
+```{r code_folding=TRUE}
+
+df5 <- student.survey %>% 
+  select(c(hi, tv, pi, re))
+
+df5$pi <- as.integer(as.factor(df5$pi))
+df5$re <- as.integer(as.factor(df5$re))
+
+```
+
+Then I create a sub-frame for the particular pair of variables I want to compare. First, religiosity and political ideology; and then create a scatter plot of the correlation between religiosity and political ideology.
+
+```{r code_folding=TRUE}
+
+df5a <- df5 %>%
+  rename(Political.Ideology = pi,
+         Religiosity = re) %>% 
+  select(Political.Ideology, Religiosity)
+
+```
+
+```{r code_folding=TRUE}
+
+gg5a <- ggplot(df5a, aes(x=Religiosity, y=Political.Ideology)) +
+  geom_point() +
+  geom_smooth(method=lm,se=TRUE,fullrange=TRUE,color="goldenrod") +
+   labs(title= "Religiosity & Political Ideology",
+        x= "Religiosity", 
+        y = "Political Ideology") +
+   theme_classic()
+
+gg5a
+
+```
+
+Again, I create a sub-frame for the specific pair of variables I want to compare. Now I look at high school GPA and hours of TV watched per week and create a scatter plot of the correlation between high school GPA and hours of TV watched per week.
+
+```{r code_folding=TRUE}
+
+df5b <- student.survey %>%
+  rename(High.School.GPA = hi,
+         Hours.TV = tv) %>% 
+  select(High.School.GPA, Hours.TV)
+
+```
+
+```{r code_folding=TRUE}
+
+gg5b <- ggplot(df5b, aes(x=Hours.TV, y=High.School.GPA)) +
+  geom_point() +
+  geom_smooth(method=lm,se=TRUE,fullrange=TRUE,color="goldenrod") +
+   labs(title= "High School GPA & Average Hours of TV Watched Per Week",
+        x= "Average Number of Hours of TV Watched per Week", 
+        y = "High School GPA") +
+   theme_classic()
+
+gg5b
+
+```
+
+* (b) I start to interpret descriptive statistics for summarizing the individual variables and their relationship using the "summary()" function.
+
+```{r code_folding=TRUE}
+
+summary(df5)
+
+```
+
+* Checking the Pearson Correlation Coefficient and Linear Model Fit of Each Relationship
+
+This basic correlation matrix gives an overview of the correlations for religiosity and political ideology, rounded to 2 decimals. This indicates a moderate positive relationship between the variables.
+
+```{r code_folding=TRUE}
+
+round(cor(df5a),
+  digits = 2 
+)
+
+```
+Using the "lm()" formula, I can confirm that the p-value for this relationship is ~1.22.
+
+```{r code_folding=TRUE}
+
+fit5a <- lm(pi ~ re, data = df5)
+
+summary(fit5a)
+
+```
+
+Again, using a correlation matrix gives an overview of the correlations for high school GPA and hours of TV watched, rounded to 2 decimals. This indicates a weak negative correlation between the variables.
+
+```{r code_folding=TRUE}
+
+round(cor(df5b),
+  digits = 2 
+)
+
+```
+
+Using the "lm()" formula, I can confirm that the p-value for this relationship is ~0.04
+
+```{r code_folding=TRUE}
+
+fit5b <- lm(tv ~ hi, data = df5)
+
+summary(fit5b)
+
+```
+
+* (c) Summarize and interpret results of inferential analyses.
+
+The basis analysis of these pairs of data from the "student.survey" data set tells me that if the null hypothesis are:
+
+* H1: There is no correlation between religiosity and political ideology; and 
+* H2: There is no correlation between grade point average and hours of television watched,
+
+then I can use the inferential analyses to conclude that I have sufficient evidence at the 95% confidence level to reject both H1 and H2 null hypothesis. However, if I choose to use a 99% confidence level, I would be able to to reject H1, but not to reject H2.
+
+## Question 6
+
+For a class of 100 students, the teacher takes the 10 students who perform poorest on the midterm exam and enrolls them in a special tutoring program. The overall class mean is 70 on both the midterm and final, but the mean for the specially tutored students increases from 50 to 60. Use the concept of regression toward the mean to explain why this is not sufficient evidence to imply that the tutoring program was successful. (Here’s a useful hint video: https://www.youtube.com/watch?v=1tSqSMOyNFE) 
+
+## Answer
+
+No, we do not have enough information to say that this result is the direct effect of the special tutoring program. The increase in scores among the tutored subset may be due to other factors, such as the students having a better day on the day of the second test, among other potential facts. 
+
+Moreover, there is the statistical phenomenon at play of regression toward the mean which can help explain how extreme values correct toward the mean in repeated samples. There is a potential for the results to be statistically significant, but without additional information, the explanation that randomization and regression toward the mean remains primary.
+
+This example could potentially be strengthened by more information, such as multiple test results over the semester rather than just two tests or a density plot of the entire class scores. It could also be strengthened by the presence of a control group.
+
+
+

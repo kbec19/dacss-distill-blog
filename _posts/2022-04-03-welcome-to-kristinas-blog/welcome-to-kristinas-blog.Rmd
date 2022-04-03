@@ -7,8 +7,8 @@ categories:
 author:
   - name: Kristina Becvar
     url: https://www.kristinabecvar.com
-slug: kbec2022welcome
-date: 04-02-2022
+slug: kbec2021welcome
+date: 07-12-2021
 base_url: https://www.kristinabecvar.com
 preview: images/square_profile.jpg
 output:
@@ -25,7 +25,7 @@ Social and Behavioral Sciences](https://www.umass.edu/sbs/){target="_blank"} at 
 
 It's not news to anyone that coding is difficult, and it's somewhat above and beyond my time constraints right now to learn more in order to build this blog. But I think (!) I **finally** got this thing going.
 
-Thank you to [Steve Linberg](https://www.slinberg.net/){target="_blank"}. for your guidance getting the process of setting up a distill site through RStudio and for generally being a fabulous classmate!
+Thank you to [Steve Linberg](https://www.slinberg.net/){target="_blank"} for your guidance getting the process of setting up a distill site through RStudio and for generally being a fabulous classmate!
 
 Feel free to pull up a chair, leave a comment, and join me so that we can navigate some things together.
  

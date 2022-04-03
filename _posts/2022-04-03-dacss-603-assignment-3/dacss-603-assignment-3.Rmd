@@ -1,0 +1,431 @@
+---
+title: "DACSS 603 Assignment 3"
+description: |
+  Assignment 3 for DACSS 603 course 'Quantitative Data Analysis': "Multiple Regression"
+categories:
+  - statistics
+  - homework
+author:
+  - name: Kristina Becvar
+    url: https://www.kristinabecvar.com
+slug: kbec2022qda3
+date: 03-31-2022
+base_url: https://www.kristinabecvar.com
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(dplyr)
+library(ggplot2)
+library(alr4)
+library(tidyverse)
+library(smss)
+library(broom)
+library(ggiraphExtra)
+library(gcookbook)
+```
+
+## Question 1
+
+For recent data in Jacksonville, Florida, on y = selling price of home (in dollars), x1 = size of home (in square feet), and x2 = lot size (in square feet), the prediction equation is "ŷ = −10,536 + 53.8x1 + 2.84x2".
+
+* A.	A particular home of 1240 square feet on a lot of 18,000 square feet sold for $145,000. Find the predicted selling price and the residual, and interpret.
+
+* B.	For fixed lot size, how much is the house selling price predicted to increase for each square-foot increase in home size? Why?
+
+* C.	According to this prediction equation, for fixed home size, how much would lot size need to increase to have the same impact as a one-square-foot increase in home size?
+
+
+## Response 1
+
+* A: Using the prediction equation, the predicted selling price of this home would be $107,296. Since the home sold for $145,000, the residual is $37,704. I interpret this result to mean that the home seller was able to get a much better price for their home than the market prediction.
+
+```{r code_folding=TRUE}
+
+x1 <- 1240 #square feet of the home
+x2 <- 18000 #square feet of the lot
+y <- 145000 #selling price of the home
+
+# using the prediction equation here:
+
+ybar1 <- (-10536)+(53.8*x1)+(2.84*x2)
+
+residual1 <- y-ybar1
+
+ybar1
+residual1
+
+```
+
+* B: The explanatory variable "square feet of the home" has a slope coefficient of 53.8. This means that for every increase in that variable, the predicted price of the home will increase by $53.80. I can confirm that this is the case by changing my calculations accordingly:
+
+```{r code_folding=TRUE}
+
+x1b <- 1241 #square feet of the home
+x2b <- 18000 #square feet of the lot
+yb <- 145000 #selling price of the home
+
+ybar1b <- (-10536)+(53.8*x1b)+(2.84*x2b)
+
+residual1b <- yb-ybar1b
+
+ybar1b-ybar1 #difference in predicted home price given increase in quare feet of the home by "1"
+
+```
+
+* C: The explanatory variable "square feet of the lot" has a slope coefficient of 2.84. This means that for every increase in that variable, the predicted price of the home will increase by $2.84. I can then calculate that it would take an increase of ~18.94 in lot size to have a proportionate increase in price to an increase of one square foot in home size.
+
+
+```{r code_folding=TRUE}
+
+need <- 53.8/2.84
+
+need
+
+```
+
+## Question 2
+
+The data file (alr4 R Package) concerns salary and other characteristics of all faculty in a small Midwestern college collected in the early 1980s for presentation in legal proceedings for which discrimination against women in salary was at issue. All persons in the data hold tenured or tenure track positions; temporary faculty are not included. The variables include degree, a factor with levels PhD and MS; rank, a factor with levels Asst, Assoc, and Prof; sex, a factor with levels Male and Female; Year, years in current rank; ysdeg, years since highest degree, and salary, academic year salary in dollars.
+
+## Response 2
+
+First I'm loading the "salary" data and inspecting it.
+
+```{r code_folding=TRUE}
+
+data("salary") 
+dim(salary)
+head(salary)
+
+```
+
+### Part A.	
+
+*Test the hypothesis that the mean salary for men and women is the same, without regard to any other variable but sex. Explain your findings.*
+
+Clarifying the null and alternative hypotheses:
+
+* H0: The mean salary for men and women is the same, without regard to any other variable but sex.
+
+* Ha: The mean salary for men and women is NOT the same, without regard to any other variable but sex.
+
+We have n > 30, so I can assume a normal distribution.
+
+**The t-test result indicates that the mean salary for men and women is not equal ($24,696.79 for men, $21,357.14 for women). However, the p-value is 0.0706. Since this p-value indicates a significance level of % (p > 0.05), I fail to reject the null hypothesis.**
+
+
+```{r code_folding=TRUE}
+
+# Conduct t.test to determine confidence level at default of 0.95
+t.test(salary~sex, data = salary, var.equal = TRUE)
+
+```
+
+### Part B.	
+
+*Run a multiple linear regression with salary as the outcome variable and everything else as predictors, including sex. Assuming no interactions between sex and the other predictors, obtain a 95% confidence interval for the difference in salary between males and females.*
+
+I ran the multiple linear regression using the "lm()" function using all predictors and salary as the outcome variable. Then, the function "confint()" produced the corresponding confidence intervals from the model. **This produced a confidence interval, at the default of 0.95, that the difference in salary between males and females is [(-$697.82) to ($3,030.56)]** 
+
+```{r code_folding=TRUE}
+
+#Linear regression on all predictors
+
+mlm2 <- lm(salary~., data = salary)
+
+summary(mlm2)
+confint(mlm2, "sexFemale")
+
+```
+
+### Part C.	
+
+*Interpret your finding for each predictor variable; discuss (a) statistical significance, (b) interpretation of the coefficient / slope in relation to the outcome variable and other variable*
+
+I can look at these relationships looking at both the output from the "lm()" function in Part B and the "confint()" function. However, I also found a great solution to represent these relationships using the "broom" package. Using the function "tidy()" from the "broom" package, I can create a tibble from the results of my "lm()" call.
+
+```{r code_folding=TRUE}
+
+#Manipulate the output tibble and convert scientific notation of p-value to decimals
+
+tidymlm2 <- tidy(mlm2, conf.int = TRUE)
+
+options(scipen = 999)
+
+tidymlm2
+
+```
+Reviewing this information I can see:
+
+* For the predictor variable "degreePhD", the statistical significance of its' relationship to salary is an increase in salary of ~$1,388.61 given a PhD. The p-value of 0.18 indicates that this is **not** statistically significant.
+
+* For the predictor variable "rankAssoc", the statistical significance of its' relationship to salary is an increase in salary of ~$5,292.36 given achieving the rank of Associate. The p-value of 0.0000322 indicates that this result is statistically significant to the 0.99 confidence level.
+
+* For the predictor variable "rankProf", the statistical significance of its' relationship to salary is an increase in salary of ~$11,118.76.36 given achieving the rank of Professor. The p-value of 0.000000000162 indicates that this result is statistically significant to the 0.99 confidence level.
+
+* For the predictor variable "sexFemale", the statistical significance of its' relationship to salary is an increase in salary of ~$1,166.37 given the salary being for a female. The p-value of 0.214 indicates that this result is **not** statistically significant.
+
+* For the predictor variable "year", the statistical significance of its' relationship to salary is an increase in salary of ~$476.31 given the salary for each year of experience in current rank. The p-value of 0.00000865 indicates that this result is statistically significant.
+
+* For the predictor variable "ysdeg", the statistical significance of its' relationship to salary is a **decrease** in salary of ~$124.57 given the salary for each year since highest degree achieved. The p-value of 0.12 indicates that this result is **not** statistically significant.
+
+**Summarizing, the predictor variables, "degreePhD", "sexFemale", and "ysdeg" are not statistically significant, while predictor variables "rankAssoc", "rankProf", and "year" are statistically significant to the 99% confidence level. In addition, all of the predictor variables have a positive linear relationship except for the variable "ysdeg" to salary, which has a negative linear relationship.**
+
+### Part D.	
+
+*Change the baseline category for the rank variable. Interpret the coefficients related to rank again.*
+
+```{r code_folding=TRUE}
+
+# change baseline rank
+new2d <- relevel(salary$rank, "Prof")
+
+# fit model again
+mlm2d <- lm(salary ~ degree + sex + year + ysdeg + new2d, data = salary)
+
+# get summary
+summary(mlm2d)
+
+```
+**Changing the baseline for "rank" and looking at the coefficients of variables, the "Asst" rank has an estimate of a lower salary of ~$11,118.76, and the "Assoc" rank has an estimate of a lower salary of ~$5,826.40. Both are statistically significant to the 99% confidence level. This is the same information from the fit test in part C. We have just changed the base reference from "Asst" to "Prof".**
+
+### Part E.	
+
+*Finkelstein (1980), in a discussion of the use of regression in discrimination cases, wrote, “[a] variable may reflect a position or status bestowed by the employer, in which case if there is discrimination in the award of the position or status, the variable may be ‘tainted.’ ” Thus, for example, if discrimination is at work in promotion of faculty to higher ranks, using rank to adjust salaries before comparing the sexes may not be acceptable to the courts. Exclude the variable rank, refit, and summarize how your findings changed, if they did.*
+
+```{r code_folding=TRUE}
+
+#Linear regression without the rank
+
+mlm2e <- lm(salary ~ sex + degree + year + ysdeg, data = salary)
+summary(mlm2e)
+
+#Manipulate the output tibble and convert scientific notation of p-value to decimals
+
+tidymlm2e <- tidy(mlm2e, conf.int = TRUE)
+options(scipen = 999)
+tidymlm2e
+
+```
+
+* For the predictor variable "sexFemale", the statistical significance of its' relationship to salary is a **decrease** in salary of ~$1,286.54 given the salary being for a female. The p-value of 0.332 indicates that this result is **not** statistically significant.
+
+* For the predictor variable "degreePhD", the statistical significance of its' relationship to salary is a **decrease** in salary of ~$3,299.35 given the salary being for a female. The p-value of 0.0147 indicates that this result is statistically significant to the .95 confidence level.
+
+* For the predictor variable "year", the statistical significance of its' relationship to salary is an increase in salary of ~$351.97 given the salary for each year of experience in current rank. The p-value of 0.0147 indicates that this result is statistically significant to the .95 confidence level.
+
+* For the predictor variable "ysdeg", the statistical significance of its' relationship to salary is an increase in salary of ~$339.40 given the salary for each year since highest degree achieved. The p-value of 0.000114 indicates that this result is statistically significant to the .99 confidence level.
+
+**Summarizing, eliminating the "rank" variable, the predictor variables, degreePhD", "year", and "ysdeg" are statistically significant to at least the 95% confidence level, while predictor variable "sexFemale" is not statistically significant. The predictor variables "year" and "ysdeg" have a positive linear relationship and the predictor variables "sexFemale" and "degreePhD" have a negative linear relationship.**
+
+**Practically, this tells me that eliminating "rank" before comparing salaries between males and females shows a different linear relationship than when "rank" was involved (negative vs. positive). However, it also tells me that the relationship remains statistically not significant to a reasonable level of confidence.**
+
+### Part F.	
+
+*Everyone in this dataset was hired the year they earned their highest degree. It is also known that a new Dean was appointed 15 years ago, and everyone in the dataset who earned their highest degree 15 years ago or less than that has been hired by the new Dean. Some people have argued that the new Dean has been making offers that are a lot more generous to newly hired faculty than the previous one and that this might explain some of the variation in Salary.*
+
+*Create a new variable that would allow you to test this hypothesis and run another multiple regression model to test this. Select variables carefully to make sure there is no multicollinearity. Explain why multicollinearity would be a concern in this case and how you avoided it. Do you find support for the hypothesis that the people hired by the new Dean are making higher than those that were not?*
+
+**I am creating a new variable for the dummy variable indicating whether it was "Dean 1" or "Dean 2" doing the hiring. "Dean 1" represents the "old" Dean and "Dean 2" represents the "new" Dean appointed 15 years ago. I will run the model with as few predictor variables as is practical to reduce the concern of multicollinearity, or the phenomemon of predictor variables being correlated with one another and contributing to unreliable inferences.**
+
+Clarifying the null and alternative hypotheses:
+
+* H0: The mean salary for hires of Dean 2 are higher than the mean salary for hires of Dean 1 
+
+* Ha: The mean salary for hires of Dean 2 are equal to or less than than the mean salary for hires of Dean 1 
+
+We have n > 30, so I can assume a normal distribution.
+
+```{r code_folding=TRUE}
+
+# create new variable
+df2f <- salary %>%
+  mutate(dean = case_when(
+    ysdeg >= 1 & ysdeg <= 15 ~ "2",
+    ysdeg >= 16 ~ "1"
+  ))
+
+mlm2f <- lm(salary ~ ., data = df2f)
+
+summary(mlm2f)
+
+```
+
+**Based on this summary, I can see that the hires of Dean 2 are expected to make a salary of ~$1,749.09 than the hires of Dean 1. This result has a p-value of 0.209. Since this p-value indicates a significance level of % (p > 0.05), I fail to reject the null hypothesis.**
+
+```{r code_folding=TRUE}
+
+# Removing the variable "ysdeg"
+
+mlm2g <- lm(salary ~ . - ysdeg, data = df2f)
+
+summary(mlm2g)
+
+```
+
+**Running the model with less variables does change the adjusted R-squared and goodness of fit; though some more than others, after running this model with many different variable combinations. The best fit is seemingly the one including the new "Dean" variable but without the "ysdeg" variable.** 
+
+## Question 3
+
+Using the data file in the SMSS R package "house.selling.price": 
+
+## Answer 3
+
+I'm loading the "house.selling.price" data and inspecting it.
+
+```{r code_folding=TRUE}
+
+data("house.selling.price") 
+hsp <- house.selling.price
+dim(hsp)
+head(hsp)
+
+```
+
+### Part A.
+
+*A.	Using the house.selling.price data, run and report regression results modeling y = selling price (in dollars) in terms of size of home (in square feet) and whether the home is new (1 = yes; 0 = no). (In other words, price is the outcome variable and size and new are the explanatory variables.)*
+
+```{r code_folding=TRUE}
+
+mlm3a <- lm(Price ~ Size + New, data = house.selling.price)
+
+summary(mlm3a)
+
+```
+
+### Part B.	
+
+*Report and interpret the prediction equation, and form separate equations relating selling price to size for new and for not new homes. In particular, for each variable; discuss statistical significance and interpret the meaning of the coefficient.*
+
+**The coefficient for homes that are "new" indicates that the "new" variable results in a price increase of ~$57,736.28.**
+
+**The coefficient for home "size" indicates that for each square foot of home size, the price of a home increases by ~$116.13.**
+
+**The p-values of 0.00257 for "new" and  indicates a significance level of (p < 0.01), indicating the results are statistically significant to the 99% confidence level.**
+
+* **The equation to indicate price for new homes:**
+
+**(-40230.87) + (116.13)(x) + (57,736.18)**
+
+* **The equation to indicate price for *not* new homes:**
+
+**(-40230.87) + (116.13)(x)**
+
+### Part C.	
+
+*Find the predicted selling price for a home of 3000 square feet that is (i) new, (ii) not new.*
+
+```{r code_folding=TRUE}
+
+-40230.87+(116.13*3000)+57736.18
+
+-40230.87+(116.13*3000)
+
+```
+
+**For a 3000 square foot home that is new, the price can be estimated to be $365,895.30.** 
+
+**For a 3000 square foot home that is not new, the price can be estimated to be $308,159.10.**
+
+### Part D.	
+
+*Fit another model, this time with an interaction term allowing interaction between size and new, and report the regression results*
+
+```{r code_folding=TRUE}
+
+mlm3d <- lm(Price ~ Size + New + Size*New, house.selling.price)
+
+summary(mlm3d)
+
+```
+
+**Fitting the model where the "size" variable interacts with the "new" variable, the result is statistically significant with a p-value of 0.00527.**
+
+### Part E.	
+
+*Report the lines relating the predicted selling price to the size for homes that are (i) new, (ii) not new.*
+
+```{r code_folding=TRUE}
+
+qplot(x = Price, y = Size, facets = ~ New, data = mlm3d) +
+  geom_smooth(method = "lm", se=TRUE,fullrange=TRUE,color="goldenrod") + 
+     labs(title= "Price and Size of Homes Given Not New and New",
+        x= "Price",
+        y = "Size in Square Feet") +
+  theme_classic()
+
+```
+
+In the course of investigation options for graphics on visualizing multiple regression models, I also found an interesting package that uses "ggPredict()" to make a really visually pleasing representation, if not as practical:
+
+```{r code_folding=TRUE}
+
+ggPredict(mlm3d,se=TRUE,interactive=TRUE)
+
+```
+### Part F.	
+
+*Find the predicted selling price for a home of 3000 square feet that is (i) new, (ii) not new.*
+
+```{r code_folding=TRUE}
+
+-22227.81+(104.44*3000)+(-78527.50*0)+(61.92*3000*0) 
+
+-22227.81+(104.44*3000)+(-78527.50*1)+(61.92*3000*1) 
+
+```
+
+**Under the new model:**
+
+* **For a 3000 square foot home that is new, the price can be estimated to be $398,324.70.** 
+
+* **For a 3000 square foot home that is not new, the price can be estimated to be $291,092.20.**
+
+### Part G.	
+
+*Find the predicted selling price for a home of 1500 square feet that is (i) new, (ii) not new. Comparing to (F), explain how the difference in predicted selling prices changes as the size of home increases.*
+
+* **For a 1500 square foot home that is new, the price can be estimated to be $148,784.70.** 
+
+* **For a 1500 square foot home that is not new, the price can be estimated to be $134,432.20.**
+
+```{r code_folding=TRUE}
+
+-22227.81+(104.44*1500)+(-78527.50*0)+(61.92*1500*0) 
+
+-22227.81+(104.44*1500)+(-78527.50*1)+(61.92*1500*1) 
+
+```
+
+**Illustrating the difference and analyzing the output**
+
+```{r code_folding=TRUE}
+
+#3,000 Square Foot House
+
+new1 <- 398324.70
+old1 <- 291092.20
+old1/new1*100
+
+#1,500 Square Foot House
+
+new2 <- 148784.70
+old2 <- 134432.2
+old2/new2*100
+
+```
+
+**The difference in value between the 3,000 square foot house and the 1,500 square foot house under this model represents a value ration of price of old to new of 73.08% vs. 90.35%. This tells me that in this model, the price of an "old" house is a smaller percentage of the price of a "new" house as the square footage increases.**
+
+### Part H.	
+
+*Do you think the model with interaction or the one without it represents the relationship of size and new to the outcome price? What makes you prefer one model over another?*
+
+**The second model has a higher adjusted R squared (0.7363 v. 0.7169) than the first model, which was still an independently valid model. This gives me a hint at the statistical reliability of the model. I also think it takes into consideration the context a stronger threshold where square footage begins to diminish as a variable.**
+

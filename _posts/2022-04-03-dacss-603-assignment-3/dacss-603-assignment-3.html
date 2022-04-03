@@ -1,0 +1,2233 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+
+  <!--radix_placeholder_meta_tags-->
+  <title>DACSS 603 Assignment 3</title>
+
+  <meta property="description" itemprop="description" content="Assignment 3 for DACSS 603 course &#39;Quantitative Data Analysis&#39;: &quot;Multiple Regression&quot;"/>
+
+
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2022-03-31"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-03-31"/>
+  <meta name="article:author" content="Kristina Becvar"/>
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="DACSS 603 Assignment 3"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="Assignment 3 for DACSS 603 course &#39;Quantitative Data Analysis&#39;: &quot;Multiple Regression&quot;"/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="DACSS 603 Assignment 3"/>
+  <meta property="twitter:description" content="Assignment 3 for DACSS 603 course &#39;Quantitative Data Analysis&#39;: &quot;Multiple Regression&quot;"/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","categories","author","slug","date","base_url","output"]}},"value":[{"type":"character","attributes":{},"value":["DACSS 603 Assignment 3"]},{"type":"character","attributes":{},"value":["Assignment 3 for DACSS 603 course 'Quantitative Data Analysis': \"Multiple Regression\"\n"]},{"type":"character","attributes":{},"value":["statistics","homework"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Kristina Becvar"]},{"type":"character","attributes":{},"value":["https://www.kristinabecvar.com"]}]}]},{"type":"character","attributes":{},"value":["kbec2022qda3"]},{"type":"character","attributes":{},"value":["03-31-2022"]},{"type":"character","attributes":{},"value":["https://www.kristinabecvar.com"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["dacss-603-assignment-3_files/figure-html5/unnamed-chunk-16-1.png"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure img {
+    width: 100%;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="dacss-603-assignment-3_files/header-attrs-2.11/header-attrs.js"></script>
+  <script src="dacss-603-assignment-3_files/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+  <script src="dacss-603-assignment-3_files/d3-bundle-5.16.0/d3-bundle.min.js"></script>
+  <script src="dacss-603-assignment-3_files/d3-lasso-0.0.5/d3-lasso.min.js"></script>
+  <script src="dacss-603-assignment-3_files/save-svg-as-png-1.4.17/save-svg-as-png.min.js"></script>
+  <link href="dacss-603-assignment-3_files/ggiraphjs-0.4.2/ggiraphjs.min.css" rel="stylesheet" />
+  <script src="dacss-603-assignment-3_files/ggiraphjs-0.4.2/ggiraphjs.min.js"></script>
+  <script src="dacss-603-assignment-3_files/girafe-binding-0.8.2/girafe.js"></script>
+  <script src="dacss-603-assignment-3_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="dacss-603-assignment-3_files/popper-2.6.0/popper.min.js"></script>
+  <link href="dacss-603-assignment-3_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="dacss-603-assignment-3_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="dacss-603-assignment-3_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="dacss-603-assignment-3_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="dacss-603-assignment-3_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="dacss-603-assignment-3_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="dacss-603-assignment-3_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"DACSS 603 Assignment 3","description":"Assignment 3 for DACSS 603 course 'Quantitative Data Analysis': \"Multiple Regression\"","authors":[{"author":"Kristina Becvar","authorURL":"https://www.kristinabecvar.com","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-03-31T00:00:00.000-05:00","citationText":"Becvar, 2022"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>DACSS 603 Assignment 3</h1>
+<!--radix_placeholder_categories-->
+<div class="dt-tags">
+<div class="dt=tag">statistics</div>
+<div class="dt=tag">homework</div>
+</div>
+<!--/radix_placeholder_categories-->
+<p><p>Assignment 3 for DACSS 603 course ‘Quantitative Data Analysis’: “Multiple Regression”</p></p>
+</div>
+
+<div class="d-byline">
+  Kristina Becvar <a href="https://www.kristinabecvar.com" class="uri">https://www.kristinabecvar.com</a> 
+  
+<br/>03-31-2022
+</div>
+
+<div class="d-article">
+<h2 id="question-1">Question 1</h2>
+<p>For recent data in Jacksonville, Florida, on y = selling price of home (in dollars), x1 = size of home (in square feet), and x2 = lot size (in square feet), the prediction equation is “ŷ = −10,536 + 53.8x1 + 2.84x2”.</p>
+<ul>
+<li><ol type="A">
+<li>A particular home of 1240 square feet on a lot of 18,000 square feet sold for $145,000. Find the predicted selling price and the residual, and interpret.</li>
+</ol></li>
+<li><ol start="2" type="A">
+<li>For fixed lot size, how much is the house selling price predicted to increase for each square-foot increase in home size? Why?</li>
+</ol></li>
+<li><ol start="3" type="A">
+<li>According to this prediction equation, for fixed home size, how much would lot size need to increase to have the same impact as a one-square-foot increase in home size?</li>
+</ol></li>
+</ul>
+<h2 id="response-1">Response 1</h2>
+<ul>
+<li>A: Using the prediction equation, the predicted selling price of this home would be $107,296. Since the home sold for $145,000, the residual is $37,704. I interpret this result to mean that the home seller was able to get a much better price for their home than the market prediction.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x1</span> <span class='op'>&lt;-</span> <span class='fl'>1240</span> <span class='co'>#square feet of the home</span>
+<span class='va'>x2</span> <span class='op'>&lt;-</span> <span class='fl'>18000</span> <span class='co'>#square feet of the lot</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fl'>145000</span> <span class='co'>#selling price of the home</span>
+
+<span class='co'># using the prediction equation here:</span>
+
+<span class='va'>ybar1</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='op'>-</span><span class='fl'>10536</span><span class='op'>)</span><span class='op'>+</span><span class='op'>(</span><span class='fl'>53.8</span><span class='op'>*</span><span class='va'>x1</span><span class='op'>)</span><span class='op'>+</span><span class='op'>(</span><span class='fl'>2.84</span><span class='op'>*</span><span class='va'>x2</span><span class='op'>)</span>
+
+<span class='va'>residual1</span> <span class='op'>&lt;-</span> <span class='va'>y</span><span class='op'>-</span><span class='va'>ybar1</span>
+
+<span class='va'>ybar1</span>
+</code></pre>
+</div>
+</details>
+<pre><code>[1] 107296</code></pre>
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>residual1</span>
+</code></pre>
+</div>
+</details>
+<pre><code>[1] 37704</code></pre>
+</div>
+<ul>
+<li>B: The explanatory variable “square feet of the home” has a slope coefficient of 53.8. This means that for every increase in that variable, the predicted price of the home will increase by $53.80. I can confirm that this is the case by changing my calculations accordingly:</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x1b</span> <span class='op'>&lt;-</span> <span class='fl'>1241</span> <span class='co'>#square feet of the home</span>
+<span class='va'>x2b</span> <span class='op'>&lt;-</span> <span class='fl'>18000</span> <span class='co'>#square feet of the lot</span>
+<span class='va'>yb</span> <span class='op'>&lt;-</span> <span class='fl'>145000</span> <span class='co'>#selling price of the home</span>
+
+<span class='va'>ybar1b</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='op'>-</span><span class='fl'>10536</span><span class='op'>)</span><span class='op'>+</span><span class='op'>(</span><span class='fl'>53.8</span><span class='op'>*</span><span class='va'>x1b</span><span class='op'>)</span><span class='op'>+</span><span class='op'>(</span><span class='fl'>2.84</span><span class='op'>*</span><span class='va'>x2b</span><span class='op'>)</span>
+
+<span class='va'>residual1b</span> <span class='op'>&lt;-</span> <span class='va'>yb</span><span class='op'>-</span><span class='va'>ybar1b</span>
+
+<span class='va'>ybar1b</span><span class='op'>-</span><span class='va'>ybar1</span> <span class='co'>#difference in predicted home price given increase in quare feet of the home by "1"</span>
+</code></pre>
+</div>
+</details>
+<pre><code>[1] 53.8</code></pre>
+</div>
+<ul>
+<li>C: The explanatory variable “square feet of the lot” has a slope coefficient of 2.84. This means that for every increase in that variable, the predicted price of the home will increase by $2.84. I can then calculate that it would take an increase of ~18.94 in lot size to have a proportionate increase in price to an increase of one square foot in home size.</li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>need</span> <span class='op'>&lt;-</span> <span class='fl'>53.8</span><span class='op'>/</span><span class='fl'>2.84</span>
+
+<span class='va'>need</span>
+</code></pre>
+</div>
+</details>
+<pre><code>[1] 18.94366</code></pre>
+</div>
+<h2 id="question-2">Question 2</h2>
+<p>The data file (alr4 R Package) concerns salary and other characteristics of all faculty in a small Midwestern college collected in the early 1980s for presentation in legal proceedings for which discrimination against women in salary was at issue. All persons in the data hold tenured or tenure track positions; temporary faculty are not included. The variables include degree, a factor with levels PhD and MS; rank, a factor with levels Asst, Assoc, and Prof; sex, a factor with levels Male and Female; Year, years in current rank; ysdeg, years since highest degree, and salary, academic year salary in dollars.</p>
+<h2 id="response-2">Response 2</h2>
+<p>First I’m loading the “salary” data and inspecting it.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"salary"</span><span class='op'>)</span> 
+<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>salary</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<pre><code>[1] 52  6</code></pre>
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>salary</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<pre><code>   degree rank    sex year ysdeg salary
+1 Masters Prof   Male   25    35  36350
+2 Masters Prof   Male   13    22  35350
+3 Masters Prof   Male   10    23  28200
+4 Masters Prof Female    7    27  26775
+5     PhD Prof   Male   19    30  33696
+6 Masters Prof   Male   16    21  28516</code></pre>
+</div>
+<h3 id="part-a.">Part A.</h3>
+<p><em>Test the hypothesis that the mean salary for men and women is the same, without regard to any other variable but sex. Explain your findings.</em></p>
+<p>Clarifying the null and alternative hypotheses:</p>
+<ul>
+<li><p>H0: The mean salary for men and women is the same, without regard to any other variable but sex.</p></li>
+<li><p>Ha: The mean salary for men and women is NOT the same, without regard to any other variable but sex.</p></li>
+</ul>
+<p>We have n &gt; 30, so I can assume a normal distribution.</p>
+<p><strong>The t-test result indicates that the mean salary for men and women is not equal ($24,696.79 for men, $21,357.14 for women). However, the p-value is 0.0706. Since this p-value indicates a significance level of % (p &gt; 0.05), I fail to reject the null hypothesis.</strong></p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Conduct t.test to determine confidence level at default of 0.95</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span><span class='op'>(</span><span class='va'>salary</span><span class='op'>~</span><span class='va'>sex</span>, data <span class='op'>=</span> <span class='va'>salary</span>, var.equal <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<pre><code>
+    Two Sample t-test
+
+data:  salary by sex
+t = 1.8474, df = 50, p-value = 0.0706
+alternative hypothesis: true difference in means between group Male and group Female is not equal to 0
+95 percent confidence interval:
+ -291.257 6970.550
+sample estimates:
+  mean in group Male mean in group Female 
+            24696.79             21357.14 </code></pre>
+</div>
+<h3 id="part-b.">Part B.</h3>
+<p><em>Run a multiple linear regression with salary as the outcome variable and everything else as predictors, including sex. Assuming no interactions between sex and the other predictors, obtain a 95% confidence interval for the difference in salary between males and females.</em></p>
+<p>I ran the multiple linear regression using the “lm()” function using all predictors and salary as the outcome variable. Then, the function “confint()” produced the corresponding confidence intervals from the model. <strong>This produced a confidence interval, at the default of 0.95, that the difference in salary between males and females is [(-$697.82) to ($3,030.56)]</strong></p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#Linear regression on all predictors</span>
+
+<span class='va'>mlm2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>salary</span><span class='op'>~</span><span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>salary</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mlm2</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<pre><code>
+Call:
+lm(formula = salary ~ ., data = salary)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4045.2 -1094.7  -361.5   813.2  9193.1 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 15746.05     800.18  19.678  &lt; 2e-16 ***
+degreePhD    1388.61    1018.75   1.363    0.180    
+rankAssoc    5292.36    1145.40   4.621 3.22e-05 ***
+rankProf    11118.76    1351.77   8.225 1.62e-10 ***
+sexFemale    1166.37     925.57   1.260    0.214    
+year          476.31      94.91   5.018 8.65e-06 ***
+ysdeg        -124.57      77.49  -1.608    0.115    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 2398 on 45 degrees of freedom
+Multiple R-squared:  0.855, Adjusted R-squared:  0.8357 
+F-statistic: 44.24 on 6 and 45 DF,  p-value: &lt; 2.2e-16</code></pre>
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/confint.html'>confint</a></span><span class='op'>(</span><span class='va'>mlm2</span>, <span class='st'>"sexFemale"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<pre><code>              2.5 %   97.5 %
+sexFemale -697.8183 3030.565</code></pre>
+</div>
+<h3 id="part-c.">Part C.</h3>
+<p><em>Interpret your finding for each predictor variable; discuss (a) statistical significance, (b) interpretation of the coefficient / slope in relation to the outcome variable and other variable</em></p>
+<p>I can look at these relationships looking at both the output from the “lm()” function in Part B and the “confint()” function. However, I also found a great solution to represent these relationships using the “broom” package. Using the function “tidy()” from the “broom” package, I can create a tibble from the results of my “lm()” call.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#Manipulate the output tibble and convert scientific notation of p-value to decimals</span>
+
+<span class='va'>tidymlm2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>mlm2</span>, conf.int <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>scipen <span class='op'>=</span> <span class='fl'>999</span><span class='op'>)</span>
+
+<span class='va'>tidymlm2</span>
+</code></pre>
+</div>
+</details>
+<pre><code># A tibble: 7 x 7
+  term        estimate std.error statistic  p.value conf.low conf.high
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)   15746.     800.      19.7  9.76e-24   14134.   17358. 
+2 degreePhD      1389.    1019.       1.36 1.80e- 1    -663.    3440. 
+3 rankAssoc      5292.    1145.       4.62 3.22e- 5    2985.    7599. 
+4 rankProf      11119.    1352.       8.23 1.62e-10    8396.   13841. 
+5 sexFemale      1166.     926.       1.26 2.14e- 1    -698.    3031. 
+6 year            476.      94.9      5.02 8.65e- 6     285.     667. 
+7 ysdeg          -125.      77.5     -1.61 1.15e- 1    -281.      31.5</code></pre>
+</div>
+<p>Reviewing this information I can see:</p>
+<ul>
+<li><p>For the predictor variable “degreePhD”, the statistical significance of its’ relationship to salary is an increase in salary of ~$1,388.61 given a PhD. The p-value of 0.18 indicates that this is <strong>not</strong> statistically significant.</p></li>
+<li><p>For the predictor variable “rankAssoc”, the statistical significance of its’ relationship to salary is an increase in salary of ~$5,292.36 given achieving the rank of Associate. The p-value of 0.0000322 indicates that this result is statistically significant to the 0.99 confidence level.</p></li>
+<li><p>For the predictor variable “rankProf”, the statistical significance of its’ relationship to salary is an increase in salary of ~$11,118.76.36 given achieving the rank of Professor. The p-value of 0.000000000162 indicates that this result is statistically significant to the 0.99 confidence level.</p></li>
+<li><p>For the predictor variable “sexFemale”, the statistical significance of its’ relationship to salary is an increase in salary of ~$1,166.37 given the salary being for a female. The p-value of 0.214 indicates that this result is <strong>not</strong> statistically significant.</p></li>
+<li><p>For the predictor variable “year”, the statistical significance of its’ relationship to salary is an increase in salary of ~$476.31 given the salary for each year of experience in current rank. The p-value of 0.00000865 indicates that this result is statistically significant.</p></li>
+<li><p>For the predictor variable “ysdeg”, the statistical significance of its’ relationship to salary is a <strong>decrease</strong> in salary of ~$124.57 given the salary for each year since highest degree achieved. The p-value of 0.12 indicates that this result is <strong>not</strong> statistically significant.</p></li>
+</ul>
+<p><strong>Summarizing, the predictor variables, “degreePhD”, “sexFemale”, and “ysdeg” are not statistically significant, while predictor variables “rankAssoc”, “rankProf”, and “year” are statistically significant to the 99% confidence level. In addition, all of the predictor variables have a positive linear relationship except for the variable “ysdeg” to salary, which has a negative linear relationship.</strong></p>
+<h3 id="part-d.">Part D.</h3>
+<p><em>Change the baseline category for the rank variable. Interpret the coefficients related to rank again.</em></p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># change baseline rank</span>
+<span class='va'>new2d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/relevel.html'>relevel</a></span><span class='op'>(</span><span class='va'>salary</span><span class='op'>$</span><span class='va'>rank</span>, <span class='st'>"Prof"</span><span class='op'>)</span>
+
+<span class='co'># fit model again</span>
+<span class='va'>mlm2d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>salary</span> <span class='op'>~</span> <span class='va'>degree</span> <span class='op'>+</span> <span class='va'>sex</span> <span class='op'>+</span> <span class='va'>year</span> <span class='op'>+</span> <span class='va'>ysdeg</span> <span class='op'>+</span> <span class='va'>new2d</span>, data <span class='op'>=</span> <span class='va'>salary</span><span class='op'>)</span>
+
+<span class='co'># get summary</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mlm2d</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<pre><code>
+Call:
+lm(formula = salary ~ degree + sex + year + ysdeg + new2d, data = salary)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4045.2 -1094.7  -361.5   813.2  9193.1 
+
+Coefficients:
+             Estimate Std. Error t value             Pr(&gt;|t|)    
+(Intercept)  26864.81    1375.29  19.534 &lt; 0.0000000000000002 ***
+degreePhD     1388.61    1018.75   1.363                0.180    
+sexFemale     1166.37     925.57   1.260                0.214    
+year           476.31      94.91   5.018       0.000008653790 ***
+ysdeg         -124.57      77.49  -1.608                0.115    
+new2dAsst   -11118.76    1351.77  -8.225       0.000000000162 ***
+new2dAssoc   -5826.40    1012.93  -5.752       0.000000727809 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 2398 on 45 degrees of freedom
+Multiple R-squared:  0.855, Adjusted R-squared:  0.8357 
+F-statistic: 44.24 on 6 and 45 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+</div>
+<p><strong>Changing the baseline for “rank” and looking at the coefficients of variables, the “Asst” rank has an estimate of a lower salary of ~$11,118.76, and the “Assoc” rank has an estimate of a lower salary of ~$5,826.40. Both are statistically significant to the 99% confidence level. This is the same information from the fit test in part C. We have just changed the base reference from “Asst” to “Prof”.</strong></p>
+<h3 id="part-e.">Part E.</h3>
+<p><em>Finkelstein (1980), in a discussion of the use of regression in discrimination cases, wrote, “[a] variable may reflect a position or status bestowed by the employer, in which case if there is discrimination in the award of the position or status, the variable may be ‘tainted.’” Thus, for example, if discrimination is at work in promotion of faculty to higher ranks, using rank to adjust salaries before comparing the sexes may not be acceptable to the courts. Exclude the variable rank, refit, and summarize how your findings changed, if they did.</em></p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#Linear regression without the rank</span>
+
+<span class='va'>mlm2e</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>salary</span> <span class='op'>~</span> <span class='va'>sex</span> <span class='op'>+</span> <span class='va'>degree</span> <span class='op'>+</span> <span class='va'>year</span> <span class='op'>+</span> <span class='va'>ysdeg</span>, data <span class='op'>=</span> <span class='va'>salary</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mlm2e</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<pre><code>
+Call:
+lm(formula = salary ~ sex + degree + year + ysdeg, data = salary)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-8146.9 -2186.9  -491.5  2279.1 11186.6 
+
+Coefficients:
+            Estimate Std. Error t value             Pr(&gt;|t|)    
+(Intercept) 17183.57    1147.94  14.969 &lt; 0.0000000000000002 ***
+sexFemale   -1286.54    1313.09  -0.980             0.332209    
+degreePhD   -3299.35    1302.52  -2.533             0.014704 *  
+year          351.97     142.48   2.470             0.017185 *  
+ysdeg         339.40      80.62   4.210             0.000114 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 3744 on 47 degrees of freedom
+Multiple R-squared:  0.6312,    Adjusted R-squared:  0.5998 
+F-statistic: 20.11 on 4 and 47 DF,  p-value: 0.000000001048</code></pre>
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#Manipulate the output tibble and convert scientific notation of p-value to decimals</span>
+
+<span class='va'>tidymlm2e</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>mlm2e</span>, conf.int <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>scipen <span class='op'>=</span> <span class='fl'>999</span><span class='op'>)</span>
+<span class='va'>tidymlm2e</span>
+</code></pre>
+</div>
+</details>
+<pre><code># A tibble: 5 x 7
+  term        estimate std.error statistic  p.value conf.low conf.high
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)   17184.    1148.     15.0   1.66e-19  14874.     19493.
+2 sexFemale     -1287.    1313.     -0.980 3.32e- 1  -3928.      1355.
+3 degreePhD     -3299.    1303.     -2.53  1.47e- 2  -5920.      -679.
+4 year            352.     142.      2.47  1.72e- 2     65.3      639.
+5 ysdeg           339.      80.6     4.21  1.14e- 4    177.       502.</code></pre>
+</div>
+<ul>
+<li><p>For the predictor variable “sexFemale”, the statistical significance of its’ relationship to salary is a <strong>decrease</strong> in salary of ~$1,286.54 given the salary being for a female. The p-value of 0.332 indicates that this result is <strong>not</strong> statistically significant.</p></li>
+<li><p>For the predictor variable “degreePhD”, the statistical significance of its’ relationship to salary is a <strong>decrease</strong> in salary of ~$3,299.35 given the salary being for a female. The p-value of 0.0147 indicates that this result is statistically significant to the .95 confidence level.</p></li>
+<li><p>For the predictor variable “year”, the statistical significance of its’ relationship to salary is an increase in salary of ~$351.97 given the salary for each year of experience in current rank. The p-value of 0.0147 indicates that this result is statistically significant to the .95 confidence level.</p></li>
+<li><p>For the predictor variable “ysdeg”, the statistical significance of its’ relationship to salary is an increase in salary of ~$339.40 given the salary for each year since highest degree achieved. The p-value of 0.000114 indicates that this result is statistically significant to the .99 confidence level.</p></li>
+</ul>
+<p><strong>Summarizing, eliminating the “rank” variable, the predictor variables, degreePhD”, “year”, and “ysdeg” are statistically significant to at least the 95% confidence level, while predictor variable “sexFemale” is not statistically significant. The predictor variables “year” and “ysdeg” have a positive linear relationship and the predictor variables “sexFemale” and “degreePhD” have a negative linear relationship.</strong></p>
+<p><strong>Practically, this tells me that eliminating “rank” before comparing salaries between males and females shows a different linear relationship than when “rank” was involved (negative vs. positive). However, it also tells me that the relationship remains statistically not significant to a reasonable level of confidence.</strong></p>
+<h3 id="part-f.">Part F.</h3>
+<p><em>Everyone in this dataset was hired the year they earned their highest degree. It is also known that a new Dean was appointed 15 years ago, and everyone in the dataset who earned their highest degree 15 years ago or less than that has been hired by the new Dean. Some people have argued that the new Dean has been making offers that are a lot more generous to newly hired faculty than the previous one and that this might explain some of the variation in Salary.</em></p>
+<p><em>Create a new variable that would allow you to test this hypothesis and run another multiple regression model to test this. Select variables carefully to make sure there is no multicollinearity. Explain why multicollinearity would be a concern in this case and how you avoided it. Do you find support for the hypothesis that the people hired by the new Dean are making higher than those that were not?</em></p>
+<p><strong>I am creating a new variable for the dummy variable indicating whether it was “Dean 1” or “Dean 2” doing the hiring. “Dean 1” represents the “old” Dean and “Dean 2” represents the “new” Dean appointed 15 years ago. I will run the model with as few predictor variables as is practical to reduce the concern of multicollinearity, or the phenomemon of predictor variables being correlated with one another and contributing to unreliable inferences.</strong></p>
+<p>Clarifying the null and alternative hypotheses:</p>
+<ul>
+<li><p>H0: The mean salary for hires of Dean 2 are higher than the mean salary for hires of Dean 1</p></li>
+<li><p>Ha: The mean salary for hires of Dean 2 are equal to or less than than the mean salary for hires of Dean 1</p></li>
+</ul>
+<p>We have n &gt; 30, so I can assume a normal distribution.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># create new variable</span>
+<span class='va'>df2f</span> <span class='op'>&lt;-</span> <span class='va'>salary</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>dean <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span>
+    <span class='va'>ysdeg</span> <span class='op'>&gt;=</span> <span class='fl'>1</span> <span class='op'>&amp;</span> <span class='va'>ysdeg</span> <span class='op'>&lt;=</span> <span class='fl'>15</span> <span class='op'>~</span> <span class='st'>"2"</span>,
+    <span class='va'>ysdeg</span> <span class='op'>&gt;=</span> <span class='fl'>16</span> <span class='op'>~</span> <span class='st'>"1"</span>
+  <span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>mlm2f</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>salary</span> <span class='op'>~</span> <span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>df2f</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mlm2f</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<pre><code>
+Call:
+lm(formula = salary ~ ., data = df2f)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3621.2 -1336.8  -271.6   530.1  9247.6 
+
+Coefficients:
+            Estimate Std. Error t value       Pr(&gt;|t|)    
+(Intercept) 13767.69    1744.31   7.893 0.000000000575 ***
+degreePhD    1135.00    1031.16   1.101          0.277    
+rankAssoc    5234.01    1138.47   4.597 0.000035985932 ***
+rankProf    11411.45    1362.02   8.378 0.000000000116 ***
+sexFemale    1084.09     921.49   1.176          0.246    
+year          460.35      95.09   4.841 0.000016263785 ***
+ysdeg         -47.86      97.71  -0.490          0.627    
+dean2        1749.09    1372.83   1.274          0.209    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 2382 on 44 degrees of freedom
+Multiple R-squared:  0.8602,    Adjusted R-squared:  0.838 
+F-statistic: 38.68 on 7 and 44 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+</div>
+<p><strong>Based on this summary, I can see that the hires of Dean 2 are expected to make a salary of ~$1,749.09 than the hires of Dean 1. This result has a p-value of 0.209. Since this p-value indicates a significance level of % (p &gt; 0.05), I fail to reject the null hypothesis.</strong></p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Removing the variable "ysdeg"</span>
+
+<span class='va'>mlm2g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>salary</span> <span class='op'>~</span> <span class='va'>.</span> <span class='op'>-</span> <span class='va'>ysdeg</span>, data <span class='op'>=</span> <span class='va'>df2f</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mlm2g</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<pre><code>
+Call:
+lm(formula = salary ~ . - ysdeg, data = df2f)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3403.3 -1387.0  -167.0   528.2  9233.8 
+
+Coefficients:
+            Estimate Std. Error t value         Pr(&gt;|t|)    
+(Intercept) 13328.38    1483.38   8.985 0.00000000001330 ***
+degreePhD     818.93     797.48   1.027           0.3100    
+rankAssoc    4972.66     997.17   4.987 0.00000961362451 ***
+rankProf    11096.95    1191.00   9.317 0.00000000000454 ***
+sexFemale     907.14     840.54   1.079           0.2862    
+year          434.85      78.89   5.512 0.00000164625970 ***
+dean2        2163.46    1072.04   2.018           0.0496 *  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 2362 on 45 degrees of freedom
+Multiple R-squared:  0.8594,    Adjusted R-squared:  0.8407 
+F-statistic: 45.86 on 6 and 45 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+</div>
+<p><strong>Running the model with less variables does change the adjusted R-squared and goodness of fit; though some more than others, after running this model with many different variable combinations. The best fit is seemingly the one including the new “Dean” variable but without the “ysdeg” variable.</strong></p>
+<h2 id="question-3">Question 3</h2>
+<p>Using the data file in the SMSS R package “house.selling.price”:</p>
+<h2 id="answer-3">Answer 3</h2>
+<p>I’m loading the “house.selling.price” data and inspecting it.</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"house.selling.price"</span><span class='op'>)</span> 
+<span class='va'>hsp</span> <span class='op'>&lt;-</span> <span class='va'>house.selling.price</span>
+<span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>hsp</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<pre><code>[1] 100   7</code></pre>
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>hsp</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<pre><code>  case Taxes Beds Baths New  Price Size
+1    1  3104    4     2   0 279900 2048
+2    2  1173    2     1   0 146500  912
+3    3  3076    4     2   0 237700 1654
+4    4  1608    3     2   0 200000 2068
+5    5  1454    3     3   0 159900 1477
+6    6  2997    3     2   1 499900 3153</code></pre>
+</div>
+<h3 id="part-a.-1">Part A.</h3>
+<p><em>A. Using the house.selling.price data, run and report regression results modeling y = selling price (in dollars) in terms of size of home (in square feet) and whether the home is new (1 = yes; 0 = no). (In other words, price is the outcome variable and size and new are the explanatory variables.)</em></p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mlm3a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>Price</span> <span class='op'>~</span> <span class='va'>Size</span> <span class='op'>+</span> <span class='va'>New</span>, data <span class='op'>=</span> <span class='va'>house.selling.price</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mlm3a</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<pre><code>
+Call:
+lm(formula = Price ~ Size + New, data = house.selling.price)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-205102  -34374   -5778   18929  163866 
+
+Coefficients:
+              Estimate Std. Error t value             Pr(&gt;|t|)    
+(Intercept) -40230.867  14696.140  -2.738              0.00737 ** 
+Size           116.132      8.795  13.204 &lt; 0.0000000000000002 ***
+New          57736.283  18653.041   3.095              0.00257 ** 
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 53880 on 97 degrees of freedom
+Multiple R-squared:  0.7226,    Adjusted R-squared:  0.7169 
+F-statistic: 126.3 on 2 and 97 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+</div>
+<h3 id="part-b.-1">Part B.</h3>
+<p><em>Report and interpret the prediction equation, and form separate equations relating selling price to size for new and for not new homes. In particular, for each variable; discuss statistical significance and interpret the meaning of the coefficient.</em></p>
+<p><strong>The coefficient for homes that are “new” indicates that the “new” variable results in a price increase of ~$57,736.28.</strong></p>
+<p><strong>The coefficient for home “size” indicates that for each square foot of home size, the price of a home increases by ~$116.13.</strong></p>
+<p><strong>The p-values of 0.00257 for “new” and indicates a significance level of (p &lt; 0.01), indicating the results are statistically significant to the 99% confidence level.</strong></p>
+<ul>
+<li><strong>The equation to indicate price for new homes:</strong></li>
+</ul>
+<p><strong>(-40230.87) + (116.13)(x) + (57,736.18)</strong></p>
+<ul>
+<li><strong>The equation to indicate price for <em>not</em> new homes:</strong></li>
+</ul>
+<p><strong>(-40230.87) + (116.13)(x)</strong></p>
+<h3 id="part-c.-1">Part C.</h3>
+<p><em>Find the predicted selling price for a home of 3000 square feet that is (i) new, (ii) not new.</em></p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='op'>-</span><span class='fl'>40230.87</span><span class='op'>+</span><span class='op'>(</span><span class='fl'>116.13</span><span class='op'>*</span><span class='fl'>3000</span><span class='op'>)</span><span class='op'>+</span><span class='fl'>57736.18</span>
+</code></pre>
+</div>
+</details>
+<pre><code>[1] 365895.3</code></pre>
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='op'>-</span><span class='fl'>40230.87</span><span class='op'>+</span><span class='op'>(</span><span class='fl'>116.13</span><span class='op'>*</span><span class='fl'>3000</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<pre><code>[1] 308159.1</code></pre>
+</div>
+<p><strong>For a 3000 square foot home that is new, the price can be estimated to be $365,895.30.</strong></p>
+<p><strong>For a 3000 square foot home that is not new, the price can be estimated to be $308,159.10.</strong></p>
+<h3 id="part-d.-1">Part D.</h3>
+<p><em>Fit another model, this time with an interaction term allowing interaction between size and new, and report the regression results</em></p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>mlm3d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>Price</span> <span class='op'>~</span> <span class='va'>Size</span> <span class='op'>+</span> <span class='va'>New</span> <span class='op'>+</span> <span class='va'>Size</span><span class='op'>*</span><span class='va'>New</span>, <span class='va'>house.selling.price</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mlm3d</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<pre><code>
+Call:
+lm(formula = Price ~ Size + New + Size * New, data = house.selling.price)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-175748  -28979   -6260   14693  192519 
+
+Coefficients:
+              Estimate Std. Error t value             Pr(&gt;|t|)    
+(Intercept) -22227.808  15521.110  -1.432              0.15536    
+Size           104.438      9.424  11.082 &lt; 0.0000000000000002 ***
+New         -78527.502  51007.642  -1.540              0.12697    
+Size:New        61.916     21.686   2.855              0.00527 ** 
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 52000 on 96 degrees of freedom
+Multiple R-squared:  0.7443,    Adjusted R-squared:  0.7363 
+F-statistic: 93.15 on 3 and 96 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+</div>
+<p><strong>Fitting the model where the “size” variable interacts with the “new” variable, the result is statistically significant with a p-value of 0.00527.</strong></p>
+<h3 id="part-e.-1">Part E.</h3>
+<p><em>Report the lines relating the predicted selling price to the size for homes that are (i) new, (ii) not new.</em></p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/qplot.html'>qplot</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>Price</span>, y <span class='op'>=</span> <span class='va'>Size</span>, facets <span class='op'>=</span> <span class='op'>~</span> <span class='va'>New</span>, data <span class='op'>=</span> <span class='va'>mlm3d</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, se<span class='op'>=</span><span class='cn'>TRUE</span>,fullrange<span class='op'>=</span><span class='cn'>TRUE</span>,color<span class='op'>=</span><span class='st'>"goldenrod"</span><span class='op'>)</span> <span class='op'>+</span> 
+     <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title<span class='op'>=</span> <span class='st'>"Price and Size of Homes Given Not New and New"</span>,
+        x<span class='op'>=</span> <span class='st'>"Price"</span>,
+        y <span class='op'>=</span> <span class='st'>"Size in Square Feet"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_classic</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<p><img src="dacss-603-assignment-3_files/figure-html5/unnamed-chunk-16-1.png" width="624" /></p>
+</div>
+<p>In the course of investigation options for graphics on visualizing multiple regression models, I also found an interesting package that uses “ggPredict()” to make a really visually pleasing representation, if not as practical:</p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/ggiraphExtra/man/ggPredict.html'>ggPredict</a></span><span class='op'>(</span><span class='va'>mlm3d</span>,se<span class='op'>=</span><span class='cn'>TRUE</span>,interactive<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<div id="htmlwidget-b45038fb3d1bf715f797" style="width:624px;height:384px;" class="girafe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b45038fb3d1bf715f797">{"x":{"html":"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' id='svg_d8822ff7-86b5-4381-8b07-55c802e256d5' viewBox='0 0 432 360'>\n <defs>\n  <clipPath id='svg_d8822ff7-86b5-4381-8b07-55c802e256d5_c1'>\n   <rect x='0' y='0' width='432' height='360'/>\n  <\/clipPath>\n  <clipPath id='svg_d8822ff7-86b5-4381-8b07-55c802e256d5_c2'>\n   <rect x='52.72' y='5.48' width='311.99' height='323.02'/>\n  <\/clipPath>\n <\/defs>\n <g>\n  <g clip-path='url(#svg_d8822ff7-86b5-4381-8b07-55c802e256d5_c1)'>\n   <rect x='0' y='0' width='432' height='360' fill='#FFFFFF' stroke='#FFFFFF' stroke-width='0.75' stroke-linejoin='round' stroke-linecap='round'/>\n   <rect x='0' y='0' width='432' height='360' fill='#FFFFFF' stroke='#FFFFFF' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n  <\/g>\n  <g clip-path='url(#svg_d8822ff7-86b5-4381-8b07-55c802e256d5_c2)'>\n   <rect x='52.72' y='5.48' width='311.99' height='323.02' fill='#EBEBEB' stroke='none'/>\n   <polyline points='52.72,323.92 364.71,323.92' fill='none' stroke='#FFFFFF' stroke-width='0.53' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='52.72,241.52 364.71,241.52' fill='none' stroke='#FFFFFF' stroke-width='0.53' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='52.72,159.11 364.71,159.11' fill='none' stroke='#FFFFFF' stroke-width='0.53' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='52.72,76.71 364.71,76.71' fill='none' stroke='#FFFFFF' stroke-width='0.53' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='74.37,328.50 74.37,5.48' fill='none' stroke='#FFFFFF' stroke-width='0.53' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='149.00,328.50 149.00,5.48' fill='none' stroke='#FFFFFF' stroke-width='0.53' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='223.64,328.50 223.64,5.48' fill='none' stroke='#FFFFFF' stroke-width='0.53' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='298.28,328.50 298.28,5.48' fill='none' stroke='#FFFFFF' stroke-width='0.53' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='52.72,282.72 364.71,282.72' fill='none' stroke='#FFFFFF' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='52.72,200.31 364.71,200.31' fill='none' stroke='#FFFFFF' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='52.72,117.91 364.71,117.91' fill='none' stroke='#FFFFFF' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='52.72,35.50 364.71,35.50' fill='none' stroke='#FFFFFF' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='111.69,328.50 111.69,5.48' fill='none' stroke='#FFFFFF' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='186.32,328.50 186.32,5.48' fill='none' stroke='#FFFFFF' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='260.96,328.50 260.96,5.48' fill='none' stroke='#FFFFFF' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='335.60,328.50 335.60,5.48' fill='none' stroke='#FFFFFF' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polygon points='66.90,269.69 81.83,261.76 96.76,253.79 111.69,245.76 126.61,237.61 141.54,229.30 156.47,220.74 171.40,211.94 186.32,202.92 201.25,193.78 216.18,184.56 231.11,175.29 246.03,165.99 260.96,156.68 275.89,147.34 290.82,138.00 305.74,128.65 320.67,119.29 335.60,109.93 350.53,100.57 350.53,121.72 335.60,129.57 320.67,137.42 305.74,145.28 290.82,153.14 275.89,161.01 260.96,168.89 246.03,176.79 231.11,184.70 216.18,192.64 201.25,200.63 186.32,208.71 171.40,216.91 156.47,225.31 141.54,233.97 126.61,242.87 111.69,251.94 96.76,261.11 81.83,270.36 66.90,279.64' fill='#132B43' fill-opacity='0.2' stroke='none'/>\n   <polyline points='66.90,269.69 81.83,261.76 96.76,253.79 111.69,245.76 126.61,237.61 141.54,229.30 156.47,220.74 171.40,211.94 186.32,202.92 201.25,193.78 216.18,184.56 231.11,175.29 246.03,165.99 260.96,156.68 275.89,147.34 290.82,138.00 305.74,128.65 320.67,119.29 335.60,109.93 350.53,100.57' fill='none' stroke='none'/>\n   <polyline points='350.53,121.72 335.60,129.57 320.67,137.42 305.74,145.28 290.82,153.14 275.89,161.01 260.96,168.89 246.03,176.79 231.11,184.70 216.18,192.64 201.25,200.63 186.32,208.71 171.40,216.91 156.47,225.31 141.54,233.97 126.61,242.87 111.69,251.94 96.76,261.11 81.83,270.36 66.90,279.64' fill='none' stroke='none'/>\n   <polygon points='66.90,279.81 81.83,267.58 96.76,255.32 111.69,243.02 126.61,230.67 141.54,218.24 156.47,205.70 171.40,193.00 186.32,180.09 201.25,166.86 216.18,153.26 231.11,139.27 246.03,124.93 260.96,110.32 275.89,95.52 290.82,80.58 305.74,65.56 320.67,50.47 335.60,35.33 350.53,20.16 350.53,52.55 335.60,64.80 320.67,77.08 305.74,89.40 290.82,101.80 275.89,114.28 260.96,126.89 246.03,139.70 231.11,152.78 216.18,166.20 201.25,180.02 186.32,194.21 171.40,208.71 156.47,223.43 141.54,238.31 126.61,253.30 111.69,268.36 96.76,283.48 81.83,298.64 66.90,313.82' fill='#56B1F7' fill-opacity='0.2' stroke='none'/>\n   <polyline points='66.90,279.81 81.83,267.58 96.76,255.32 111.69,243.02 126.61,230.67 141.54,218.24 156.47,205.70 171.40,193.00 186.32,180.09 201.25,166.86 216.18,153.26 231.11,139.27 246.03,124.93 260.96,110.32 275.89,95.52 290.82,80.58 305.74,65.56 320.67,50.47 335.60,35.33 350.53,20.16' fill='none' stroke='none'/>\n   <polyline points='350.53,52.55 335.60,64.80 320.67,77.08 305.74,89.40 290.82,101.80 275.89,114.28 260.96,126.89 246.03,139.70 231.11,152.78 216.18,166.20 201.25,180.02 186.32,194.21 171.40,208.71 156.47,223.43 141.54,238.31 126.61,253.30 111.69,268.36 96.76,283.48 81.83,298.64 66.90,313.82' fill='none' stroke='none'/>\n   <circle cx='189.91' cy='167.39' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='1' title='1&amp;lt;br/&amp;gt;Size=2048&amp;lt;br/&amp;gt;Price=279900'/>\n   <circle cx='105.12' cy='222.36' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='2' title='2&amp;lt;br/&amp;gt;Size=912&amp;lt;br/&amp;gt;Price=146500'/>\n   <circle cx='160.5' cy='184.78' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='3' title='3&amp;lt;br/&amp;gt;Size=1654&amp;lt;br/&amp;gt;Price=237700'/>\n   <circle cx='191.4' cy='200.31' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='4' title='4&amp;lt;br/&amp;gt;Size=2068&amp;lt;br/&amp;gt;Price=200000'/>\n   <circle cx='147.29' cy='216.84' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='5' title='5&amp;lt;br/&amp;gt;Size=1477&amp;lt;br/&amp;gt;Price=159900'/>\n   <circle cx='272.38' cy='76.75' r='1.47pt' fill='#56B1F7' stroke='#56B1F7' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='6' title='6&amp;lt;br/&amp;gt;Size=3153&amp;lt;br/&amp;gt;Price=499900'/>\n   <circle cx='138.18' cy='173.33' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='7' title='7&amp;lt;br/&amp;gt;Size=1355&amp;lt;br/&amp;gt;Price=265500'/>\n   <circle cx='191.92' cy='163.27' r='1.47pt' fill='#56B1F7' stroke='#56B1F7' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='8' title='8&amp;lt;br/&amp;gt;Size=2075&amp;lt;br/&amp;gt;Price=289900'/>\n   <circle cx='334.85' cy='40.86' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='9' title='9&amp;lt;br/&amp;gt;Size=3990&amp;lt;br/&amp;gt;Price=587000'/>\n   <circle cx='123.63' cy='253.88' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='10' title='10&amp;lt;br/&amp;gt;Size=1160&amp;lt;br/&amp;gt;Price=70000'/>\n   <circle cx='128.11' cy='256.14' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='11' title='11&amp;lt;br/&amp;gt;Size=1220&amp;lt;br/&amp;gt;Price=64500'/>\n   <circle cx='163.19' cy='213.91' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='12' title='12&amp;lt;br/&amp;gt;Size=1690&amp;lt;br/&amp;gt;Price=167000'/>\n   <circle cx='140.05' cy='235.5' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='13' title='13&amp;lt;br/&amp;gt;Size=1380&amp;lt;br/&amp;gt;Price=114600'/>\n   <circle cx='155.72' cy='240.28' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='14' title='14&amp;lt;br/&amp;gt;Size=1590&amp;lt;br/&amp;gt;Price=103000'/>\n   <circle cx='115.42' cy='241.1' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='15' title='15&amp;lt;br/&amp;gt;Size=1050&amp;lt;br/&amp;gt;Price=101000'/>\n   <circle cx='94.52' cy='253.88' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='16' title='16&amp;lt;br/&amp;gt;Size=770&amp;lt;br/&amp;gt;Price=70000'/>\n   <circle cx='142.29' cy='247.7' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='17' title='17&amp;lt;br/&amp;gt;Size=1410&amp;lt;br/&amp;gt;Price=85000'/>\n   <circle cx='116.16' cy='273.45' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='18' title='18&amp;lt;br/&amp;gt;Size=1060&amp;lt;br/&amp;gt;Price=22500'/>\n   <circle cx='134.08' cy='245.64' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='19' title='19&amp;lt;br/&amp;gt;Size=1300&amp;lt;br/&amp;gt;Price=90000'/>\n   <circle cx='149' cy='227.92' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='20' title='20&amp;lt;br/&amp;gt;Size=1500&amp;lt;br/&amp;gt;Price=133000'/>\n   <circle cx='98.25' cy='245.43' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='21' title='21&amp;lt;br/&amp;gt;Size=820&amp;lt;br/&amp;gt;Price=90500'/>\n   <circle cx='331.79' cy='44.77' r='1.47pt' fill='#56B1F7' stroke='#56B1F7' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='22' title='22&amp;lt;br/&amp;gt;Size=3949&amp;lt;br/&amp;gt;Price=577500'/>\n   <circle cx='124.37' cy='224.01' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='23' title='23&amp;lt;br/&amp;gt;Size=1170&amp;lt;br/&amp;gt;Price=142500'/>\n   <circle cx='149' cy='216.8' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='24' title='24&amp;lt;br/&amp;gt;Size=1500&amp;lt;br/&amp;gt;Price=160000'/>\n   <circle cx='245.29' cy='183.83' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='25' title='25&amp;lt;br/&amp;gt;Size=2790&amp;lt;br/&amp;gt;Price=240000'/>\n   <circle cx='113.92' cy='246.87' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='26' title='26&amp;lt;br/&amp;gt;Size=1030&amp;lt;br/&amp;gt;Price=87000'/>\n   <circle cx='130.35' cy='233.85' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='27' title='27&amp;lt;br/&amp;gt;Size=1250&amp;lt;br/&amp;gt;Price=118600'/>\n   <circle cx='168.41' cy='225.04' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='28' title='28&amp;lt;br/&amp;gt;Size=1760&amp;lt;br/&amp;gt;Price=140000'/>\n   <circle cx='152.74' cy='221.74' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='29' title='29&amp;lt;br/&amp;gt;Size=1550&amp;lt;br/&amp;gt;Price=148000'/>\n   <circle cx='120.64' cy='254.29' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='30' title='30&amp;lt;br/&amp;gt;Size=1120&amp;lt;br/&amp;gt;Price=69000'/>\n   <circle cx='186.32' cy='210.2' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='31' title='31&amp;lt;br/&amp;gt;Size=2000&amp;lt;br/&amp;gt;Price=176000'/>\n   <circle cx='137.81' cy='247.08' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='32' title='32&amp;lt;br/&amp;gt;Size=1350&amp;lt;br/&amp;gt;Price=86500'/>\n   <circle cx='174.38' cy='208.55' r='1.47pt' fill='#56B1F7' stroke='#56B1F7' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='33' title='33&amp;lt;br/&amp;gt;Size=1840&amp;lt;br/&amp;gt;Price=180000'/>\n   <circle cx='224.39' cy='208.97' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='34' title='34&amp;lt;br/&amp;gt;Size=2510&amp;lt;br/&amp;gt;Price=179000'/>\n   <circle cx='269.17' cy='143.45' r='1.47pt' fill='#56B1F7' stroke='#56B1F7' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='35' title='35&amp;lt;br/&amp;gt;Size=3110&amp;lt;br/&amp;gt;Price=338000'/>\n   <circle cx='168.41' cy='229.16' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='36' title='36&amp;lt;br/&amp;gt;Size=1760&amp;lt;br/&amp;gt;Price=130000'/>\n   <circle cx='164.68' cy='215.56' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='37' title='37&amp;lt;br/&amp;gt;Size=1710&amp;lt;br/&amp;gt;Price=163000'/>\n   <circle cx='119.9' cy='231.22' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='38' title='38&amp;lt;br/&amp;gt;Size=1110&amp;lt;br/&amp;gt;Price=125000'/>\n   <circle cx='138.56' cy='241.52' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='39' title='39&amp;lt;br/&amp;gt;Size=1360&amp;lt;br/&amp;gt;Price=100000'/>\n   <circle cx='130.35' cy='241.52' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='40' title='40&amp;lt;br/&amp;gt;Size=1250&amp;lt;br/&amp;gt;Price=100000'/>\n   <circle cx='130.35' cy='241.52' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='41' title='41&amp;lt;br/&amp;gt;Size=1250&amp;lt;br/&amp;gt;Price=100000'/>\n   <circle cx='147.51' cy='222.36' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='42' title='42&amp;lt;br/&amp;gt;Size=1480&amp;lt;br/&amp;gt;Price=146500'/>\n   <circle cx='150.5' cy='223.02' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='43' title='43&amp;lt;br/&amp;gt;Size=1520&amp;lt;br/&amp;gt;Price=144900'/>\n   <circle cx='187.82' cy='207.32' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='44' title='44&amp;lt;br/&amp;gt;Size=2020&amp;lt;br/&amp;gt;Price=183000'/>\n   <circle cx='112.43' cy='253.92' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='45' title='45&amp;lt;br/&amp;gt;Size=1010&amp;lt;br/&amp;gt;Price=69900'/>\n   <circle cx='159.45' cy='258' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='46' title='46&amp;lt;br/&amp;gt;Size=1640&amp;lt;br/&amp;gt;Price=60000'/>\n   <circle cx='107.21' cy='230.39' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='47' title='47&amp;lt;br/&amp;gt;Size=940&amp;lt;br/&amp;gt;Price=127000'/>\n   <circle cx='154.98' cy='247.28' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='48' title='48&amp;lt;br/&amp;gt;Size=1580&amp;lt;br/&amp;gt;Price=86000'/>\n   <circle cx='101.24' cy='262.12' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='49' title='49&amp;lt;br/&amp;gt;Size=860&amp;lt;br/&amp;gt;Price=50000'/>\n   <circle cx='143.03' cy='226.27' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='50' title='50&amp;lt;br/&amp;gt;Size=1420&amp;lt;br/&amp;gt;Price=137000'/>\n   <circle cx='131.84' cy='232.74' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='51' title='51&amp;lt;br/&amp;gt;Size=1270&amp;lt;br/&amp;gt;Price=121300'/>\n   <circle cx='110.19' cy='249.35' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='52' title='52&amp;lt;br/&amp;gt;Size=980&amp;lt;br/&amp;gt;Price=81000'/>\n   <circle cx='208.71' cy='205.26' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='53' title='53&amp;lt;br/&amp;gt;Size=2300&amp;lt;br/&amp;gt;Price=188000'/>\n   <circle cx='143.78' cy='247.7' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='54' title='54&amp;lt;br/&amp;gt;Size=1430&amp;lt;br/&amp;gt;Price=85000'/>\n   <circle cx='140.05' cy='226.27' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='55' title='55&amp;lt;br/&amp;gt;Size=1380&amp;lt;br/&amp;gt;Price=137000'/>\n   <circle cx='129.6' cy='222.98' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='56' title='56&amp;lt;br/&amp;gt;Size=1240&amp;lt;br/&amp;gt;Price=145000'/>\n   <circle cx='120.64' cy='254.29' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='57' title='57&amp;lt;br/&amp;gt;Size=1120&amp;lt;br/&amp;gt;Price=69000'/>\n   <circle cx='120.64' cy='237.68' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='58' title='58&amp;lt;br/&amp;gt;Size=1120&amp;lt;br/&amp;gt;Price=109300'/>\n   <circle cx='178.86' cy='228.54' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='59' title='59&amp;lt;br/&amp;gt;Size=1900&amp;lt;br/&amp;gt;Price=131500'/>\n   <circle cx='218.42' cy='200.31' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='60' title='60&amp;lt;br/&amp;gt;Size=2430&amp;lt;br/&amp;gt;Price=200000'/>\n   <circle cx='117.66' cy='248.97' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='61' title='61&amp;lt;br/&amp;gt;Size=1080&amp;lt;br/&amp;gt;Price=81900'/>\n   <circle cx='137.81' cy='245.14' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='62' title='62&amp;lt;br/&amp;gt;Size=1350&amp;lt;br/&amp;gt;Price=91200'/>\n   <circle cx='165.42' cy='231.42' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='63' title='63&amp;lt;br/&amp;gt;Size=1720&amp;lt;br/&amp;gt;Price=124500'/>\n   <circle cx='339.33' cy='190.01' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='64' title='64&amp;lt;br/&amp;gt;Size=4050&amp;lt;br/&amp;gt;Price=225000'/>\n   <circle cx='149' cy='226.48' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='65' title='65&amp;lt;br/&amp;gt;Size=1500&amp;lt;br/&amp;gt;Price=136500'/>\n   <circle cx='229.69' cy='125.74' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='66' title='66&amp;lt;br/&amp;gt;Size=2581&amp;lt;br/&amp;gt;Price=381000'/>\n   <circle cx='195.28' cy='179.71' r='1.47pt' fill='#56B1F7' stroke='#56B1F7' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='67' title='67&amp;lt;br/&amp;gt;Size=2120&amp;lt;br/&amp;gt;Price=250000'/>\n   <circle cx='241.93' cy='136.49' r='1.47pt' fill='#56B1F7' stroke='#56B1F7' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='68' title='68&amp;lt;br/&amp;gt;Size=2745&amp;lt;br/&amp;gt;Price=354900'/>\n   <circle cx='150.5' cy='225.04' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='69' title='69&amp;lt;br/&amp;gt;Size=1520&amp;lt;br/&amp;gt;Price=140000'/>\n   <circle cx='132.58' cy='245.68' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='70' title='70&amp;lt;br/&amp;gt;Size=1280&amp;lt;br/&amp;gt;Price=89900'/>\n   <circle cx='157.96' cy='226.27' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='71' title='71&amp;lt;br/&amp;gt;Size=1620&amp;lt;br/&amp;gt;Price=137000'/>\n   <circle cx='150.5' cy='240.28' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='72' title='72&amp;lt;br/&amp;gt;Size=1520&amp;lt;br/&amp;gt;Price=103000'/>\n   <circle cx='188.56' cy='207.32' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='73' title='73&amp;lt;br/&amp;gt;Size=2030&amp;lt;br/&amp;gt;Price=183000'/>\n   <circle cx='140.79' cy='225.04' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='74' title='74&amp;lt;br/&amp;gt;Size=1390&amp;lt;br/&amp;gt;Price=140000'/>\n   <circle cx='177.37' cy='216.8' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='75' title='75&amp;lt;br/&amp;gt;Size=1880&amp;lt;br/&amp;gt;Price=160000'/>\n   <circle cx='252.83' cy='103.9' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='76' title='76&amp;lt;br/&amp;gt;Size=2891&amp;lt;br/&amp;gt;Price=434000'/>\n   <circle cx='137.06' cy='229.16' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='77' title='77&amp;lt;br/&amp;gt;Size=1340&amp;lt;br/&amp;gt;Price=130000'/>\n   <circle cx='107.21' cy='232.04' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='78' title='78&amp;lt;br/&amp;gt;Size=940&amp;lt;br/&amp;gt;Price=123000'/>\n   <circle cx='80.34' cy='274.07' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='79' title='79&amp;lt;br/&amp;gt;Size=580&amp;lt;br/&amp;gt;Price=21000'/>\n   <circle cx='142.29' cy='247.7' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='80' title='80&amp;lt;br/&amp;gt;Size=1410&amp;lt;br/&amp;gt;Price=85000'/>\n   <circle cx='122.88' cy='253.92' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='81' title='81&amp;lt;br/&amp;gt;Size=1150&amp;lt;br/&amp;gt;Price=69900'/>\n   <circle cx='140.05' cy='231.22' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='82' title='82&amp;lt;br/&amp;gt;Size=1380&amp;lt;br/&amp;gt;Price=125000'/>\n   <circle cx='146.77' cy='215.72' r='1.47pt' fill='#56B1F7' stroke='#56B1F7' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='83' title='83&amp;lt;br/&amp;gt;Size=1470&amp;lt;br/&amp;gt;Price=162600'/>\n   <circle cx='155.72' cy='218.07' r='1.47pt' fill='#56B1F7' stroke='#56B1F7' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='84' title='84&amp;lt;br/&amp;gt;Size=1590&amp;lt;br/&amp;gt;Price=156900'/>\n   <circle cx='126.61' cy='239.09' r='1.47pt' fill='#56B1F7' stroke='#56B1F7' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='85' title='85&amp;lt;br/&amp;gt;Size=1200&amp;lt;br/&amp;gt;Price=105900'/>\n   <circle cx='180.35' cy='213.7' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='86' title='86&amp;lt;br/&amp;gt;Size=1920&amp;lt;br/&amp;gt;Price=167500'/>\n   <circle cx='197.52' cy='220.17' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='87' title='87&amp;lt;br/&amp;gt;Size=2150&amp;lt;br/&amp;gt;Price=151800'/>\n   <circle cx='201.25' cy='233.98' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='88' title='88&amp;lt;br/&amp;gt;Size=2200&amp;lt;br/&amp;gt;Price=118300'/>\n   <circle cx='101.24' cy='243.87' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='89' title='89&amp;lt;br/&amp;gt;Size=860&amp;lt;br/&amp;gt;Price=94300'/>\n   <circle cx='128.85' cy='244.03' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='90' title='90&amp;lt;br/&amp;gt;Size=1230&amp;lt;br/&amp;gt;Price=93900'/>\n   <circle cx='122.13' cy='214.73' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='91' title='91&amp;lt;br/&amp;gt;Size=1140&amp;lt;br/&amp;gt;Price=165000'/>\n   <circle cx='234.84' cy='165.29' r='1.47pt' fill='#56B1F7' stroke='#56B1F7' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='92' title='92&amp;lt;br/&amp;gt;Size=2650&amp;lt;br/&amp;gt;Price=285000'/>\n   <circle cx='116.16' cy='264.18' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='93' title='93&amp;lt;br/&amp;gt;Size=1060&amp;lt;br/&amp;gt;Price=45000'/>\n   <circle cx='169.16' cy='231.26' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='94' title='94&amp;lt;br/&amp;gt;Size=1770&amp;lt;br/&amp;gt;Price=124900'/>\n   <circle cx='175.87' cy='222.15' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='95' title='95&amp;lt;br/&amp;gt;Size=1860&amp;lt;br/&amp;gt;Price=147000'/>\n   <circle cx='116.16' cy='210.2' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='96' title='96&amp;lt;br/&amp;gt;Size=1060&amp;lt;br/&amp;gt;Price=176000'/>\n   <circle cx='166.17' cy='201.76' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='97' title='97&amp;lt;br/&amp;gt;Size=1730&amp;lt;br/&amp;gt;Price=196500'/>\n   <circle cx='139.3' cy='228.25' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='98' title='98&amp;lt;br/&amp;gt;Size=1370&amp;lt;br/&amp;gt;Price=132200'/>\n   <circle cx='153.48' cy='246.3' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='99' title='99&amp;lt;br/&amp;gt;Size=1560&amp;lt;br/&amp;gt;Price=88400'/>\n   <circle cx='137.06' cy='230.31' r='1.47pt' fill='#132B43' stroke='#132B43' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='100' title='100&amp;lt;br/&amp;gt;Size=1340&amp;lt;br/&amp;gt;Price=127200'/>\n   <polyline points='66.90,274.67 81.83,266.06 96.76,257.45 111.69,248.85 126.61,240.24 141.54,231.63 156.47,223.03 171.40,214.42 186.32,205.82 201.25,197.21 216.18,188.60 231.11,180.00 246.03,171.39 260.96,162.78 275.89,154.18 290.82,145.57 305.74,136.97 320.67,128.36 335.60,119.75 350.53,111.15' fill='none' stroke='#132B43' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt' title='for New=0&amp;lt;br/&amp;gt;y = 104.44*x -22227.81' data-id='1'/>\n   <polyline points='66.90,296.82 81.83,283.11 96.76,269.40 111.69,255.69 126.61,241.98 141.54,228.27 156.47,214.57 171.40,200.86 186.32,187.15 201.25,173.44 216.18,159.73 231.11,146.02 246.03,132.31 260.96,118.61 275.89,104.90 290.82,91.19 305.74,77.48 320.67,63.77 335.60,50.06 350.53,36.36' fill='none' stroke='#56B1F7' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt' title='for New=1&amp;lt;br/&amp;gt;y = 166.35*x -100755.31' data-id='21'/>\n  <\/g>\n  <g clip-path='url(#svg_d8822ff7-86b5-4381-8b07-55c802e256d5_c1)'>\n   <text x='42.89' y='285.87' font-size='6.6pt' font-family='Arial' fill='#4D4D4D'>0<\/text>\n   <text x='18.41' y='203.46' font-size='6.6pt' font-family='Arial' fill='#4D4D4D'>200000<\/text>\n   <text x='18.41' y='121.06' font-size='6.6pt' font-family='Arial' fill='#4D4D4D'>400000<\/text>\n   <text x='18.41' y='38.65' font-size='6.6pt' font-family='Arial' fill='#4D4D4D'>600000<\/text>\n   <polyline points='49.98,282.72 52.72,282.72' fill='none' stroke='#333333' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='49.98,200.31 52.72,200.31' fill='none' stroke='#333333' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='49.98,117.91 52.72,117.91' fill='none' stroke='#333333' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='49.98,35.50 52.72,35.50' fill='none' stroke='#333333' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='111.69,331.24 111.69,328.50' fill='none' stroke='#333333' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='186.32,331.24 186.32,328.50' fill='none' stroke='#333333' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='260.96,331.24 260.96,328.50' fill='none' stroke='#333333' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <polyline points='335.60,331.24 335.60,328.50' fill='none' stroke='#333333' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='butt'/>\n   <text x='101.89' y='339.74' font-size='6.6pt' font-family='Arial' fill='#4D4D4D'>1000<\/text>\n   <text x='176.53' y='339.74' font-size='6.6pt' font-family='Arial' fill='#4D4D4D'>2000<\/text>\n   <text x='251.17' y='339.74' font-size='6.6pt' font-family='Arial' fill='#4D4D4D'>3000<\/text>\n   <text x='325.81' y='339.74' font-size='6.6pt' font-family='Arial' fill='#4D4D4D'>4000<\/text>\n   <text x='198.02' y='352.2' font-size='8.25pt' font-family='Arial'>Size<\/text>\n   <text transform='translate(13.36,179.52) rotate(-90.00)' font-size='8.25pt' font-family='Arial'>Price<\/text>\n   <rect x='375.67' y='110.47' width='50.85' height='113.03' fill='#FFFFFF' stroke='none'/>\n   <image x='381.15' y='131.63' width='17.28' height='86.4' preserveAspectRatio='none' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAYAAAACUNnVAAAAmElEQVQ4ja2UQRLDMAgDd3hk/tnX5agcknFaCoa0vnkMCEnGsL12GQhDYDpPwoDrpBFlRDWi/9Wu6AHC9FkLYLrzlhD3oJ3mDvRHRYy7IC8A7bCK8gpWKYDzeQVArDcDyD2YAnSofZvzaOA6Q7Oahp/dmRuVTQ0xU5TGP2o8Waool1obVuv1q8qP9xPvg633XlGLDtfIhNUBcBeA5ss0BXMAAAAASUVORK5CYII=' xmlns:xlink='http://www.w3.org/1999/xlink'/>\n   <text x='403.91' y='221.03' font-size='6.6pt' font-family='Arial'>0.00<\/text>\n   <text x='403.91' y='199.51' font-size='6.6pt' font-family='Arial'>0.25<\/text>\n   <text x='403.91' y='177.98' font-size='6.6pt' font-family='Arial'>0.50<\/text>\n   <text x='403.91' y='156.45' font-size='6.6pt' font-family='Arial'>0.75<\/text>\n   <text x='403.91' y='134.92' font-size='6.6pt' font-family='Arial'>1.00<\/text>\n   <text x='381.15' y='124.99' font-size='8.25pt' font-family='Arial'>New<\/text>\n   <line x1='381.15' y1='217.88' x2='384.6' y2='217.88' stroke='#FFFFFF' stroke-width='0.38' stroke-linejoin='round' stroke-linecap='butt'/>\n   <line x1='381.15' y1='196.36' x2='384.6' y2='196.36' stroke='#FFFFFF' stroke-width='0.38' stroke-linejoin='round' stroke-linecap='butt'/>\n   <line x1='381.15' y1='174.83' x2='384.6' y2='174.83' stroke='#FFFFFF' stroke-width='0.38' stroke-linejoin='round' stroke-linecap='butt'/>\n   <line x1='381.15' y1='153.3' x2='384.6' y2='153.3' stroke='#FFFFFF' stroke-width='0.38' stroke-linejoin='round' stroke-linecap='butt'/>\n   <line x1='381.15' y1='131.77' x2='384.6' y2='131.77' stroke='#FFFFFF' stroke-width='0.38' stroke-linejoin='round' stroke-linecap='butt'/>\n   <line x1='394.97' y1='217.88' x2='398.43' y2='217.88' stroke='#FFFFFF' stroke-width='0.38' stroke-linejoin='round' stroke-linecap='butt'/>\n   <line x1='394.97' y1='196.36' x2='398.43' y2='196.36' stroke='#FFFFFF' stroke-width='0.38' stroke-linejoin='round' stroke-linecap='butt'/>\n   <line x1='394.97' y1='174.83' x2='398.43' y2='174.83' stroke='#FFFFFF' stroke-width='0.38' stroke-linejoin='round' stroke-linecap='butt'/>\n   <line x1='394.97' y1='153.3' x2='398.43' y2='153.3' stroke='#FFFFFF' stroke-width='0.38' stroke-linejoin='round' stroke-linecap='butt'/>\n   <line x1='394.97' y1='131.77' x2='398.43' y2='131.77' stroke='#FFFFFF' stroke-width='0.38' stroke-linejoin='round' stroke-linecap='butt'/>\n  <\/g>\n <\/g>\n<\/svg>","js":null,"uid":"svg_d8822ff7-86b5-4381-8b07-55c802e256d5","ratio":1.2,"settings":{"tooltip":{"css":".tooltip_SVGID_ { background-color:white;font-style:italic;padding:10px;border-radius:10px 20px 10px 20px; ; position:absolute;pointer-events:none;z-index:999;}","placement":"doc","offx":10,"offy":0,"use_cursor_pos":true,"opacity":0.75,"usefill":false,"usestroke":false,"delay":{"over":200,"out":500}},"hover":{"css":".hover_SVGID_ { r:4px;cursor:pointer;stroke:red;stroke-width:2px; }","reactive":false},"hoverkey":{"css":".hover_key_SVGID_ { stroke:red; }","reactive":false},"hovertheme":{"css":".hover_theme_SVGID_ { fill:green; }","reactive":false},"hoverinv":{"css":""},"zoom":{"min":1,"max":10},"capture":{"css":".selected_SVGID_ { fill:#FF3333;stroke:black; }","type":"multiple","only_shiny":true,"selected":[]},"capturekey":{"css":".selected_key_SVGID_ { stroke:gray; }","type":"single","only_shiny":true,"selected":[]},"capturetheme":{"css":".selected_theme_SVGID_ { stroke:gray; }","type":"single","only_shiny":true,"selected":[]},"toolbar":{"position":"topright","saveaspng":true,"pngname":"diagram"},"sizing":{"rescale":true,"width":1}}},"evals":[],"jsHooks":[]}</script>
+</div>
+<h3 id="part-f.-1">Part F.</h3>
+<p><em>Find the predicted selling price for a home of 3000 square feet that is (i) new, (ii) not new.</em></p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='op'>-</span><span class='fl'>22227.81</span><span class='op'>+</span><span class='op'>(</span><span class='fl'>104.44</span><span class='op'>*</span><span class='fl'>3000</span><span class='op'>)</span><span class='op'>+</span><span class='op'>(</span><span class='op'>-</span><span class='fl'>78527.50</span><span class='op'>*</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>+</span><span class='op'>(</span><span class='fl'>61.92</span><span class='op'>*</span><span class='fl'>3000</span><span class='op'>*</span><span class='fl'>0</span><span class='op'>)</span> 
+</code></pre>
+</div>
+</details>
+<pre><code>[1] 291092.2</code></pre>
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='op'>-</span><span class='fl'>22227.81</span><span class='op'>+</span><span class='op'>(</span><span class='fl'>104.44</span><span class='op'>*</span><span class='fl'>3000</span><span class='op'>)</span><span class='op'>+</span><span class='op'>(</span><span class='op'>-</span><span class='fl'>78527.50</span><span class='op'>*</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>+</span><span class='op'>(</span><span class='fl'>61.92</span><span class='op'>*</span><span class='fl'>3000</span><span class='op'>*</span><span class='fl'>1</span><span class='op'>)</span> 
+</code></pre>
+</div>
+</details>
+<pre><code>[1] 398324.7</code></pre>
+</div>
+<p><strong>Under the new model:</strong></p>
+<ul>
+<li><p><strong>For a 3000 square foot home that is new, the price can be estimated to be $398,324.70.</strong></p></li>
+<li><p><strong>For a 3000 square foot home that is not new, the price can be estimated to be $291,092.20.</strong></p></li>
+</ul>
+<h3 id="part-g.">Part G.</h3>
+<p><em>Find the predicted selling price for a home of 1500 square feet that is (i) new, (ii) not new. Comparing to (F), explain how the difference in predicted selling prices changes as the size of home increases.</em></p>
+<ul>
+<li><p><strong>For a 1500 square foot home that is new, the price can be estimated to be $148,784.70.</strong></p></li>
+<li><p><strong>For a 1500 square foot home that is not new, the price can be estimated to be $134,432.20.</strong></p></li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='op'>-</span><span class='fl'>22227.81</span><span class='op'>+</span><span class='op'>(</span><span class='fl'>104.44</span><span class='op'>*</span><span class='fl'>1500</span><span class='op'>)</span><span class='op'>+</span><span class='op'>(</span><span class='op'>-</span><span class='fl'>78527.50</span><span class='op'>*</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>+</span><span class='op'>(</span><span class='fl'>61.92</span><span class='op'>*</span><span class='fl'>1500</span><span class='op'>*</span><span class='fl'>0</span><span class='op'>)</span> 
+</code></pre>
+</div>
+</details>
+<pre><code>[1] 134432.2</code></pre>
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='op'>-</span><span class='fl'>22227.81</span><span class='op'>+</span><span class='op'>(</span><span class='fl'>104.44</span><span class='op'>*</span><span class='fl'>1500</span><span class='op'>)</span><span class='op'>+</span><span class='op'>(</span><span class='op'>-</span><span class='fl'>78527.50</span><span class='op'>*</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>+</span><span class='op'>(</span><span class='fl'>61.92</span><span class='op'>*</span><span class='fl'>1500</span><span class='op'>*</span><span class='fl'>1</span><span class='op'>)</span> 
+</code></pre>
+</div>
+</details>
+<pre><code>[1] 148784.7</code></pre>
+</div>
+<p><strong>Illustrating the difference and analyzing the output</strong></p>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#3,000 Square Foot House</span>
+
+<span class='va'>new1</span> <span class='op'>&lt;-</span> <span class='fl'>398324.70</span>
+<span class='va'>old1</span> <span class='op'>&lt;-</span> <span class='fl'>291092.20</span>
+<span class='va'>old1</span><span class='op'>/</span><span class='va'>new1</span><span class='op'>*</span><span class='fl'>100</span>
+</code></pre>
+</div>
+</details>
+<pre><code>[1] 73.07912</code></pre>
+<details>
+<summary>
+Show code
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#1,500 Square Foot House</span>
+
+<span class='va'>new2</span> <span class='op'>&lt;-</span> <span class='fl'>148784.70</span>
+<span class='va'>old2</span> <span class='op'>&lt;-</span> <span class='fl'>134432.2</span>
+<span class='va'>old2</span><span class='op'>/</span><span class='va'>new2</span><span class='op'>*</span><span class='fl'>100</span>
+</code></pre>
+</div>
+</details>
+<pre><code>[1] 90.35351</code></pre>
+</div>
+<p><strong>The difference in value between the 3,000 square foot house and the 1,500 square foot house under this model represents a value ration of price of old to new of 73.08% vs. 90.35%. This tells me that in this model, the price of an “old” house is a smaller percentage of the price of a “new” house as the square footage increases.</strong></p>
+<h3 id="part-h.">Part H.</h3>
+<p><em>Do you think the model with interaction or the one without it represents the relationship of size and new to the outcome price? What makes you prefer one model over another?</em></p>
+<p><strong>The second model has a higher adjusted R squared (0.7363 v. 0.7169) than the first model, which was still an independently valid model. This gives me a hint at the statistical reliability of the model. I also think it takes into consideration the context a stronger threshold where square footage begins to diminish as a variable.</strong></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>
