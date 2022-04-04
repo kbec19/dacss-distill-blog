@@ -8,6 +8,7 @@ favicon: data/images/square-profile.png
 base_url: https://www.kristinabecvar.com/
 repository_url: https://github.com/kbec19/dacss-distill-blog
 theme: css/theme.css
+google_analytics: "G-8HBE170NLD"
 navbar:
   logo:
     image: data/images/square-profile.png
