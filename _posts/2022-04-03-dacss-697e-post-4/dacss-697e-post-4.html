@@ -1,0 +1,2564 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+
+  <!--radix_placeholder_meta_tags-->
+  <title>DACSS 697E Post 4</title>
+
+  <meta property="description" itemprop="description" content="Assignment 4 for DACSS 697E Course &#39;Text as Data&#39;"/>
+
+
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2022-03-13"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-03-13"/>
+  <meta name="article:author" content="Kristina Becvar"/>
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="DACSS 697E Post 4"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="Assignment 4 for DACSS 697E Course &#39;Text as Data&#39;"/>
+  <meta property="og:image" content="https://www.kristinabecvar.com/dacss-697e-post-4_files/figure-html5/unnamed-chunk-12-1.png"/>
+  <meta property="og:image:width" content="1248"/>
+  <meta property="og:image:height" content="768"/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary_large_image"/>
+  <meta property="twitter:title" content="DACSS 697E Post 4"/>
+  <meta property="twitter:description" content="Assignment 4 for DACSS 697E Course &#39;Text as Data&#39;"/>
+  <meta property="twitter:image" content="https://www.kristinabecvar.com/dacss-697e-post-4_files/figure-html5/unnamed-chunk-12-1.png"/>
+  <meta property="twitter:image:width" content="1248"/>
+  <meta property="twitter:image:height" content="768"/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","categories","author","slug","date","base_url","output"]}},"value":[{"type":"character","attributes":{},"value":["DACSS 697E Post 4"]},{"type":"character","attributes":{},"value":["Assignment 4 for DACSS 697E Course 'Text as Data'\n"]},{"type":"character","attributes":{},"value":["text as data","homework"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Kristina Becvar"]},{"type":"character","attributes":{},"value":["https://www.kristinabecvar.com"]}]}]},{"type":"character","attributes":{},"value":["kbec2022tad4"]},{"type":"character","attributes":{},"value":["03-13-2022"]},{"type":"character","attributes":{},"value":["https://www.kristinabecvar.com"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["afghanistan.articles.table.Rdata","dacss-697e-post-4_files/anchor-4.2.2/anchor.min.js","dacss-697e-post-4_files/bowser-1.9.3/bowser.min.js","dacss-697e-post-4_files/distill-2.2.21/template.v2.js","dacss-697e-post-4_files/figure-html5/unnamed-chunk-10-1.png","dacss-697e-post-4_files/figure-html5/unnamed-chunk-11-1.png","dacss-697e-post-4_files/figure-html5/unnamed-chunk-12-1.png","dacss-697e-post-4_files/figure-html5/unnamed-chunk-13-1.png","dacss-697e-post-4_files/figure-html5/unnamed-chunk-14-1.png","dacss-697e-post-4_files/figure-html5/unnamed-chunk-16-1.png","dacss-697e-post-4_files/header-attrs-2.11/header-attrs.js","dacss-697e-post-4_files/jquery-3.6.0/jquery-3.6.0.js","dacss-697e-post-4_files/jquery-3.6.0/jquery-3.6.0.min.js","dacss-697e-post-4_files/jquery-3.6.0/jquery-3.6.0.min.map","dacss-697e-post-4_files/popper-2.6.0/popper.min.js","dacss-697e-post-4_files/tippy-6.2.7/tippy-bundle.umd.min.js","dacss-697e-post-4_files/tippy-6.2.7/tippy-light-border.css","dacss-697e-post-4_files/tippy-6.2.7/tippy.css","dacss-697e-post-4_files/tippy-6.2.7/tippy.umd.min.js","dacss-697e-post-4_files/webcomponents-2.0.0/webcomponents.js","lead.paragraph.table.csv"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure img {
+    width: 100%;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="dacss-697e-post-4_files/header-attrs-2.11/header-attrs.js"></script>
+  <script src="dacss-697e-post-4_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="dacss-697e-post-4_files/popper-2.6.0/popper.min.js"></script>
+  <link href="dacss-697e-post-4_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="dacss-697e-post-4_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="dacss-697e-post-4_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="dacss-697e-post-4_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="dacss-697e-post-4_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="dacss-697e-post-4_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="dacss-697e-post-4_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"DACSS 697E Post 4","description":"Assignment 4 for DACSS 697E Course 'Text as Data'","authors":[{"author":"Kristina Becvar","authorURL":"https://www.kristinabecvar.com","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-03-13T00:00:00.000-06:00","citationText":"Becvar, 2022"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>DACSS 697E Post 4</h1>
+<!--radix_placeholder_categories-->
+<div class="dt-tags">
+<div class="dt=tag">text as data</div>
+<div class="dt=tag">homework</div>
+</div>
+<!--/radix_placeholder_categories-->
+<p><p>Assignment 4 for DACSS 697E Course ‘Text as Data’</p></p>
+</div>
+
+<div class="d-byline">
+  Kristina Becvar <a href="https://www.kristinabecvar.com" class="uri">https://www.kristinabecvar.com</a> 
+  
+<br/>03-13-2022
+</div>
+
+<div class="d-article">
+<h1 id="getting-started">Getting Started</h1>
+<p>I am beginning to pull in the text collection that I will be analyzing for my final project in the course. I started pulling articles by month beginning January 2020 through December 2021. For my initial text collection, I am collecting articles using the New York Times API for the search query “Afghanistan”. I am not limiting my search by any filter at this time. However, I am limited in that the article search API for the New York Times does not pull the entire article; rather, I have been able to pull the abstract/summary, lead paragraph, and snippet for each article as well as the keywords, authors, sections, and url. In addition, I can get the article titles for both the print and online versions of the article.</p>
+<p>To pull the data, I had to reduce the queries into more workable groups that would not time out, given the NYT API limits. I was able to pull the 3,442 articles by year (2020, then 2021 in two parts), then assemble them into a dataframe. I will not run the code in this post, as it was already run and is an exhaustive process.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># For articles from 2020</span>
+
+<span class='co'>#url2020 &lt;- ('https://api.nytimes.com/svc/search/v2/articlesearch.json?begin_date=20200101&amp;end_date=20201231&amp;q=afghanistan&amp;api-key=GTp3efxVZiGO75Iox9uZJ8ZTjIMjDWsM')</span>
+
+<span class='co'>#query2020 &lt;- fromJSON(url2020)</span>
+
+<span class='co'>#max.pages2020 &lt;- ceiling((query2020$response$meta$hits[1] / 10)-1) </span>
+
+<span class='co'>#pages2020 &lt;- list()</span>
+<span class='co'>#for(i in 0:max.pages2020){</span>
+  <span class='co'>#search2020 &lt;- fromJSON(paste0(url2020, "&amp;page=", i), flatten = TRUE) %&gt;% data.frame() </span>
+  <span class='co'>#message("Retrieving page ", i)</span>
+  <span class='co'>#pages2020[[i+1]] &lt;- search2020</span>
+  <span class='co'>#Sys.sleep(10)</span>
+  <span class='co'>#}</span>
+
+<span class='co'>#pages2020[[i+1]] &lt;- search2020 </span>
+<span class='co'>#afghanistan.articles.2020 &lt;- rbind_pages(pages2020)</span>
+
+<span class='co'>#save(afghanistan.articles.2020,file="afghanistan_articles_2020.Rdata")</span>
+
+<span class='co'># For January to August 2021</span>
+
+<span class='co'>#url2021a &lt;- ('https://api.nytimes.com/svc/search/v2/articlesearch.json?begin_date=20210101&amp;end_date=20210831&amp;q=afghanistan&amp;api-key=GTp3efxVZiGO75Iox9uZJ8ZTjIMjDWsM')</span>
+
+<span class='co'>#query2021a &lt;- fromJSON(url2021a)</span>
+
+<span class='co'>#max.pages2021a &lt;- ceiling((query2021a$response$meta$hits[1] / 10)-1) </span>
+
+<span class='co'>#pages2021a &lt;- list()</span>
+<span class='co'>#for(i in 0:max.pages2021a){</span>
+  <span class='co'>#search2021a &lt;- fromJSON(paste0(url2021a, "&amp;page=", i), flatten = TRUE) %&gt;% data.frame() </span>
+  <span class='co'>#message("Retrieving page ", i)</span>
+  <span class='co'>#pages2021a[[i+1]] &lt;- search2021a</span>
+  <span class='co'>#Sys.sleep(10) </span>
+<span class='co'>#}</span>
+
+<span class='co'>#pages2021a[[i+1]] &lt;- search2021a </span>
+<span class='co'>#afghanistan.articles.2021a &lt;- rbind_pages(pages2021a)</span>
+
+<span class='co'>#save(afghanistan.articles.2021a,file="afghanistan_articles_2021a.Rdata")</span>
+
+<span class='co'># For September-December 2021</span>
+
+<span class='va'>url2021b</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='st'>'https://api.nytimes.com/svc/search/v2/articlesearch.json?begin_date=20210901&amp;end_date=20211231&amp;q=afghanistan&amp;api-key=GTp3efxVZiGO75Iox9uZJ8ZTjIMjDWsM'</span><span class='op'>)</span>
+
+<span class='co'>#query2021b &lt;- fromJSON(url2021b)</span>
+
+<span class='co'>#max.pages2021b &lt;- ceiling((query2021b$response$meta$hits[1] / 10)-1) </span>
+
+<span class='co'>#pages2021b &lt;- list()</span>
+<span class='co'>#for(i in 0:max.pages2021b){</span>
+  <span class='co'>#search2021b &lt;- fromJSON(paste0(url2021b, "&amp;page=", i), flatten = TRUE) %&gt;% data.frame() </span>
+  <span class='co'>#message("Retrieving page ", i)</span>
+  <span class='co'>#pages2021b[[i+1]] &lt;- search2021b</span>
+  <span class='co'>#Sys.sleep(10) </span>
+<span class='co'>#}</span>
+
+<span class='co'>#pages2021b[[i+1]] &lt;- search2021b </span>
+<span class='co'>#afghanistan.articles.2021b &lt;- rbind_pages(pages2021b)</span>
+
+<span class='co'>#save(afghanistan.articles.2021b,file="afghanistan_articles_2021b.Rdata")</span>
+
+
+<span class='co'># Create shell for data</span>
+
+<span class='co'>#afghanistan.articles.all &lt;- c()</span>
+
+<span class='co'>#afghanistan.articles.all &lt;- rbind_pages(c(pages2020, pages2021a, pages2021b))</span>
+</code></pre>
+</div>
+</div>
+<p>After compiling the data, I re-formatted the date column and saving the formatted tibble for offline access.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#afghanistan.articles.table&lt;- as_tibble(cbind(</span>
+  <span class='co'>#date=afghanistan.articles.all$response.docs.pub_date,</span>
+  <span class='co'>#abstract=afghanistan.articles.all$response.docs.abstract,</span>
+  <span class='co'>#lead.paragraph=afghanistan.articles.all$response.docs.lead_paragraph,</span>
+  <span class='co'>#snippet=afghanistan.articles.all$response.docs.snippet,</span>
+  <span class='co'>#section.name=afghanistan.articles.all$response.docs.section_name,</span>
+  <span class='co'>#subsection.name=afghanistan.articles.all$response.docs.subsection_name,</span>
+  <span class='co'>#news.desk=afghanistan.articles.all$response.docs.news_desk,</span>
+  <span class='co'>#byline=afghanistan.articles.all$response.docs.byline.original,</span>
+  <span class='co'>#headline.main=afghanistan.articles.all$response.docs.headline.main,</span>
+  <span class='co'>#headline.print=afghanistan.articles.all$response.docs.headline.print_headline,</span>
+  <span class='co'>#headline.kicker=afghanistan.articles.all$response.docs.headline.kicker,</span>
+  <span class='co'>#material=afghanistan.articles.all$response.docs.type_of_material,</span>
+  <span class='co'>#url=afghanistan.articles.all$response.docs.web_url</span>
+  <span class='co'>#))</span>
+
+<span class='co'>#afghanistan.articles.table$date &lt;- substr(afghanistan.articles.table$date, 1, nchar(afghanistan.articles.table$date)-14)</span>
+
+<span class='co'>#afghanistan.articles.table$date &lt;- as.Date(afghanistan.articles.table$date, "%Y-%m-%d")</span>
+
+<span class='co'>#save(afghanistan.articles.table,file="afghanistan.articles.table.Rdata")</span>
+
+<span class='co'>#write.table(afghanistan.articles.table, file = "~/GitHub/DACSS.697D/Text as Data Spring22/afghanistan.articles.table.csv", sep=",", row.names=FALSE)</span>
+</code></pre>
+</div>
+</div>
+<p>Initial data collection complete!</p>
+<p>Now to the active review of the data. Loading the data from my collection phase:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/load.html'>load</a></span><span class='op'>(</span><span class='st'>"afghanistan.articles.table.RData"</span><span class='op'>)</span>
+
+<span class='va'>afghanistan_lead</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='st'>"lead.paragraph.table.csv"</span><span class='op'>)</span>
+
+<span class='va'>afghanistan_articles</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>afghanistan_lead</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>Creating a corpus of the lead paragraphs of each article</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>afghanistan_corpus</span> <span class='op'>&lt;-</span> <span class='fu'>corpus</span><span class='op'>(</span><span class='va'>afghanistan_articles</span><span class='op'>)</span>
+<span class='va'>afghanistan_summary</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>afghanistan_corpus</span><span class='op'>)</span>
+<span class='va'>afghanistan_summary</span>
+</code></pre>
+</div>
+<pre><code>Corpus consisting of 3442 documents, showing 100 documents:
+
+    Text Types Tokens Sentences doc.id      date         section.name
+   text1    32     40         1      1  1/1/2020        Today’s Paper
+   text2    23     26         1      2  1/2/2020                 Arts
+   text3   109    170         9      3  1/2/2020             Magazine
+   text4    49     56         1      4  1/3/2020         Business Day
+   text5    23     25         3      5  1/3/2020             Magazine
+   text6    46     60         3      6  1/3/2020           Obituaries
+   text7    43     55         3      7  1/3/2020              Opinion
+   text8    48     64         2      8  1/3/2020              Opinion
+   text9    41     51         1      9  1/3/2020                 U.S.
+  text10    31     35         1     10  1/3/2020                 U.S.
+  text11    38     45         2     11  1/3/2020                World
+  text12    11     11         1     12  1/4/2020              Opinion
+  text13    36     45         4     13  1/4/2020              Opinion
+  text14    57     68         3     14  1/4/2020                 U.S.
+  text15    27     29         1     15  1/4/2020                 U.S.
+  text16    54     61         2     16  1/4/2020                 U.S.
+  text17    33     37         1     17  1/4/2020                World
+  text18    47     51         1     18  1/4/2020                World
+  text19    21     24         1     19  1/4/2020                World
+  text20    32     42         3     20  1/5/2020              Opinion
+  text21    41     56         2     21  1/5/2020                 U.S.
+  text22    26     28         1     22  1/5/2020                World
+  text23    14     14         2     23  1/6/2020             Briefing
+  text24    14     14         2     24  1/6/2020             Briefing
+  text25    10     11         1     25  1/6/2020             Magazine
+  text26    62     76         3     26  1/6/2020              Opinion
+  text27     4      4         1     27  1/6/2020              Opinion
+  text28    24     24         1     28  1/6/2020                 U.S.
+  text29    35     45         2     29  1/6/2020                 U.S.
+  text30    33     34         1     30  1/6/2020                World
+  text31    56     67         2     31  1/6/2020                World
+  text32    42     55         1     32  1/7/2020                 Arts
+  text33    42     54         1     33  1/7/2020         Business Day
+  text34    46     61         2     34  1/7/2020             New York
+  text35    69     91         4     35  1/7/2020              Opinion
+  text36    63     78         2     36  1/7/2020              Opinion
+  text37    59     79         4     37  1/7/2020                 U.S.
+  text38    43     47         1     38  1/7/2020                 U.S.
+  text39    40     44         1     39  1/7/2020                World
+  text40    18     18         1     40  1/8/2020              Opinion
+  text41    30     35         2     41  1/8/2020              Opinion
+  text42    41     43         1     42  1/8/2020              Opinion
+  text43    45     50         1     43  1/8/2020                 U.S.
+  text44    15     17         1     44  1/8/2020                 U.S.
+  text45    52     61         3     45  1/8/2020                 U.S.
+  text46    41     49         3     46  1/8/2020                 U.S.
+  text47    34     38         1     47  1/8/2020                World
+  text48    35     40         1     48  1/8/2020                World
+  text49    32     36         1     49  1/8/2020                World
+  text50    41     47         3     50  1/8/2020                World
+  text51    29     35         3     51  1/8/2020                World
+  text52    13     13         1     52  1/8/2020                World
+  text53    42     49         2     53  1/8/2020                World
+  text54   111    171        10     54  1/9/2020             Magazine
+  text55    54     76         4     55  1/9/2020              Opinion
+  text56     4      4         1     56  1/9/2020              Opinion
+  text57    34     37         2     57  1/9/2020                Style
+  text58    39     46         2     58  1/9/2020                 U.S.
+  text59    42     63         3     59  1/9/2020                World
+  text60    39     41         1     60  1/9/2020                World
+  text61    79    105         5     61 1/10/2020              Opinion
+  text62    42     49         1     62 1/10/2020                 U.S.
+  text63    25     28         1     63 1/10/2020                 U.S.
+  text64    54     72         3     64 1/10/2020                 U.S.
+  text65    26     28         1     65 1/10/2020                 U.S.
+  text66    35     42         1     66 1/10/2020                World
+  text67    34     42         1     67 1/10/2020                World
+  text68    35     50         2     68 1/11/2020                World
+  text69    38     40         1     69 1/11/2020                World
+  text70    33     40         3     70 1/12/2020                World
+  text71    44     51         1     71 1/12/2020                World
+  text72    32     36         2     72 1/13/2020                Books
+  text73    14     14         2     73 1/13/2020             Briefing
+  text74    14     14         2     74 1/13/2020             Briefing
+  text75    10     11         1     75 1/13/2020              Opinion
+  text76    10     11         1     76 1/13/2020              Opinion
+  text77    56     70         2     77 1/13/2020                 U.S.
+  text78    39     47         1     78 1/13/2020                World
+  text79    10     10         1     79 1/14/2020              Opinion
+  text80     4      4         1     80 1/14/2020              Opinion
+  text81    41     51         2     81 1/14/2020                 U.S.
+  text82    41     51         2     82 1/14/2020                 U.S.
+  text83    39     41         1     83 1/14/2020                World
+  text84    45     62         3     84 1/15/2020                 Arts
+  text85   110    157         7     85 1/15/2020                 Arts
+  text86    65     93         3     86 1/15/2020                 Food
+  text87    66     92         2     87 1/15/2020             Magazine
+  text88    52     70         4     88 1/15/2020              Opinion
+  text89    52     70         4     89 1/15/2020              Opinion
+  text90    10     11         1     90 1/15/2020              Opinion
+  text91    11     11         1     91 1/15/2020              Opinion
+  text92    18     20         2     92 1/15/2020 The Learning Network
+  text93    35     38         1     93 1/15/2020                 U.S.
+  text94    34     41         1     94 1/15/2020                 U.S.
+  text95    33     39         1     95 1/15/2020                 U.S.
+  text96    37     37         1     96 1/15/2020                 U.S.
+  text97    43     50         2     97 1/15/2020                 U.S.
+  text98    42     48         2     98 1/15/2020                 U.S.
+  text99    10     11         1     99 1/16/2020              Opinion
+ text100    11     12         1    100 1/16/2020              Opinion
+  news.desk
+    Summary
+    Weekend
+   Magazine
+   Business
+   Magazine
+    Foreign
+       OpEd
+       OpEd
+   Politics
+ Washington
+    Foreign
+       OpEd
+       OpEd
+ Washington
+    Express
+ Washington
+ Washington
+    Foreign
+    Foreign
+       OpEd
+   Politics
+    Foreign
+     NYTNow
+     NYTNow
+   Magazine
+       OpEd
+    Letters
+ Washington
+ Washington
+ Washington
+ Washington
+    Culture
+   Business
+      Metro
+       OpEd
+       OpEd
+   National
+ Washington
+ Washington
+       OpEd
+  Editorial
+       OpEd
+ Washington
+ Washington
+ Washington
+ Washington
+    Foreign
+ Washington
+    Foreign
+    Express
+    Foreign
+    Foreign
+    Foreign
+   Magazine
+       OpEd
+    Letters
+     Styles
+ Washington
+    Foreign
+ Washington
+       OpEd
+   National
+   Politics
+   National
+   Politics
+    Foreign
+    Foreign
+    Foreign
+    Express
+    Foreign
+    Foreign
+ BookReview
+     NYTNow
+     NYTNow
+       OpEd
+       OpEd
+   Politics
+    Foreign
+  Editorial
+    Letters
+   Politics
+   Politics
+    Foreign
+    Culture
+    Culture
+     Dining
+   Magazine
+       OpEd
+       OpEd
+  Editorial
+  Editorial
+   Learning
+ Washington
+ Washington
+ Washington
+   Politics
+   National
+   Politics
+  Editorial
+  Editorial
+                                                                           byline
+                                                                             &lt;NA&gt;
+                                                                     By Mike Hale
+                                                   By Fahim Abed and Fatima Faizi
+                                            By Ben Dooley and David Yaffe-Bellany
+                                                                 By C. J. Chivers
+                                     By Tim Arango, Ronen Bergman and Ben Hubbard
+                                                                  By Timothy Egan
+                                                                By Barbara Slavin
+                                                               By Alexander Burns
+                                                               By Catie Edmondson
+                                                               By Steven Erlanger
+                                                                 By Susan E. Rice
+                                                            By Thomas L. Friedman
+                                                                 By Zach Montague
+                                                                By Mariel Padilla
+                                                               By Catie Edmondson
+                                                                 By Mark Mazzetti
+                                                By Hari Kumar and Maria Abi-Habib
+                                                          By David D. Kirkpatrick
+                                                               By Ryan C. Crocker
+                                                               By Reid J. Epstein
+                                                                             &lt;NA&gt;
+                                                                 By Melina Delkic
+                                                                By Chris Stanford
+                                                                By David Marchese
+                                                                By Azadeh Moaveni
+                                                                             &lt;NA&gt;
+                                                                    By Lara Jakes
+                                                           By Jennifer Steinhauer
+                                                           By Thomas Gibbons-Neff
+                                                                    By Lara Jakes
+                                                                  By Jason Farago
+                                                           By Michael M. Grynbaum
+                                                      By Kimiko de Freytas-Tamura
+                                         By Elizabeth Cobbs and Kimberly C. Field
+                                                                  By Ross Douthat
+                                                                 By Dave Philipps
+                                               By Peter Baker and Maggie Haberman
+                  By Alissa J. Rubin, Farnaz Fassihi, Eric Schmitt and Vivian Yee
+                                                              By Nicholas Kristof
+                                                           By The Editorial Board
+                                                            By Thomas L. Friedman
+ By Julian E. Barnes, Catie Edmondson, Thomas Gibbons-Neff and Rukmini Callimachi
+                                                            By The New York Times
+                                               By Annie Karni and Maggie Haberman
+                                                                     By Linda Qiu
+                                                                  By Mujib Mashal
+                                                By Helene Cooper and Eric Schmitt
+                                                               By Alissa J. Rubin
+                                                                  By Jacey Fortin
+                                                   By Dan Bilefsky and Ian Austen
+                                                                  By Mark Landler
+                                                            By The New York Times
+                                                               By Robert F. Worth
+                                                                 By Farhad Manjoo
+                                                                             &lt;NA&gt;
+                                              By Caity Weaver and Elizabeth Paton
+                                                           By Jennifer Steinhauer
+                                                                   By Sarah Lyall
+                                                               By David E. Sanger
+                                                                    By Tom Cotton
+                                                                 By Dave Philipps
+                                                           By Giovanni Russonello
+                                                  By Dave Philipps and Tim Arango
+                                                              By Jeremy W. Peters
+                                               By Salman Masood and Zia ur-Rehman
+                                                                             &lt;NA&gt;
+                                                                    By Fahim Abed
+                                                                  By Karen Zraick
+                                            By Thomas Gibbons-Neff and Fahim Abed
+                                                                  By Ruth Maclean
+                                                                             &lt;NA&gt;
+                                           By Victoria Shannon and Hiroko Masuike
+                                                                 By Melina Delkic
+                                                           By The Editorial Board
+                                                           By The Editorial Board
+                                                              By Jeremy W. Peters
+                                                By Farnaz Fassihi and Ben Hubbard
+                                                           By The Editorial Board
+                                                                             &lt;NA&gt;
+                                              By Reid J. Epstein and Katie Glueck
+                                              By Reid J. Epstein and Katie Glueck
+                                                                 By Helene Cooper
+                                                                  By Farah Nayeri
+                                                                     By Gabe Cohn
+                                                                  By Besha Rodell
+                                                                    By John Ismay
+                                                            By Thomas L. Friedman
+                                                            By Thomas L. Friedman
+                                                           By The Editorial Board
+                                                           By The Editorial Board
+                                                                  By Jeremy Engle
+                                                                  By Katie Rogers
+                                                               By Catie Edmondson
+                                                            By The New York Times
+                                                               By David E. Sanger
+                                               By Tim Arango and Neil MacFarquhar
+                                                                  By Maggie Astor
+                                                           By The Editorial Board
+                                                           By The Editorial Board
+                                                                                  headline.main
+                              Quotation of the Day: Ex-SEAL Now Pitching Products and President
+                                                  The 50 TV Shows You Need to Watch This Winter
+                                                       Afghan War Casualty Report: January 2020
+                              Carlos Ghosn Was Aided in Flight From Japan by Former Green Beret
+                                                                  A History of War in Six Drugs
+           Qassim Suleimani, Master of Iran’s Intrigue, Built a Shiite Axis of Power in Mideast
+                                                                    The Case for a One-Term Joe
+                                                  Qassim Suleimani’s Killing Will Unleash Chaos
+                                   Airstrike Pushes National Security to Forefront of 2020 Race
+                       Congressional Leaders Call for Details After U.S. Airstrike on Suleimani
+                                        Suleimani’s Gone, and the Iran Nuclear Deal May Be Next
+                                            The Dire Consequences of Trump’s Suleimani Decision
+                                                      Trump Kills Iran’s Most Overrated Warrior
+                             Pence Links Suleimani to 9/11. The Public Record Doesn’t Back Him.
+                                    Antiwar Protesters Across U.S. Condemn Killing of Suleimani
+                       With Split Decision on Impeachment, Maine Democrat Risks a Dual Backlash
+           In Era of Perpetual Conflict, a Volatile President Grabs Expanded Powers to Make War
+                                  Muslims Organize Huge Protests Across India, Challenging Modi
+                                                Conflict With Iran Threatens Fight Against ISIS
+                                                                      The Long Battle With Iran
+                      Buttigieg’s Bet: After Iran Strike, Military Experience Matters Even More
+                       Outrage in Iran After Killing of Suleimani: Here’s What You Need to Know
+                                  Iran, Australia Fires, Taiwan election: Your Tuesday Briefing
+                                    Iran, Golden Globes, Harvey Weinstein: Your Monday Briefing
+                                                Will Hurd Wants to Improve the Republican Brand
+                                                               The Day After War Begins in Iran
+                                                      A Threat to Iran’s Rich Cultural Heritage
+                     John Bass, U.S. Envoy to Afghanistan, Steps Down on Cusp of New Peace Deal
+                    Fox Host’s ‘America First’ Shift Makes an Exception for Trump’s Iran Strike
+                                 How U.S. Troops Are Preparing for the Worst in the Middle East
+                Defenders of History Take Aim at Trump’s Threat to Strike Iran’s Cultural Sites
+                                Targeting Cultural Sites in War Is Illegal. It’s Also Barbaric.
+                         Tucker Carlson Dissents as Right-Wing Media Weighs Trump’s Iran Strike
+                                Just 700 Speak This Language (50 in the Same Brooklyn Building)
+                                                               Why Did the U.S. Kill Suleimani?
+                                                             Andrew Jackson in the Persian Gulf
+                          He Fled Iran as a Child. Now He’s Commanding a U.S. Aircraft Carrier.
+                        Pentagon Rules Out Striking Iranian Cultural Sites, Contradicting Trump
+                      Iran Fires on U.S. Forces at 2 Bases in Iraq, Calling It ‘Fierce Revenge’
+                                                            Trump Has a Bizarre Idea of Winning
+                                     Can Trump Make Foreign Policy a Democratic Campaign Issue?
+                                       Did Trump and Iran Just Bury the Hatchet, or the Future?
+                        Pressed for Details on Suleimani Strike, Trump Administration Gives Few
+                                             Full Transcript: President Trump’s Address on Iran
+                                 Suleimani’s Killing Creates New Uncertainty for Trump Campaign
+                                     Trump’s Inaccurate Statements About the Conflict With Iran
+                          As Iran and U.S. Trade Blows, Afghanistan Sweats Between the 2 Powers
+                                    At the Edge of a War, the U.S. and Iran Appear to Step Back
+                                Missile Strike Damage Appears Limited, but Iran May Not Be Done
+                               The Ukraine Plane Crash in Iran: Black Boxes and Other Questions
+                                    Iran Plane Crash Victims Came From at Least Seven Countries
+              Prince Harry and Meghan to ‘Step Back’ From Royal Duties in Extraordinary Retreat
+                                             Confrontation in Congress Looms Over Iran Conflict
+                                   Mohammed bin Zayed’s Dark Vision of the Middle East’s Future
+                                                              We Really Must Stop Starting Wars
+                                                  In the Mideast, U.S. Foreign Policy Gone Awry
+                                               Prince Harry and Meghan Stepping Back, Explained
+                                  Weary Veterans Exemplify a Nation Reluctant for War With Iran
+                                  For Prince Harry and His Wife, Meghan, a Tricky Balancing Act
+                              Trump’s Iran Strategy: A Cease-Fire Wrapped in a Strategic Muddle
+                                                          The Case for Killing Qassim Suleimani
+                          Army Denies Request by Soldier Pardoned by Trump, Setting Up Showdown
+                                               How the Public Feels About Trump’s Iran Strategy
+                         Who Signs Up to Fight? Makeup of U.S. Recruits Shows Glaring Disparity
+                                   Why Pete Buttigieg Has Made Religion Central to His Campaign
+                Bomb Blast Claimed by ISIS Kills at Least 15 in Pakistan Mosque Used by Taliban
+                  In Plane Crash, a Day of Blame: Ukraine Weighs In and Iran Mulls Announcement
+                                                 Two U.S. Service Members Killed in Afghanistan
+                                                Jet Crash in Iran Has Eerie Historical Parallel
+                                     A Growing U.S. Base Made This Afghan Town. Now It’s Dying.
+                                      France Summons African Leaders, Threatening Troop Pullout
+ ‘Tightrope: Americans Reaching for Hope,’ by Nicholas D. Kristof and Sheryl WuDunn: An Excerpt
+                                   Oscars, Iran, College Football: Your Monday Evening Briefing
+                        Iran Protests, Harry and Meghan, Australia Fires: Your Tuesday Briefing
+                                                 Tom Steyer’s Top Priority Isn’t Climate Change
+                                                       Bernie Sanders Wants to Change Your Mind
+                                            Trump’s Iran Strategy May Cost Him in 2020 Election
+                         Iran Protests Rage Over Downed Jet, as Lawmakers Demand Accountability
+                                                                    Cory Booker Has More to Say
+                                               An Aide’s View: Jimmy Carter as ‘the Anti-Trump’
+                                            6 Takeaways From the January 2020 Democratic Debate
+                                            6 Takeaways From the January 2020 Democratic Debate
+                             Plan to Cut U.S. Troops in West Africa Draws Criticism From Europe
+                                             In Afghanistan, Being an Artist Is a Dangerous Job
+                                   What’s on TV Wednesday: An Adventure Series and ‘68 Whiskey’
+                                                 Looking Toward a New Era of Australian Cuisine
+                              A Myth That Won’t Die About a Gulf War Weapon, and Why It Matters
+                                                                       Trump’s Code of Dishonor
+                                                                       Trump’s Code of Dishonor
+                                                         Amy Klobuchar on Plans vs. Pipe Dreams
+                                                                       Andrew Yang Is Listening
+                                           Would You Consider Serving in the U.S. Armed Forces?
+                         Pence Observes Transfer of Remains of 2 Soldiers Killed in Afghanistan
+                                  Jason Crow: Impeachment Manager Who Pressed to Launch Inquiry
+                                                    Fact-Checking the January Democratic Debate
+                             The Democrats All Disagree With Trump on Iran. Then It Gets Mushy.
+                           Grief and Fear in Sacramento Over a Death That Set the World on Edge
+                                                           Who Won the Debate? Experts Weigh In
+                                                    Pete Buttigieg Says He’s More Than a Résumé
+                                            Deval Patrick Says the Race Is Just Getting Started
+                                                              headline.print
+                                                            Quote of the Day
+                                           50 TV Shows To Watch  This Winter
+                                                                        &lt;NA&gt;
+          A Green Beret and a Turkish Jet Company Aided in a Stunning Escape
+                                                                        &lt;NA&gt;
+                                 A Mastermind Of Iran’s Clout In the Mideast
+                                     The Case for a One-Term President Biden
+                                                                        &lt;NA&gt;
+               Airstrike Pushes Foreign Policy To Front of Presidential Race
+   Majority Leader Says a Briefing for the Senate Is Scheduled for Next Week
+                     U.S. Strike May Have Dealt a Fatal Blow to Nuclear Deal
+                                            The Fallout of Killing Suleimani
+                                                                        &lt;NA&gt;
+                                                                        &lt;NA&gt;
+                                                                        &lt;NA&gt;
+          With Split Vote on Impeachment, Maine Democrat Risks Dual Backlash
+                            More Powers, Few Limits And a Volatile President
+                      Huge Protests in India Keep Steadfast Pressure on Modi
+         As Tehran and Washington Stare Each Other Down, ISIS Stands to Gain
+                                                                        &lt;NA&gt;
+       Buttigieg’s Bet: After Iran Strike, a Military Past Matters Even More
+                                                                        &lt;NA&gt;
+                                                                        &lt;NA&gt;
+                                                                        &lt;NA&gt;
+                             Will Hurd Wants to Improve the Republican Brand
+                                                                        &lt;NA&gt;
+                                   A Threat to Iran’s Rich Cultural Heritage
+                                  U.S. Envoy to Afghanistan Is Stepping Down
+    Fox Host Is ‘America First,’ but Makes Exception for Trump’s Iran Strike
+                                  U.S. Troops Preparing for Worst in Mideast
+                           ‘You Can’t Just Start Shooting Anything You Want’
+                      In Targeting Cultural Sites, a Threat to Global Values
+          The Prospect of a New Military Conflict Divides Right-Wing Pundits
+                                       Carefully Nourishing a Dying Language
+                                                                        &lt;NA&gt;
+                                                                        &lt;NA&gt;
+                          He Once Fled Iran. Now He  Leads an American Crew.
+                                   Pentagon Rules Out Strikes on Antiquities
+                       Iranians Attack U.S. Forces in Iraq in Act of Revenge
+                                        Trump Has  A Bizarre Idea Of Winning
+                                      Foreign Policy Should Matter to Voters
+                                                                        &lt;NA&gt;
+                       Democrats Press for Details on Threats Cited by Trump
+                      U.S. ‘Is Ready to Embrace  Peace With All Who Seek It’
+   Iranian’s Killing Delivers Jolt of Uncertainty to Trump Campaign Strategy
+                                References In Address To 2013 Deal Had Holes
+ Washington-Tehran Friction Casts Spotlight on Afghanistan’s Vulnerabilities
+                While Threat of War  May Have Receded, It Hasn’t Disappeared
+                                                                        &lt;NA&gt;
+                                                                        &lt;NA&gt;
+                         Victims Included Citizens From at Least 7 Countries
+              In Stunning Step, Duke and Duchess Seek New Title: Part-Timers
+                                                                        &lt;NA&gt;
+                                                           The M.B.Z. Moment
+                                                                        &lt;NA&gt;
+                               In the Mideast, U.S. Foreign Policy Gone Awry
+                                           A Guide To Grasping A ‘Step Back’
+           Weary of War, and Wary of Embarking on Another in the Middle East
+                                                                        &lt;NA&gt;
+                    A President’s Mixed Messages Unsettle More Than Reassure
+                                                                        &lt;NA&gt;
+                       Pardoned Soldier Is Denied Bid to Rejoin Green Berets
+                                                                        &lt;NA&gt;
+                                The Call to Serve Is Being Unevenly Embraced
+                              Why Buttigieg Places Religion In the Spotlight
+                                                                        &lt;NA&gt;
+                                                                        &lt;NA&gt;
+                          2 U.S. Service Members Killed in Afghan Bomb Blast
+                                                                        &lt;NA&gt;
+  As U.S. Reduces Its Afghan Presence, a Once-Vital Town Is Left With Scraps
+            Citing Hostility to France in Africa, Macron Threatens a Pullout
+                                                                        &lt;NA&gt;
+                                                                        &lt;NA&gt;
+                                                                        &lt;NA&gt;
+                                                                        &lt;NA&gt;
+                                                                        &lt;NA&gt;
+                                      Trump 2020? Moves on Iran Raise Doubts
+                  In Iran, Growing Indignation and a Push for Accountability
+                                                                        &lt;NA&gt;
+                            An Aide’s View: Jimmy Carter as the ‘Anti-Trump’
+                                                                        &lt;NA&gt;
+                                                                        &lt;NA&gt;
+                        Plan to Cut U.S. Troops In West Africa Is Criticized
+                            Afghan Artists Risk Everything to Reject Silence
+                                                         What’s On Wednesday
+                                           Australian Cuisine For a New Time
+                                                                        &lt;NA&gt;
+                                                    Trump’s Code Of Dishonor
+                                                    Trump’s Code Of Dishonor
+                                                                        &lt;NA&gt;
+                                                                        &lt;NA&gt;
+                                                                        &lt;NA&gt;
+                                                                        &lt;NA&gt;
+                                                                  Jason Crow
+                                                                  Fact Check
+           Candidates Critical of Trump on Iran, but Vague on What They’d Do
+                             His Death Rattled World And Shook His U.S. City
+                                                                        &lt;NA&gt;
+                                                                        &lt;NA&gt;
+                                                                        &lt;NA&gt;
+            material X X.1 X.2
+               Quote          
+                News          
+                News          
+                News          
+                News          
+     Obituary (Obit)          
+               Op-Ed          
+               Op-Ed          
+                News          
+                News          
+                News          
+               Op-Ed          
+               Op-Ed          
+                News          
+                News          
+                News          
+       News Analysis          
+                News          
+                News          
+               Op-Ed          
+                News          
+                News          
+            briefing          
+            briefing          
+ Interactive Feature          
+               Op-Ed          
+              Letter          
+                News          
+                News          
+                News          
+                News          
+                News          
+                News          
+                News          
+               Op-Ed          
+               Op-Ed          
+                News          
+                News          
+                News          
+               Op-Ed          
+           Editorial          
+               Op-Ed          
+                News          
+                News          
+                News          
+                News          
+                News          
+       News Analysis          
+                News          
+                News          
+                News          
+                News          
+                News          
+                News          
+               Op-Ed          
+              Letter          
+                News          
+                News          
+                News          
+       News Analysis          
+               Op-Ed          
+                News          
+                News          
+                News          
+                News          
+                News          
+                News          
+                News          
+                News          
+                News          
+                News          
+              Review          
+            briefing          
+            briefing          
+ Interactive Feature          
+ Interactive Feature          
+                News          
+                News          
+ Interactive Feature          
+              Letter          
+                News          
+                News          
+                News          
+                News          
+                News          
+                News          
+                News          
+               Op-Ed          
+               Op-Ed          
+ Interactive Feature          
+ Interactive Feature          
+                News          
+                News          
+                News          
+                News          
+                News          
+                News          
+                News          
+ Interactive Feature          
+ Interactive Feature          </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>afghanistan_summary</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>   Text Types Tokens Sentences doc.id     date  section.name
+1 text1    32     40         1      1 1/1/2020 Today’s Paper
+2 text2    23     26         1      2 1/2/2020          Arts
+3 text3   109    170         9      3 1/2/2020      Magazine
+4 text4    49     56         1      4 1/3/2020  Business Day
+5 text5    23     25         3      5 1/3/2020      Magazine
+6 text6    46     60         3      6 1/3/2020    Obituaries
+  news.desk                                       byline
+1   Summary                                         &lt;NA&gt;
+2   Weekend                                 By Mike Hale
+3  Magazine               By Fahim Abed and Fatima Faizi
+4  Business        By Ben Dooley and David Yaffe-Bellany
+5  Magazine                             By C. J. Chivers
+6   Foreign By Tim Arango, Ronen Bergman and Ben Hubbard
+                                                                         headline.main
+1                    Quotation of the Day: Ex-SEAL Now Pitching Products and President
+2                                        The 50 TV Shows You Need to Watch This Winter
+3                                             Afghan War Casualty Report: January 2020
+4                    Carlos Ghosn Was Aided in Flight From Japan by Former Green Beret
+5                                                        A History of War in Six Drugs
+6 Qassim Suleimani, Master of Iran’s Intrigue, Built a Shiite Axis of Power in Mideast
+                                                      headline.print
+1                                                   Quote of the Day
+2                                  50 TV Shows To Watch  This Winter
+3                                                               &lt;NA&gt;
+4 A Green Beret and a Turkish Jet Company Aided in a Stunning Escape
+5                                                               &lt;NA&gt;
+6                        A Mastermind Of Iran’s Clout In the Mideast
+         material X X.1 X.2
+1           Quote          
+2            News          
+3            News          
+4            News          
+5            News          
+6 Obituary (Obit)          </code></pre>
+</div>
+<p>Next, we move to tokenization.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>Tokens consisting of 3,442 documents and 11 docvars.
+text1 :
+ [1] &quot;\&quot;&quot;      &quot;He&#39;s&quot;    &quot;a&quot;       &quot;Rambo&quot;   &quot;version&quot; &quot;of&quot;     
+ [7] &quot;the&quot;     &quot;same&quot;    &quot;story&quot;   &quot;Trump&quot;   &quot;has&quot;     &quot;been&quot;   
+[ ... and 28 more ]
+
+text2 :
+ [1] &quot;Sign&quot;            &quot;up&quot;              &quot;for&quot;            
+ [4] &quot;our&quot;             &quot;Watching&quot;        &quot;newsletter&quot;     
+ [7] &quot;to&quot;              &quot;get&quot;             &quot;recommendations&quot;
+[10] &quot;on&quot;              &quot;the&quot;             &quot;best&quot;           
+[ ... and 14 more ]
+
+text3 :
+ [1] &quot;At&quot;             &quot;least&quot;          &quot;87&quot;            
+ [4] &quot;pro-government&quot; &quot;forces&quot;         &quot;and&quot;           
+ [7] &quot;12&quot;             &quot;civilians&quot;      &quot;were&quot;          
+[10] &quot;killed&quot;         &quot;in&quot;             &quot;Afghanistan&quot;   
+[ ... and 158 more ]
+
+text4 :
+ [1] &quot;TOKYO&quot;  &quot;-&quot;      &quot;Carlos&quot; &quot;Ghosn&quot;  &quot;was&quot;    &quot;aided&quot;  &quot;in&quot;    
+ [8] &quot;his&quot;    &quot;escape&quot; &quot;from&quot;   &quot;Japan&quot;  &quot;by&quot;    
+[ ... and 44 more ]
+
+text5 :
+ [1] &quot;You&#39;re&quot;     &quot;reading&quot;    &quot;this&quot;       &quot;week&#39;s&quot;     &quot;At&quot;        
+ [6] &quot;War&quot;        &quot;newsletter&quot; &quot;.&quot;          &quot;Sign&quot;       &quot;up&quot;        
+[11] &quot;here&quot;       &quot;to&quot;        
+[ ... and 13 more ]
+
+text6 :
+ [1] &quot;He&quot;        &quot;changed&quot;   &quot;the&quot;       &quot;shape&quot;     &quot;of&quot;       
+ [6] &quot;the&quot;       &quot;Syrian&quot;    &quot;civil&quot;     &quot;war&quot;       &quot;and&quot;      
+[11] &quot;tightened&quot; &quot;Iran&#39;s&quot;   
+[ ... and 48 more ]
+
+[ reached max_ndoc ... 3,436 more documents ]</code></pre>
+</div>
+<p>And remove punctuation</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>afghanistan_tokens</span> <span class='op'>&lt;-</span> <span class='fu'>tokens</span><span class='op'>(</span><span class='va'>afghanistan_corpus</span>, 
+    remove_punct <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>afghanistan_tokens</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>Tokens consisting of 3,442 documents and 11 docvars.
+text1 :
+ [1] &quot;He&#39;s&quot;    &quot;a&quot;       &quot;Rambo&quot;   &quot;version&quot; &quot;of&quot;      &quot;the&quot;    
+ [7] &quot;same&quot;    &quot;story&quot;   &quot;Trump&quot;   &quot;has&quot;     &quot;been&quot;    &quot;telling&quot;
+[ ... and 22 more ]
+
+text2 :
+ [1] &quot;Sign&quot;            &quot;up&quot;              &quot;for&quot;            
+ [4] &quot;our&quot;             &quot;Watching&quot;        &quot;newsletter&quot;     
+ [7] &quot;to&quot;              &quot;get&quot;             &quot;recommendations&quot;
+[10] &quot;on&quot;              &quot;the&quot;             &quot;best&quot;           
+[ ... and 12 more ]
+
+text3 :
+ [1] &quot;At&quot;             &quot;least&quot;          &quot;87&quot;            
+ [4] &quot;pro-government&quot; &quot;forces&quot;         &quot;and&quot;           
+ [7] &quot;12&quot;             &quot;civilians&quot;      &quot;were&quot;          
+[10] &quot;killed&quot;         &quot;in&quot;             &quot;Afghanistan&quot;   
+[ ... and 136 more ]
+
+text4 :
+ [1] &quot;TOKYO&quot;  &quot;Carlos&quot; &quot;Ghosn&quot;  &quot;was&quot;    &quot;aided&quot;  &quot;in&quot;     &quot;his&quot;   
+ [8] &quot;escape&quot; &quot;from&quot;   &quot;Japan&quot;  &quot;by&quot;     &quot;an&quot;    
+[ ... and 40 more ]
+
+text5 :
+ [1] &quot;You&#39;re&quot;     &quot;reading&quot;    &quot;this&quot;       &quot;week&#39;s&quot;     &quot;At&quot;        
+ [6] &quot;War&quot;        &quot;newsletter&quot; &quot;Sign&quot;       &quot;up&quot;         &quot;here&quot;      
+[11] &quot;to&quot;         &quot;get&quot;       
+[ ... and 11 more ]
+
+text6 :
+ [1] &quot;He&quot;        &quot;changed&quot;   &quot;the&quot;       &quot;shape&quot;     &quot;of&quot;       
+ [6] &quot;the&quot;       &quot;Syrian&quot;    &quot;civil&quot;     &quot;war&quot;       &quot;and&quot;      
+[11] &quot;tightened&quot; &quot;Iran&#39;s&quot;   
+[ ... and 42 more ]
+
+[ reached max_ndoc ... 3,436 more documents ]</code></pre>
+</div>
+<p>With quanteda, we can remove stopwords using any of few pre-defined lists that come shipped with the package. Here, we can print that list out first, then remove the tokens:</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>  [1] &quot;i&quot;          &quot;me&quot;         &quot;my&quot;         &quot;myself&quot;     &quot;we&quot;        
+  [6] &quot;our&quot;        &quot;ours&quot;       &quot;ourselves&quot;  &quot;you&quot;        &quot;your&quot;      
+ [11] &quot;yours&quot;      &quot;yourself&quot;   &quot;yourselves&quot; &quot;he&quot;         &quot;him&quot;       
+ [16] &quot;his&quot;        &quot;himself&quot;    &quot;she&quot;        &quot;her&quot;        &quot;hers&quot;      
+ [21] &quot;herself&quot;    &quot;it&quot;         &quot;its&quot;        &quot;itself&quot;     &quot;they&quot;      
+ [26] &quot;them&quot;       &quot;their&quot;      &quot;theirs&quot;     &quot;themselves&quot; &quot;what&quot;      
+ [31] &quot;which&quot;      &quot;who&quot;        &quot;whom&quot;       &quot;this&quot;       &quot;that&quot;      
+ [36] &quot;these&quot;      &quot;those&quot;      &quot;am&quot;         &quot;is&quot;         &quot;are&quot;       
+ [41] &quot;was&quot;        &quot;were&quot;       &quot;be&quot;         &quot;been&quot;       &quot;being&quot;     
+ [46] &quot;have&quot;       &quot;has&quot;        &quot;had&quot;        &quot;having&quot;     &quot;do&quot;        
+ [51] &quot;does&quot;       &quot;did&quot;        &quot;doing&quot;      &quot;would&quot;      &quot;should&quot;    
+ [56] &quot;could&quot;      &quot;ought&quot;      &quot;i&#39;m&quot;        &quot;you&#39;re&quot;     &quot;he&#39;s&quot;      
+ [61] &quot;she&#39;s&quot;      &quot;it&#39;s&quot;       &quot;we&#39;re&quot;      &quot;they&#39;re&quot;    &quot;i&#39;ve&quot;      
+ [66] &quot;you&#39;ve&quot;     &quot;we&#39;ve&quot;      &quot;they&#39;ve&quot;    &quot;i&#39;d&quot;        &quot;you&#39;d&quot;     
+ [71] &quot;he&#39;d&quot;       &quot;she&#39;d&quot;      &quot;we&#39;d&quot;       &quot;they&#39;d&quot;     &quot;i&#39;ll&quot;      
+ [76] &quot;you&#39;ll&quot;     &quot;he&#39;ll&quot;      &quot;she&#39;ll&quot;     &quot;we&#39;ll&quot;      &quot;they&#39;ll&quot;   
+ [81] &quot;isn&#39;t&quot;      &quot;aren&#39;t&quot;     &quot;wasn&#39;t&quot;     &quot;weren&#39;t&quot;    &quot;hasn&#39;t&quot;    
+ [86] &quot;haven&#39;t&quot;    &quot;hadn&#39;t&quot;     &quot;doesn&#39;t&quot;    &quot;don&#39;t&quot;      &quot;didn&#39;t&quot;    
+ [91] &quot;won&#39;t&quot;      &quot;wouldn&#39;t&quot;   &quot;shan&#39;t&quot;     &quot;shouldn&#39;t&quot;  &quot;can&#39;t&quot;     
+ [96] &quot;cannot&quot;     &quot;couldn&#39;t&quot;   &quot;mustn&#39;t&quot;    &quot;let&#39;s&quot;      &quot;that&#39;s&quot;    
+[101] &quot;who&#39;s&quot;      &quot;what&#39;s&quot;     &quot;here&#39;s&quot;     &quot;there&#39;s&quot;    &quot;when&#39;s&quot;    
+[106] &quot;where&#39;s&quot;    &quot;why&#39;s&quot;      &quot;how&#39;s&quot;      &quot;a&quot;          &quot;an&quot;        
+[111] &quot;the&quot;        &quot;and&quot;        &quot;but&quot;        &quot;if&quot;         &quot;or&quot;        
+[116] &quot;because&quot;    &quot;as&quot;         &quot;until&quot;      &quot;while&quot;      &quot;of&quot;        
+[121] &quot;at&quot;         &quot;by&quot;         &quot;for&quot;        &quot;with&quot;       &quot;about&quot;     
+[126] &quot;against&quot;    &quot;between&quot;    &quot;into&quot;       &quot;through&quot;    &quot;during&quot;    
+[131] &quot;before&quot;     &quot;after&quot;      &quot;above&quot;      &quot;below&quot;      &quot;to&quot;        
+[136] &quot;from&quot;       &quot;up&quot;         &quot;down&quot;       &quot;in&quot;         &quot;out&quot;       
+[141] &quot;on&quot;         &quot;off&quot;        &quot;over&quot;       &quot;under&quot;      &quot;again&quot;     
+[146] &quot;further&quot;    &quot;then&quot;       &quot;once&quot;       &quot;here&quot;       &quot;there&quot;     
+[151] &quot;when&quot;       &quot;where&quot;      &quot;why&quot;        &quot;how&quot;        &quot;all&quot;       
+[156] &quot;any&quot;        &quot;both&quot;       &quot;each&quot;       &quot;few&quot;        &quot;more&quot;      
+[161] &quot;most&quot;       &quot;other&quot;      &quot;some&quot;       &quot;such&quot;       &quot;no&quot;        
+[166] &quot;nor&quot;        &quot;not&quot;        &quot;only&quot;       &quot;own&quot;        &quot;same&quot;      
+[171] &quot;so&quot;         &quot;than&quot;       &quot;too&quot;        &quot;very&quot;       &quot;will&quot;      </code></pre>
+</div>
+<p>Next, I’ll remove those stopwords.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># remove stopwords from our tokens object</span>
+<span class='va'>afghanistan_tokens</span> <span class='op'>&lt;-</span> <span class='fu'>tokens_select</span><span class='op'>(</span><span class='va'>afghanistan_tokens</span>, 
+                                           pattern <span class='op'>=</span> <span class='fu'>stopwords</span><span class='op'>(</span><span class='st'>"en"</span><span class='op'>)</span>,
+                                           selection <span class='op'>=</span> <span class='st'>"remove"</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>afghanistan_tokens</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>Tokens consisting of 3,442 documents and 11 docvars.
+text1 :
+ [1] &quot;Rambo&quot;   &quot;version&quot; &quot;story&quot;   &quot;Trump&quot;   &quot;telling&quot; &quot;deep&quot;   
+ [7] &quot;state&quot;   &quot;trying&quot;  &quot;screw&quot;   &quot;media&quot;   &quot;bad&quot;     &quot;rich&quot;   
+[ ... and 2 more ]
+
+text2 :
+ [1] &quot;Sign&quot;            &quot;Watching&quot;        &quot;newsletter&quot;     
+ [4] &quot;get&quot;             &quot;recommendations&quot; &quot;best&quot;           
+ [7] &quot;films&quot;           &quot;TV&quot;              &quot;shows&quot;          
+[10] &quot;stream&quot;          &quot;watch&quot;           &quot;delivered&quot;      
+[ ... and 1 more ]
+
+text3 :
+ [1] &quot;least&quot;          &quot;87&quot;             &quot;pro-government&quot;
+ [4] &quot;forces&quot;         &quot;12&quot;             &quot;civilians&quot;     
+ [7] &quot;killed&quot;         &quot;Afghanistan&quot;    &quot;past&quot;          
+[10] &quot;week&quot;           &quot;violent&quot;        &quot;incidents&quot;     
+[ ... and 88 more ]
+
+text4 :
+ [1] &quot;TOKYO&quot;       &quot;Carlos&quot;      &quot;Ghosn&quot;       &quot;aided&quot;      
+ [5] &quot;escape&quot;      &quot;Japan&quot;       &quot;American&quot;    &quot;security&quot;   
+ [9] &quot;consultant&quot;  &quot;accompanied&quot; &quot;flight&quot;      &quot;country&quot;    
+[ ... and 15 more ]
+
+text5 :
+ [1] &quot;reading&quot;    &quot;week&#39;s&quot;     &quot;War&quot;        &quot;newsletter&quot; &quot;Sign&quot;      
+ [6] &quot;get&quot;        &quot;delivered&quot;  &quot;inbox&quot;      &quot;every&quot;      &quot;Friday&quot;    
+[11] &quot;Email&quot;      &quot;us&quot;        
+[ ... and 1 more ]
+
+text6 :
+ [1] &quot;changed&quot;   &quot;shape&quot;     &quot;Syrian&quot;    &quot;civil&quot;     &quot;war&quot;      
+ [6] &quot;tightened&quot; &quot;Iran&#39;s&quot;    &quot;grip&quot;      &quot;Iraq&quot;      &quot;behind&quot;   
+[11] &quot;hundreds&quot;  &quot;American&quot; 
+[ ... and 20 more ]
+
+[ reached max_ndoc ... 3,436 more documents ]</code></pre>
+</div>
+<p>I will install the package from our course tutorials for week 7:</p>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<h2 id="dictionary-analysis">Dictionary Analysis</h2>
+<p>The basic idea with a dictionary analysis is to identify a set of words that connect to a central concept, and to count the frequency of that set of words within a document. The set of words is the dictionary; as you might quickly realize, a more appropriate name is probably thesaurus.</p>
+<h3 id="liwcalike">liwcalike()</h3>
+<p>There are a couple of ways to do this. First, the quanteda.dictionaries package contains the liwcalike() function, which takes a corpus or character vector and carries out an analysis — based on a provided dictionary — that mimics the pay-to-play software LIWC (Linguistic Inquiry and Word Count see <a href="https://www.liwc.app/">here</a>). The LIWC software calculates the percentage of the document that reflects a host of different characteristics. We are going to focus on positive and negative language, but keep in mind that there are lots of other dimensions that could be of interest.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code> [1] &quot;docname&quot;      &quot;Segment&quot;      &quot;WPS&quot;          &quot;WC&quot;          
+ [5] &quot;Sixltr&quot;       &quot;Dic&quot;          &quot;anger&quot;        &quot;anticipation&quot;
+ [9] &quot;disgust&quot;      &quot;fear&quot;         &quot;joy&quot;          &quot;negative&quot;    
+[13] &quot;positive&quot;     &quot;sadness&quot;      &quot;surprise&quot;     &quot;trust&quot;       
+[17] &quot;AllPunc&quot;      &quot;Period&quot;       &quot;Comma&quot;        &quot;Colon&quot;       
+[21] &quot;SemiC&quot;        &quot;QMark&quot;        &quot;Exclam&quot;       &quot;Dash&quot;        
+[25] &quot;Quote&quot;        &quot;Apostro&quot;      &quot;Parenth&quot;      &quot;OtherP&quot;      </code></pre>
+</div>
+<p>Polarity: The most positive selections</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="dacss-697e-post-4_files/figure-html5/unnamed-chunk-12-1.png" width="624" /></p>
+</div>
+<p>and negative</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="dacss-697e-post-4_files/figure-html5/unnamed-chunk-13-1.png" width="624" /></p>
+</div>
+<p>Based on that, let’s look at those that are out in the right tail (i.e., which are greater than 15).</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>Corpus consisting of 36 documents and 11 docvars.
+text109 :
+&quot;Can a woman be president of the United States?&quot;
+
+text277 :
+&quot;KABUL, Afghanistan — Momentum is building toward peace in Af...&quot;
+
+text580 :
+&quot;On a holiday that usually mixes somber remembrance and bliss...&quot;
+
+text608 :
+&quot;WASHINGTON — Gen. Mark A. Milley was never meant to be Presi...&quot;
+
+text674 :
+&quot;For anyone trying to make sense of the Supreme Court run by ...&quot;
+
+text725 :
+&quot;WASHINGTON — A female National Guard soldier graduated from ...&quot;
+
+[ reached max_ndoc ... 30 more documents ]</code></pre>
+</div>
+<p>and negative</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>Corpus consisting of 28 documents and 11 docvars.
+text280 :
+&quot;— Parisa, an inmate at Herat Women’s Prison&quot;
+
+text290 :
+&quot;This war is different.&quot;
+
+text310 :
+&quot;[Read the Afghan War Casualty Report from previous months.]&quot;
+
+text455 :
+&quot;What happens when the pandemic comes to a country in conflic...&quot;
+
+text479 :
+&quot;Donations flooded in to fight the virus devastating the city...&quot;
+
+text504 :
+&quot;[Read the Afghan War Casualty Report from previous weeks.]&quot;
+
+[ reached max_ndoc ... 22 more documents ]</code></pre>
+</div>
+<p>Looking at the tutorial approach to considering addressing the polarity:</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="dacss-697e-post-4_files/figure-html5/unnamed-chunk-16-1.png" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>Corpus consisting of 38 documents and 11 docvars.
+text280 :
+&quot;— Parisa, an inmate at Herat Women’s Prison&quot;
+
+text290 :
+&quot;This war is different.&quot;
+
+text310 :
+&quot;[Read the Afghan War Casualty Report from previous months.]&quot;
+
+text432 :
+&quot;This is not a time to die.&quot;
+
+text455 :
+&quot;What happens when the pandemic comes to a country in conflic...&quot;
+
+text479 :
+&quot;Donations flooded in to fight the virus devastating the city...&quot;
+
+[ reached max_ndoc ... 32 more documents ]</code></pre>
+</div>
+<p>On initial review, I am unsure that I will be able to really capture the sentiment of the articles given that I only have access to the lead paragraph of each article.</p>
+<p>It’s possible that another valid approach to analyzing the coverage that may be more viable. There is a clear difference in the way print and online article titles are framed. Perhaps analyzing the sentiment of the titles and comparing them will be the way to go. I will look at that option in my next post.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>

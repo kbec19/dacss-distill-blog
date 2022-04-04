@@ -1,0 +1,290 @@
+---
+title: "DACSS 697E Post 4"
+description: |
+  Assignment 4 for DACSS 697E Course 'Text as Data'
+categories:
+  - text as data
+  - homework
+author:
+  - name: Kristina Becvar
+    url: https://www.kristinabecvar.com
+slug: kbec2022tad4
+date: 03-13-2022
+base_url: https://www.kristinabecvar.com
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+setwd("~/GitHub/dacss-blog/data")
+```
+
+# Getting Started
+
+I am beginning to pull in the text collection that I will be analyzing for my final project in the course. I started pulling articles by month beginning January 2020 through December 2021. For my initial text collection, I am collecting articles using the New York Times API for the search query "Afghanistan". I am not limiting my search by any filter at this time. However, I am limited in that the article search API for the New York Times does not pull the entire article; rather, I have been able to pull the abstract/summary, lead paragraph, and snippet for each article as well as the keywords, authors, sections, and url. In addition, I can get the article titles for both the print and online versions of the article.
+
+```{r include=FALSE}
+# load libraries
+library(dplyr)
+library(cleanNLP)
+library(tidytext)
+library(tidyverse)
+library(quanteda)
+library(reticulate)
+library(spacyr)
+library(plyr)
+library(quanteda.textmodels)
+```
+
+To pull the data, I had to reduce the queries into more workable groups that would not time out, given the NYT API limits. I was able to pull the 3,442 articles by year (2020, then 2021 in two parts), then assemble them into a dataframe. I will not run the code in this post, as it was already run and is an exhaustive process.
+
+```{r echo=TRUE}
+
+# For articles from 2020
+
+#url2020 <- ('https://api.nytimes.com/svc/search/v2/articlesearch.json?begin_date=20200101&end_date=20201231&q=afghanistan&api-key=GTp3efxVZiGO75Iox9uZJ8ZTjIMjDWsM')
+
+#query2020 <- fromJSON(url2020)
+
+#max.pages2020 <- ceiling((query2020$response$meta$hits[1] / 10)-1) 
+
+#pages2020 <- list()
+#for(i in 0:max.pages2020){
+  #search2020 <- fromJSON(paste0(url2020, "&page=", i), flatten = TRUE) %>% data.frame() 
+  #message("Retrieving page ", i)
+  #pages2020[[i+1]] <- search2020
+  #Sys.sleep(10)
+  #}
+
+#pages2020[[i+1]] <- search2020 
+#afghanistan.articles.2020 <- rbind_pages(pages2020)
+
+#save(afghanistan.articles.2020,file="afghanistan_articles_2020.Rdata")
+
+# For January to August 2021
+
+#url2021a <- ('https://api.nytimes.com/svc/search/v2/articlesearch.json?begin_date=20210101&end_date=20210831&q=afghanistan&api-key=GTp3efxVZiGO75Iox9uZJ8ZTjIMjDWsM')
+
+#query2021a <- fromJSON(url2021a)
+
+#max.pages2021a <- ceiling((query2021a$response$meta$hits[1] / 10)-1) 
+
+#pages2021a <- list()
+#for(i in 0:max.pages2021a){
+  #search2021a <- fromJSON(paste0(url2021a, "&page=", i), flatten = TRUE) %>% data.frame() 
+  #message("Retrieving page ", i)
+  #pages2021a[[i+1]] <- search2021a
+  #Sys.sleep(10) 
+#}
+
+#pages2021a[[i+1]] <- search2021a 
+#afghanistan.articles.2021a <- rbind_pages(pages2021a)
+
+#save(afghanistan.articles.2021a,file="afghanistan_articles_2021a.Rdata")
+
+# For September-December 2021
+
+url2021b <- ('https://api.nytimes.com/svc/search/v2/articlesearch.json?begin_date=20210901&end_date=20211231&q=afghanistan&api-key=GTp3efxVZiGO75Iox9uZJ8ZTjIMjDWsM')
+
+#query2021b <- fromJSON(url2021b)
+
+#max.pages2021b <- ceiling((query2021b$response$meta$hits[1] / 10)-1) 
+
+#pages2021b <- list()
+#for(i in 0:max.pages2021b){
+  #search2021b <- fromJSON(paste0(url2021b, "&page=", i), flatten = TRUE) %>% data.frame() 
+  #message("Retrieving page ", i)
+  #pages2021b[[i+1]] <- search2021b
+  #Sys.sleep(10) 
+#}
+
+#pages2021b[[i+1]] <- search2021b 
+#afghanistan.articles.2021b <- rbind_pages(pages2021b)
+
+#save(afghanistan.articles.2021b,file="afghanistan_articles_2021b.Rdata")
+
+
+# Create shell for data
+
+#afghanistan.articles.all <- c()
+
+#afghanistan.articles.all <- rbind_pages(c(pages2020, pages2021a, pages2021b))
+
+```
+
+After compiling the data, I re-formatted the date column and saving the formatted tibble for offline access.
+
+```{r echo=TRUE}
+
+#afghanistan.articles.table<- as_tibble(cbind(
+  #date=afghanistan.articles.all$response.docs.pub_date,
+  #abstract=afghanistan.articles.all$response.docs.abstract,
+  #lead.paragraph=afghanistan.articles.all$response.docs.lead_paragraph,
+  #snippet=afghanistan.articles.all$response.docs.snippet,
+  #section.name=afghanistan.articles.all$response.docs.section_name,
+  #subsection.name=afghanistan.articles.all$response.docs.subsection_name,
+  #news.desk=afghanistan.articles.all$response.docs.news_desk,
+  #byline=afghanistan.articles.all$response.docs.byline.original,
+  #headline.main=afghanistan.articles.all$response.docs.headline.main,
+  #headline.print=afghanistan.articles.all$response.docs.headline.print_headline,
+  #headline.kicker=afghanistan.articles.all$response.docs.headline.kicker,
+  #material=afghanistan.articles.all$response.docs.type_of_material,
+  #url=afghanistan.articles.all$response.docs.web_url
+  #))
+
+#afghanistan.articles.table$date <- substr(afghanistan.articles.table$date, 1, nchar(afghanistan.articles.table$date)-14)
+
+#afghanistan.articles.table$date <- as.Date(afghanistan.articles.table$date, "%Y-%m-%d")
+
+#save(afghanistan.articles.table,file="afghanistan.articles.table.Rdata")
+
+#write.table(afghanistan.articles.table, file = "~/GitHub/DACSS.697D/Text as Data Spring22/afghanistan.articles.table.csv", sep=",", row.names=FALSE)
+
+```
+
+Initial data collection complete!
+
+Now to the active review of the data. Loading the data from my collection phase:
+
+```{r echo=TRUE}
+
+load("afghanistan.articles.table.RData")
+
+afghanistan_lead <- read.csv("lead.paragraph.table.csv")
+
+afghanistan_articles <- as.data.frame(afghanistan_lead)
+
+```
+
+Creating a corpus of the lead paragraphs of each article
+
+```{r echo=TRUE}
+
+afghanistan_corpus <- corpus(afghanistan_articles)
+afghanistan_summary <- summary(afghanistan_corpus)
+afghanistan_summary
+
+head(afghanistan_summary)
+
+```
+Next, we move to tokenization. 
+
+```{r}
+# the default breaks on white space
+afghanistan_tokens <- tokens(afghanistan_corpus)
+print(afghanistan_tokens)
+```
+
+And remove punctuation
+
+```{r echo=TRUE}
+
+afghanistan_tokens <- tokens(afghanistan_corpus, 
+    remove_punct = T)
+print(afghanistan_tokens)
+
+```
+
+With quanteda, we can remove stopwords using any of few pre-defined lists that come shipped with the package. Here, we can print that list out first, then remove the tokens:
+
+```{r}
+stopwords("en")
+```
+
+Next, I'll remove those stopwords.
+
+```{r echo=TRUE}
+
+# remove stopwords from our tokens object
+afghanistan_tokens <- tokens_select(afghanistan_tokens, 
+                                           pattern = stopwords("en"),
+                                           selection = "remove")
+
+print(afghanistan_tokens)
+
+```
+
+I will install the package from our course tutorials for week 7: 
+
+```{r}
+library(devtools)
+devtools::install_github("kbenoit/quanteda.dictionaries") 
+library(quanteda.dictionaries)
+devtools::install_github("quanteda/quanteda.sentiment")
+library(quanteda.sentiment)
+```
+
+## Dictionary Analysis
+
+The basic idea with a dictionary analysis is to identify a set of words that connect to a central concept, and to count the frequency of that set of words within a document. The set of words is the dictionary; as you might quickly realize, a more appropriate name is probably thesaurus.
+
+### liwcalike()
+
+There are a couple of ways to do this. First, the quanteda.dictionaries package contains the liwcalike() function, which takes a corpus or character vector and carries out an analysis --- based on a provided dictionary --- that mimics the pay-to-play software LIWC (Linguistic Inquiry and Word Count see [here](https://www.liwc.app/)). The LIWC software calculates the percentage of the document that reflects a host of different characteristics. We are going to focus on positive and negative language, but keep in mind that there are lots of other dimensions that could be of interest.
+
+```{r}
+
+# use liwcalike() to estimate sentiment using NRC dictionary
+nrc_sentiment <- liwcalike(as.character(afghanistan_corpus), data_dictionary_NRC)
+names(nrc_sentiment)
+
+```
+
+Polarity: The most positive selections
+
+```{r}
+ggplot(nrc_sentiment) + 
+  geom_histogram(aes(x=positive)) + 
+  theme_bw()
+
+```
+
+and negative
+
+```{r}
+ggplot(nrc_sentiment) + 
+  geom_histogram(aes(x=negative)) + 
+  theme_bw()
+
+```
+
+Based on that, let's look at those that are out in the right tail (i.e., which are greater than 15).
+
+```{r}
+
+afghanistan_corpus[which(nrc_sentiment$positive > 15)]
+
+```
+
+and negative
+
+```{r}
+
+afghanistan_corpus[which(nrc_sentiment$negative > 15)]
+
+```
+
+Looking at the tutorial approach to considering addressing the polarity:
+
+```{r}
+
+nrc_sentiment$polarity <- nrc_sentiment$positive - nrc_sentiment$negative
+ggplot(nrc_sentiment) + 
+  geom_histogram(aes(polarity)) + 
+  theme_bw()
+
+```
+
+```{r}
+
+afghanistan_corpus[which(nrc_sentiment$polarity < -12)]
+
+```
+
+On initial review, I am unsure that I will be able to really capture the sentiment of the articles given that I only have access to the lead paragraph of each article.
+
+It's possible that another valid approach to analyzing the coverage that may be more viable. There is a clear difference in the way print and online article titles are framed. Perhaps analyzing the sentiment of the titles and comparing them will be the way to go. I will look at that option in my next post.
+
