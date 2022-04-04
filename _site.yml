@@ -26,6 +26,9 @@ navbar:
           href: _projects/grateful-networks.html
     - text: "About"
       href: about.html
+  left:
+    - icon: fa fa-rss
+      href: index.xml
   source_url: true
 collections:
   posts:
