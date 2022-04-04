@@ -66,6 +66,26 @@
     "preview_height": 768
   },
   {
+    "path": "posts/2022-04-03-dacss-697e-post-1/",
+    "title": "DACSS 697E Post 1",
+    "description": "Assignment 1 for DACSS 697E course 'Text as Data'",
+    "author": [
+      {
+        "name": "Kristina Becvar",
+        "url": "https://www.kristinabecvar.com"
+      }
+    ],
+    "date": "2022-02-06",
+    "categories": [
+      "text as data",
+      "homework"
+    ],
+    "contents": "\r\nResearch Interests\r\nMy primary research interests lie in the area of peace & conflict studies. I am specifically interested in where how conflict is portrayed within media and society.\r\nMedia Coverage of Afghanistan\r\nOne of the research questions I have been working on in a previous course would likely translate easily to the context of this course. We looked at how the U.S. military withdrawal from Afghanistan was portrayed in the media through stratified samples of articles from both the New York Times and the Wall Street Journal. In addition to comparing sources, framing, and word usage between the two publications, there was also a time element to be examined. We began comparing the way the withdrawal was covered differently between the time period between when the withdrawal was agreed on between former President Trump and the Taliban - as compared to the time period after Joe Biden was elected. The difference in coverage between administrations is one variable that emerged as a path I would like to explore further. Specifically, I would like to examine how u.S. combat veterans were framed within media portrayals and how that framing changed between Presidential administrations.\r\nCombat Veteran Narratives\r\nAnother issue I am interested in exploring is in how military veterans’ narratives can contribute potential insights and inform the field of peace and conflict studies. This is less likely to be something I will explore through text as data than the former option.\r\nSocial Movements\r\nThere is another research area I am interested that has the potential to be explored through text as data methods. I am interested in nonviolent activism as a whole; specifically, I have been looking at how combat veterans interact with the social movements of protest. Potential ways this could be explored are through research into political action groups through sources such as opensecrets.org or reports in various media and social media sources featuring veterans as part of organized nonviolent protests as well as engagement in individual actions.\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2022-04-03T21:05:11-05:00",
+    "input_file": "dacss-697e-post-1.knit.md"
+  },
+  {
     "path": "posts/2022-04-03-networks/",
     "title": "Networks Assignment 2",
     "description": "Intro Assignment for DACSS 697E course 'Social and Political Network Analysis'",
