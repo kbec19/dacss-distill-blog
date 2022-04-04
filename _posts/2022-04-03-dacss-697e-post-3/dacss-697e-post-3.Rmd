@@ -1,0 +1,187 @@
+---
+title: "DACSS 697E Post 3"
+description: |
+  Assignment 3 for DACSS 697E Course 'Text as Data'
+categories:
+  - text as data
+  - homework
+author:
+  - name: Kristina Becvar
+    url: https://www.kristinabecvar.com
+slug: kbec2022tad3
+date: 03-06-2022
+base_url: https://www.kristinabecvar.com
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+
+library(harrypotter)
+library(plyr)
+library(tidytext)
+library(tidyverse)
+library(quanteda)
+library(cleanNLP)
+library(spacyr)
+library(reticulate)
+library(quanteda.textstats)
+library(readtext)
+library(tm)
+library(stringr)
+library(devtools)
+
+```
+
+# Lab Session Project
+
+This post began as a group lab project where our small group decided to try and determine house affiliations in the Harry Potter book corpus. As a group, we focused on students and faculty who are active at Hogwarts within the first book. Although we did not have time to work through this as a group, I continued on with the lab for my own knowledge and development of the concepts.
+
+The names of the four houses to which characters will be determined to be affiliated with are: Gryffindor, Hufflepuff, Ravenclaw, and Slytherin
+
+First I created the corpus from the (harrypotter) library
+
+```{r echo=TRUE}
+
+philosophers_stone_corpus <- corpus(philosophers_stone)
+philosophers_stone_summary <- summary(philosophers_stone_corpus) 
+philosophers_stone_summary$book <- "Philosopher's Stone"
+philosophers_stone_summary$chapter <- as.numeric(str_extract(philosophers_stone_summary$Text, "[0-9]+"))
+philosophers_stone_summary
+docvars(philosophers_stone_corpus) <- philosophers_stone_summary
+
+```
+
+```{r echo=TRUE}
+
+philosophers_stone_tokens <- tokens(philosophers_stone_corpus, 
+    remove_punct = T,
+    remove_numbers = T)
+print(philosophers_stone_tokens)
+
+```
+
+Pulling the stopwords from my tokens object
+
+```{r echo=TRUE}
+
+length(stopwords("en"))
+
+philosophers_stone_tokens <- tokens_select(philosophers_stone_tokens, 
+                                           pattern = stopwords("en"),
+                                           selection = "remove")
+
+length(philosophers_stone_tokens)
+print(philosophers_stone_tokens)
+
+```
+If I engage the 'stemming' feature, I can see how many of the tokens are affected. In the case of this text, a first review of the resulting tokens left them less relevant than the original tokens, so I will not use that feature here.
+
+```{r echo=TRUE}
+
+#Then pull the corpus as a character vector (which works with cleanNLP) rather than a corpus object, which does not.
+
+philosophers_stone_char_vector <- as.character(philosophers_stone_corpus)
+
+
+```
+
+```{r echo=TRUE}
+
+#Return a data frame of the document-level variables
+
+hp_data <- docvars(philosophers_stone_corpus)
+
+#Now add the text to my data frame for running the annotation tool; column must be named `text`
+
+hp_data$text <- philosophers_stone_char_vector
+
+```
+
+Before I can use the cleanNLP package, I need to initialize the "spacyr" installation and run the command to initialize the back end, "cnlp_init_udpipe()" and then begin annotating and analyzing:
+
+```{r echo=TRUE}
+
+spacy_initialize()
+
+cnlp_init_udpipe()
+
+#Now I can start analyzing the corpus:
+
+annotated <- cnlp_annotate(hp_data)
+
+head(annotated$token)
+
+head(annotated$document)
+
+#I will join the data frames into one database for analyzing all patterns.
+
+anno_hpdata <- left_join(annotated$document, annotated$token, by = "doc_id")
+
+head(anno_hpdata)
+
+```
+
+Now I can really start to look for affiliations to the houses. I'll start by looking at some of the data for annotation options. Filtering by parts of speech, I can find that the lemma "sort" is found in 27 instances as a noun, 
+
+```{r echo=TRUE}
+
+anno_hpdata %>% 
+  filter(upos == "VERB") %>%
+  group_by(lemma) %>% 
+  summarize(count = n()) %>%
+  top_n(n=250) %>%
+  arrange(desc(count))
+
+```
+
+Looking at the corpus keywords using the "kwic" function and taking that information into account, it seems that the bulk of the conversation about sorting students into houses takes place in chapter 7:
+
+```{r echo=TRUE}
+
+sorted <- kwic(philosophers_stone_corpus, pattern = "sort*")
+
+sorted %>% 
+  group_by(docname)
+  
+
+```
+Looking at the names of the houses, starting with Gryffindor, I can first see the relevant context of the results, and it begins to emerge that the occasions when the sorting hat has declared a student part of a house, it is in all capital letters.
+
+```{r echo=TRUE}
+
+kwic(philosophers_stone_corpus, pattern = "Gryffindor*")
+
+kwic(
+philosophers_stone_corpus,
+pattern = "GRYFFINDOR",
+case_insensitive = FALSE,
+)
+
+kwic(
+philosophers_stone_corpus,
+pattern = "SLYTHERIN",
+case_insensitive = FALSE,
+)
+
+kwic(
+philosophers_stone_corpus,
+pattern = "HUFFLEPUFF",
+case_insensitive = FALSE,
+)
+
+kwic(
+philosophers_stone_corpus,
+pattern = "RAVENCLAW",
+case_insensitive = FALSE,
+)
+
+```
+
+Although this is very promising, I need to next find an effective way to look at the entire sentence for each of these declaratory sorting statements. There is much more for me to learn regarding natural language processing!
+
+
+
