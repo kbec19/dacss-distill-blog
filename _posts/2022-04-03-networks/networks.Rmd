@@ -1,7 +1,7 @@
 ---
-title: "Networks Assignment 2"
+title: "DACSS 697E Assignment 2"
 description: |
-  Intro Assignment for DACSS 697E course 'Social and Political Network Analysis'
+  Intro Blog Post Assignment for DACSS 697E course 'Social and Political Network Analysis': "Analyzing the Enron Emails Dataset From the Network Package"
 categories:
   - networks
   - homework
@@ -16,11 +16,325 @@ output:
     self_contained: false
 ---
 
+"Enron Emails.R" is a file in the course repository that consists of a network of emails between enron employees from the igraphdata package. According to the import script, this is a large, un-weighted, directed network with employees as nodes and emails as edges. 
+
+The import script also indicates that there are no node attributes. I found that there was, in fact, node attributes to be found in the igraph dataset in the form of what seems to be titles as 'Notes' and email addresses in 'email' without the domain name, but that was not relevant for this assignment. 
+
+Additionally, the import script indicated that but topic and time information is stored as edge attributes. This is correct, and another thing that I learned through working on this assignment about the dataset is that there is a topical dataset directory in the LDC details data frame that serves as a codebook for the topic codes assembled in the edgelist, for future reference.
+
+The import script has created three objects that represent the network: network_edgelist (a data frame of an edge list and edge attributes), network_igraph (an igraph object), and network_statnet (a network object compatible with statnet packages like sna & ergm).
+
+With that contextual introduction, I'll go back to the start, and execute the import script. I also look at the R Documentation to view the detailed information on this data set via: enron {igraphdata} 
+
+I load the libraries for statnet, igraph, and igraphdata
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
+
+library(statnet)
+library(igraph)
+library(igraphdata)
+
 ```
 
-Social network analysis (SNA) is the process of investigating social structures through the use of networks and graph theory. It characterizes networked structures in terms of nodes (individual actors, people, or things within the network) and the ties, edges, or links (relationships or interactions) that connect them. Examples of social structures commonly visualized through social network analysis include social media networks, memes spread, information circulation, friendship and acquaintance networks, business networks, knowledge networks, difficult working relationships, social networks, collaboration graphs, kinship, disease transmission, and sexual relationships. These networks are often visualized through sociograms in which nodes are represented as points and ties are represented as lines. These visualizations provide a means of qualitatively assessing networks by varying the visual representation of their nodes and edges to reflect attributes of interest.
+Next, I read the data into the environment. This imports the data as an adjacency matrix
 
-Social network analysis has emerged as a key technique in modern sociology. It has also gained significant popularity in anthropology, biology, demography, communication studies, economics, geography, history, information science, organizational studies, political science, public health, social psychology, development studies, sociolinguistics, and computer science, and is now commonly available as a consumer tool.
+```{r echo=TRUE}
+
+data("enron", package = "igraphdata")
+network_igraph <- enron
+rm(enron)
+
+```
+
+Then, I create the edgelist
+
+```{r echo=TRUE}
+
+network_edgelist <- as.data.frame(as_edgelist(network_igraph))
+```
+
+and add edge attributes to the edge list
+
+```{r echo=TRUE}
+
+network_edgelist <-cbind(network_edgelist, Time      = E(network_igraph)$Time, 
+                                               Reciptype = E(network_igraph)$Reciptype, 
+                                               Topic     = E(network_igraph)$Topic, 
+                                               LDC_topic = E(network_igraph)$LDC_topic)
+```
+
+This collects details about the attribute "LDC Details" into a data frame
+
+```{r echo=TRUE}
+
+LDC_details <- data.frame(LDC_topic_name = network_igraph$LDC_names, LDC_topic_desc = network_igraph$LDC_desc, LDC_topic = 1:32)
+
+```
+
+The data frame can then be added as details to the edge list
+
+```{r echo=TRUE}
+
+network_edgelist <- merge(network_edgelist, LDC_details, by = 'LDC_topic', all.x = TRUE)
+
+```
+
+and then re-ordered within the edge list
+
+```{r echo=TRUE}
+
+network_edgelist <- network_edgelist[c(2:5,1,6,7)]
+
+```
+
+Now I can create a statnet network object from our edge list
+
+```{r echo=TRUE}
+
+network_statnet <- network(as.matrix(network_edgelist[1:2]), matrix.type = "edgelist", directed = TRUE)
+
+```
+
+and add attributes to the statnet network object
+
+```{r echo=TRUE}
+
+network_statnet%e%'Time' <- as.character(network_edgelist$Time)
+network_statnet%e%'Reciptype' <- as.character(network_edgelist$Reciptype)
+network_statnet%e%'Topic' <- as.character(network_edgelist$Topic)
+network_statnet%e%'LDC_topic' <- as.character(network_edgelist$LDC_topic)
+network_statnet%e%'LDC_topic_name' <- as.character(network_edgelist$LDC_topic_name)
+network_statnet%e%'LDC_topic_desc' <- as.character(network_edgelist$LDC_topic_desc)
+
+```
+
+Finally, I can clean up and remove any unnecessary objects if I no longer need the details as a reference, as in this assignment.
+
+```{r echo=TRUE}
+
+rm(LDC_details)
+
+```
+
+Now, I'll take a first look at the network
+
+```{r echo=TRUE}
+
+plot(network_statnet)
+
+```
+That's interesting, but doesn't tell me much about the network yet except that I may expect to see 2 isolates.
+
+Using tools to inspect the network data and confirm the objects created through the import script are present
+
+```{r echo=TRUE}
+
+ls()
+
+```
+ 
+I'll inspect vertices and edges using commands in both igraph and statnet
+ 
+```{r echo=TRUE}
+
+vcount(network_igraph)
+ecount(network_igraph)
+
+
+print(network_statnet) 
+```
+
+There is quite a difference between the number of edges in the igraph network (123,409) and the statnet network (3010), which leads me to believe there is something a bit off with the way the data was processed between the two network programs.
+
+Looking at more comparisons in the two network files, I can look at the network features.
+
+```{r echo=TRUE}
+
+is_bipartite(network_igraph)
+is_directed(network_igraph)
+is_weighted(network_igraph)
+
+vertex_attr_names(network_igraph)
+edge_attr_names(network_igraph)
+
+```
+
+Looking at the same features of the statnet network with the appropriate commands
+
+```{r echo=TRUE}
+
+print(network_statnet)
+
+network::list.vertex.attributes(network_statnet)
+network::list.edge.attributes(network_statnet)
+
+```
+
+Using more tools to inspect the network data:
+
+```{r echo=TRUE}
+
+#List network attributes: igraph
+
+igraph::vertex_attr_names(network_igraph)
+igraph::edge_attr_names(network_igraph)
+
+#List network attributes: statnet
+
+network::list.vertex.attributes(network_statnet)
+network::list.edge.attributes(network_statnet)
+```
+
+I want to look at specific attribute data. First using igraph
+
+```{r echo=TRUE}
+
+head(V(network_igraph)$Email)
+head(V(network_igraph)$Name)
+head(V(network_igraph)$Note)
+head(E(network_igraph)$Time)
+head(E(network_igraph)$Reciptype)
+head(E(network_igraph)$Topic)
+head(E(network_igraph)$LDC_topic)
+
+```
+
+Next, using statnet
+
+```{r echo=TRUE}
+
+head(network_statnet %v% "na")
+network_statnet %v% "vertex.names"
+head(network_statnet %e% "LDC_topic")
+head(network_statnet %e% "LDC_topic_desc")
+head(network_statnet %e% "LDC_topic_name")
+head(network_statnet %e% "na")
+head(network_statnet %e% "Reciptype")
+head(network_statnet %e% "Time")
+head(network_statnet %e% "Topic")
+
+```
+
+Clearly, there are differences in how the vertices are represented in igraph v. statnet. For example, the anonymized names are node attributes in igraph, but in statnet they are represented by numbers.
+
+Next, I want to look at the dyad census in igraph
+
+```{r echo=TRUE}
+
+igraph::dyad.census(network_igraph)
+
+```
+
+and in statnet
+
+```{r echo=TRUE}
+
+sna::dyad.census(network_statnet)
+
+```
+
+The dyad census clearly gives vastly different responses between the two programs, but I am not sure how or why they are represented so differently yet.
+
+Next I'll look at the triad census in igraph
+
+```{r echo=TRUE}
+
+igraph::triad.census(network_igraph)
+
+```
+
+and in statnet
+
+```{r echo=TRUE}
+
+sna::triad.census(network_statnet)
+
+```
+If I use the igraph data, the enron network has 184 vertices, so if I want to see if the triad census is working correctly, I want to compare the data:
+
+```{r echo=TRUE}
+
+#possible triads in network
+184*183*182/6
+
+sum(igraph::triad.census(network_igraph))
+```
+Similarly, if I use the statnet data, the enron network has 184 vertices, so if I want to see if the triad census is working correctly, I want to compare the data:
+
+```{r echo=TRUE}
+
+#possible triads in network
+184*183*182/6
+
+sum(sna::triad.census(network_statnet))
+```
+
+Now I'm getting somewhere! I don't yet know exactly how the triad census informs my interpretations fully, but I know it is accurately being represented in this area of network analysis.
+
+Looking next at the global transitivity in statnet:
+
+```{r echo=TRUE}
+
+gtrans(network_statnet)
+
+```
+Looking next at the network transitivity in igraph:
+
+```{r echo=TRUE}
+
+transitivity(network_igraph)
+
+```
+
+They are not the same, but not completely out of the realm of reasonable differences given the different algorithms each program uses.
+
+Looking next at the ego transitivity for the employee names that appeared in the header of the igraph node information, but I cannot get the command to run which would give me the local transitivity for specific nodes, for some reason I will need to take more time to explore.
+
+#transitivity(network_igraph, type="local", vids=V(network_igraph)[c("Albert Meyers", "Thomas Martin:, Andrea Ring", "Andrew Lewis", "Andy Zipper", "Jeffrey Shankman")])
+
+Howevwer, I can look at global v. average local transitivity
+
+```{r echo=TRUE}
+
+transitivity(network_igraph, type="global")
+
+transitivity(network_igraph, type="average")
+
+```
+
+This transitivity tells me that the average network transitivity is significantly higher than the global transitivity, indicating, from my still naive network knowledge, that the overall network is generally more loose, and that there is a more connected sub-network.
+
+Looking at the geodesic distance:
+
+```{r echo=TRUE}
+
+average.path.length(network_igraph,directed=T)
+
+```
+
+This tells me that on average, the path length is just over 2.
+
+Getting to look at the components of the network in igraph:
+
+```{r echo=TRUE}
+
+names(igraph::components(network_igraph))
+igraph::components(network_igraph)$no 
+igraph::components(network_igraph)$csize
+
+```
+
+It shows that there are 3 components in the network, and 182 of the 182 nodes make up the giant component with 2 isolates.
+
+
+Finally, I get my answer on isolates. 
+
+```{r echo=TRUE}
+
+isolates(network_statnet)
+
+```
+
+Since I know that the nodes are Enron employees and they are assigned numbers in the statnet network, running the isolate command tells me that employee #72 and #118 are indeed the 2 isolates viewed in the initial graphic representation of the network.
+

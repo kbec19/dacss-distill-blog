@@ -90,14 +90,15 @@ data analytics for social sciences in the wild
       <pubDate>Sun, 06 Feb 2022 00:00:00 +0000</pubDate>
     </item>
     <item>
-      <title>Networks Assignment 2</title>
+      <title>DACSS 697E Assignment 2</title>
       <dc:creator>Kristina Becvar</dc:creator>
       <link>https://www.kristinabecvar.com/posts/2022-04-03-networks</link>
-      <description>Intro Assignment for DACSS 697E course 'Social and Political Network Analysis'</description>
+      <description>Intro Blog Post Assignment for DACSS 697E course 'Social and Political Network Analysis': "Analyzing the Enron Emails Dataset From the Network Package"</description>
       <category>networks</category>
       <category>homework</category>
       <guid>https://www.kristinabecvar.com/posts/2022-04-03-networks</guid>
       <pubDate>Fri, 04 Feb 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://www.kristinabecvar.com/posts/2022-04-03-networks/networks_files/figure-html5/unnamed-chunk-10-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
       <title>Welcome to Kristina's Blog</title>
