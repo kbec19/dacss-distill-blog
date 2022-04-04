@@ -21,7 +21,7 @@ output:
 knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
 ```
 
-image: ![](Grateful-Dead-Map.png) 
+![](Grateful-Dead-Map.png) 
 
 ### Final Project
 
