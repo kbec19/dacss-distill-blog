@@ -1,7 +1,7 @@
 ---
 title: "DACSS 697E Post 1"
 description: |
-  Assignment 1 for DACSS 697E course 'Text as Data'
+  Assignment 1 for DACSS 697E Course 'Text as Data'
 categories:
   - text as data
   - homework

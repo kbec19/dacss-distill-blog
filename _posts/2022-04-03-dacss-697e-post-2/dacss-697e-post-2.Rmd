@@ -1,0 +1,247 @@
+---
+title: "DACSS 697E Post 2"
+description: |
+  Assignment 2 for DACSS 697E Course 'Text as Data'
+categories:
+  - text as data
+  - homework
+author:
+  - name: Kristina Becvar
+    url: https://www.kristinabecvar.com
+slug: kbec2022tad2
+date: 02-19-2022
+base_url: https://www.kristinabecvar.com
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+## Overview of Weeks 3 and 4
+
+### Week 3 Learning Curve in Webscraping using CSS
+
+In Week 3, working with the css selector has proven frustrating. After building confidence in using the CSS Diner tutorial, working through the colab tutorial was less empowering. First, because the SelectorGadget tool is not available to be used in Chrome when logged in to the UMass environment due to blocking of the Chrome Store. So in the tutorial, I was able to find where the "#tablepress-73" was by inspecting the page but I would not have known how to find that to import it into R unless I was given that information, so I clearly need to understand this process better.
+
+### Week 3 API Usage
+
+Week 3 included a welcome introduction to scraping data using an api, and specifically using the New York Times api was exciting given I have a research project using New York Times data that I have been conducting manually using PDF versions of the articles being used. However, I tried using the material to use a different api - one from opensecrets.org. After getting the api key, I started trying to see if I could apply some of the skills learned in the lab to search for information on lobby groups and data related to lobby groups with a focus on veteran issues. However, I ran into issues with this api, so I returned to using the New York Times api for information involving a new research topic for this week's blog. I hope to return to troubleshooting my issues with the opensecrets.org api later.
+
+### Week 4 Natural Language Processing
+
+Week 4 materials in NLP are extremely valuable and interesting to me. Unfortunately, due to learning curve issues, frustration, and the simple volume of information I am learning at once this semester, I have just scratched the surface of the NLP skills we are learning in this blog post. I look forward to developing them further as the semester goes on.
+
+### Frustration
+
+I could not get all of the demonstrative code from all of the notebook tutorials to work on my own RStudio. Specifically, I realized that simply installing Python was not enough, and through I read that I needed to install the Anaconda platform for NLP in the tutorial, I had no idea how to functionally execute this task. Given my absolute absence of knowledge of Python and anything related, this was a long day of trying to catch up with little success. After over 20 hours of messing around with various help sites and trial and error on this, I was referred to the 'spacyr' package and its' documentation by a classmate. This helped immensely, and after successfully getting the Miniconda and dependent actions completed, I was able to move forward.
+
+```{r echo=TRUE}
+
+library(httr); library(jsonlite)
+library(dplyr)
+library(quanteda)
+library(tidyverse)
+library(tidytext)
+library(cleanNLP)
+library(rvest)
+
+
+```
+
+## Work Content for Weeks 3 and 4
+
+### Trouble Using The opensecrets.org API
+
+I know from the API documentation that the Committee on Veterans' Affairs is listed with committee code "HVET" (House) as well as "SVET" (Senate). The House Armed Services committee is coded "HARM".
+
+I am looking for data from the 116th U.S. Congress, convened on January 3, 2019 and ending on January 3, 2021.
+
+So I start with "GET" and my api call for the House Committee on Veterans Affairs, but this is not working. After literally hours of troubleshooting, I realized my error was that I failed to put a (') mark at the beginning and end of my api call. It is so numbingly obvious now that I've seen it. Coding is nothing if not time consuming and absolutely aggravating. I'm beginning to feel like a real coder after the last 2 days and hours of work over a silly apostrophe! 
+
+### Anyway, Back To The Project...
+
+```{r echo=TRUE}
+
+cnlp_init_udpipe()
+
+```
+
+```{r echo=TRUE}
+
+HVET <- GET('https://www.opensecrets.org/api/?method=congCmteIndus&congno=116&indus=F10&cmte=HVET&apikey=3f183582e16c4fff025509c65828bfa4&output=json')
+
+names(HVET)
+
+```
+
+```{r echo=TRUE}
+
+#HVET_r <- fromJSON(rawToChar(HVET$content))
+#names(HVET_r) 
+#HVET_r$fault
+
+```
+
+I continue to receive errors indicating a lexical error, then an invalid apikey. I am struggling to understand why my api key is not working here. Since I cannot do through another delve into troubleshooting and understand how this api has returned different results, I will instead go back to the New York Times api and pull my own text relevant to another new project.
+
+### New York Times Article Search for last 7 days on Ukraine
+
+Finally, I can move a bit further after successfully retrieving data using my NYT api:
+
+```{r echo=TRUE}
+
+ukraine <- GET('https://api.nytimes.com/svc/search/v2/articlesearch.json?begin_date=20220213&end_date=20220220&q=ukraine&api-key=GTp3efxVZiGO75Iox9uZJ8ZTjIMjDWsM')
+
+names(ukraine)
+
+```
+
+### Now I can take the step of transforming JSON objects into R objects:
+
+```{r echo=TRUE}
+
+ukraine_r <- fromJSON(rawToChar(ukraine$content))
+names(ukraine_r) 
+
+```
+
+### And look at the response and lead paragraph headers:
+
+```{r echo=TRUE}
+
+#ukraine_r$response
+
+```
+
+```{r echo=TRUE}
+
+ukraine_r$response$docs$lead_paragraph
+
+```
+
+### And take some of the aspects of this data that are interesting to me and create a tibble:
+
+```{r echo=TRUE}
+
+ukraine_t <- as_tibble(cbind(
+          date=ukraine_r$response$docs$pub_date,
+          abstract=ukraine_r$response$docs$abstract,
+          lead=ukraine_r$response$docs$lead_paragraph)
+)
+
+ukraine_t
+```
+
+### Finally, I can utilize the cleanNLP package:
+
+```{r echo=TRUE}
+
+cnlp_init_udpipe()
+
+annotated <- cnlp_annotate(ukraine_t$lead)
+head(annotated)
+
+```
+
+### and the spacyr package:
+
+```{r echo=TRUE}
+
+library(spacyr)
+
+spacy_initialize(model="en_core_web_sm")
+ukraine_parsed <- spacy_parse(ukraine_t$lead, tag=TRUE, nounphrase=TRUE, entity=TRUE, lemma=TRUE)
+
+head(ukraine_parsed)
+```
+
+### Annotating Data
+
+```{r echo=TRUE}
+
+ukraine_anno <- left_join(annotated$document, annotated$token, by = "doc_id")
+head(ukraine_anno)
+
+```
+
+### And finally, beginning to summarize data from the text.
+
+
+```{r echo=TRUE}
+
+library(magrittr)
+
+nouns <- ukraine_anno %>% 
+  filter(upos == "NOUN") %>%
+  group_by(token) %>% 
+  summarize(count = n()) %>%
+  arrange(desc(count))
+
+adjs <- ukraine_anno %>% 
+  filter(upos == "ADJ") %>%
+  group_by(token) %>% 
+  summarize(count = n()) %>%
+  arrange(desc(count))
+
+propns <- ukraine_anno %>% 
+  filter(upos == "PROPN") %>%
+  group_by(token) %>% 
+  summarize(count = n()) %>%
+  arrange(desc(count))
+
+verbs <- ukraine_anno %>% 
+  filter(upos == "VERB") %>%
+  group_by(token) %>% 
+  summarize(count = n()) %>%
+  arrange(desc(count))
+
+head(nouns)
+head(adjs)
+head(propns)
+head(verbs)
+
+```
+
+### Clean-Up Needed
+
+The characters that carried over from the NYT api import are not easily cleaned up, though I have spent some time getting familiar with some of tools to do so. I need to spend more time getting familiar with the best options for this.
+
+### Looking For a Word
+
+I scratched the surface of the stringr function and looked at all of the lead paragraphs from the last week to see if there was any variation of the word "protest(s)". Unfortunately, I did not find any instances.
+
+```{r echo=TRUE}
+
+library(stringr)
+
+str_match(ukraine_t$lead, " [P|p]rotest[s] ")
+
+```
+
+### Creating a Wordcloud
+
+Since I had so much background work to do this week and wanted to end up creating something visually, I wanted to start with a wordcloud. Although there is a clear need to clean up the characters, I feel like I have covered a lot of ground in the last couple of weeks. I look forward to putting it together in a more purposeful way.
+
+
+```{r echo=TRUE}
+
+library(wordcloud)
+library(RColorBrewer)
+library(tm)
+
+ukraine_words <- merge(merge(merge(
+  nouns,
+  adjs, all = TRUE),
+  propns, all = TRUE),
+  verbs, all = TRUE)
+
+set.seed(1234)
+
+wordcloud(words = ukraine_words$token, freq = ukraine_words$count, min.freq = 1, max.words=200, random.order=FALSE, rot.per=0.35, colors=brewer.pal(8, "Dark2"))
+
+```
+
