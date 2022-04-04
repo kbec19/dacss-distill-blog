@@ -1,4 +1,4 @@
-name: "dacss-blog"
+name: "."
 title: "Kristina Becvar | Academic Blog"
 description: |
   My academic and transitional personal site. Course projects and some posts on issues involving 
@@ -18,7 +18,11 @@ navbar:
     - text: "Blog"
       href: blog.html
     - text: "Projects"
-      href: projects.html
+      menu:
+        - text: "Project List"
+          href: projects.html
+        _ text: "Grateful Network"
+          href: _projects/grateful-networks.html
     - text: "About"
       href: about.html
 collections:
