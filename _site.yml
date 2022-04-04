@@ -10,7 +10,7 @@ repository_url: https://github.com/kbec19/dacss-distill-blog
 theme: css/theme.css
 navbar:
   logo:
-    image: data/images/initials.png
+    image: data/images/square-profile.png
     href: https://www.kristinabecvar.com
   right:
     - text: "Home"
@@ -25,6 +25,7 @@ navbar:
           href: _projects/grateful-networks.html
     - text: "About"
       href: about.html
+  source_url: true
 collections:
   posts:
     share: [twitter, linkedin]
