@@ -8,8 +8,7 @@ date: 2022-04-05
 slug: grateful
 base_url: https://www.kristinabecvar.com
 output:
-  postcards::jolla
-site: distill::distill_website 
+  distill::distill_article
 ---
 
 
