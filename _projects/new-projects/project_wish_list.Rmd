@@ -1,0 +1,23 @@
+---
+title: "Future Research"
+description: |
+  Proposals for Research and Data Projects 
+image: "projects.png"
+links:
+  - label: Email
+    url: "mailto: kbecvar@umass.edu"
+output:
+  postcards::jolla
+site: distill::distill_website  
+---
+
+
+If you are interested in collaborating on these projects, please send me an email to get the conversation started!
+
+### Veteran Narratives
+
+[Click here](data/pdfs/Veteran Narratives Research Proposal.pdf){target="_blank"}. to review my draft proposal on study involving combat veteran narratives and cooperative peace building in former combat zones.
+
+
+
+

@@ -1,5 +1,5 @@
 ---
-title: "List of Projects"
+title: "Projects"
 site: distill::distill_website
 listing: projects
 ---
