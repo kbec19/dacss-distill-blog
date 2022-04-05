@@ -20,7 +20,7 @@ navbar:
         - text: "Project List"
           href: projects.html
         - text: "Grateful Network"
-          href: _projects/grateful-networks.html
+          href: _projects/grateful-network.html
     - text: "About"
       href: about.html
   left:
