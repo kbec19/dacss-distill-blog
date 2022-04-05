@@ -5,6 +5,7 @@ description: |
 categories:
   - text as data
   - homework
+  - Harry Potter
 author:
   - name: Kristina Becvar
     url: https://www.kristinabecvar.com
