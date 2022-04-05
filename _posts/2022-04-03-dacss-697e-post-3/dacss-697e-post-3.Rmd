@@ -1,7 +1,7 @@
 ---
 title: "DACSS 697D Post 3"
 description: |
-  Assignment 3 for DACSS 697D Course 'Text as Data'
+  Assignment 3 for DACSS 697D Course 'Text as Data': "Harry Potter House Sorting"
 categories:
   - text as data
   - homework
@@ -13,8 +13,7 @@ slug: kbec2022tad3
 date: 03-06-2022
 base_url: https://www.kristinabecvar.com
 output:
-  distill::distill_article:
-    self_contained: false
+  distill::distill_article
 ---
 
 ```{r setup, include=FALSE}

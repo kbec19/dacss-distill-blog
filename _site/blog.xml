@@ -9,7 +9,7 @@ data analytics for social sciences in the wild
 </description>
     <image>
       <title>Kristina Becvar | Academic Blog</title>
-      <url>https://www.kristinabecvar.com/data/images/square-profile.png</url>
+      <url>https://www.kristinabecvar.com/data/images/square-profile.jpg</url>
       <link>https://www.kristinabecvar.com/</link>
     </image>
     <generator>Distill</generator>
@@ -40,12 +40,12 @@ data analytics for social sciences in the wild
       <title>DACSS 697D Post 4</title>
       <dc:creator>Kristina Becvar</dc:creator>
       <link>https://www.kristinabecvar.com/posts/2022-04-03-dacss-697e-post-4</link>
-      <description>Assignment 4 for DACSS 697D Course 'Text as Data'</description>
+      <description>Assignment 4 for DACSS 697D Course 'Text as Data': "Preprocessing"</description>
       <category>text as data</category>
       <category>homework</category>
       <guid>https://www.kristinabecvar.com/posts/2022-04-03-dacss-697e-post-4</guid>
       <pubDate>Thu, 31 Mar 2022 00:00:00 +0000</pubDate>
-      <media:content url="https://www.kristinabecvar.com/posts/2022-04-03-dacss-697e-post-4/dacss-697e-post-4_files/figure-html5/unnamed-chunk-12-1.png" medium="image" type="image/png" width="1248" height="768"/>
+      <media:content url="https://www.kristinabecvar.com/posts/2022-04-03-dacss-697e-post-4/distill-preview.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
       <title>DACSS 697E Assignment 6</title>
@@ -109,7 +109,7 @@ data analytics for social sciences in the wild
       <title>DACSS 697D Post 3</title>
       <dc:creator>Kristina Becvar</dc:creator>
       <link>https://www.kristinabecvar.com/posts/2022-04-03-dacss-697e-post-3</link>
-      <description>Assignment 3 for DACSS 697D Course 'Text as Data'</description>
+      <description>Assignment 3 for DACSS 697D Course 'Text as Data': "Harry Potter House Sorting"</description>
       <category>text as data</category>
       <category>homework</category>
       <category>Harry Potter</category>
@@ -131,12 +131,12 @@ data analytics for social sciences in the wild
       <title>DACSS 697D Post 2</title>
       <dc:creator>Kristina Becvar</dc:creator>
       <link>https://www.kristinabecvar.com/posts/2022-04-03-dacss-697e-post-2</link>
-      <description>Assignment 2 for DACSS 697D Course 'Text as Data'</description>
+      <description>Assignment 2 for DACSS 697D Course 'Text as Data': "Webscraping using APIs"</description>
       <category>text as data</category>
       <category>homework</category>
       <guid>https://www.kristinabecvar.com/posts/2022-04-03-dacss-697e-post-2</guid>
       <pubDate>Sat, 19 Feb 2022 00:00:00 +0000</pubDate>
-      <media:content url="https://www.kristinabecvar.com/posts/2022-04-03-dacss-697e-post-2/dacss-697e-post-2_files/figure-html5/unnamed-chunk-15-1.png" medium="image" type="image/png" width="1248" height="768"/>
+      <media:content url="https://www.kristinabecvar.com/posts/2022-04-03-dacss-697e-post-2/distill-preview.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
       <title>DACSS 697D Post 1</title>

@@ -1,7 +1,7 @@
 ---
 title: "DACSS 697D Post 2"
 description: |
-  Assignment 2 for DACSS 697D Course 'Text as Data'
+  Assignment 2 for DACSS 697D Course 'Text as Data': "Webscraping using APIs"
 categories:
   - text as data
   - homework
@@ -12,8 +12,7 @@ slug: kbec2022tad2
 date: 02-19-2022
 base_url: https://www.kristinabecvar.com
 output:
-  distill::distill_article:
-    self_contained: false
+  distill::distill_article
 ---
 
 ```{r setup, include=FALSE}
