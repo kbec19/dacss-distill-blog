@@ -6,7 +6,6 @@ categories:
   - Grateful Network
 author: Kristina Becvar
 slug: grateful_network
-date: 2022-04-04
 base_url: https://www.kristinabecvar.com
 output:
   distill::distill_article:
@@ -49,6 +48,7 @@ gd_clean <- read.csv("gd_clean_data.csv")
 head(gd_clean)
 ```
 
+### Sources
 
 *Sources for Grateful Network Data:*
 

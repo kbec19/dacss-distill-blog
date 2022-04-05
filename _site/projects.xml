@@ -13,14 +13,7 @@ data analytics for social sciences in the wild
       <link>https://www.kristinabecvar.com/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Mon, 04 Apr 2022 00:00:00 +0000</lastBuildDate>
-    <item>
-      <title>Projects</title>
-      <link>https://www.kristinabecvar.com/projects/2022-04-04-grateful-networks</link>
-      <description>Research and Data Projects</description>
-      <guid>https://www.kristinabecvar.com/projects/2022-04-04-grateful-networks</guid>
-      <pubDate>Mon, 04 Apr 2022 00:00:00 +0000</pubDate>
-    </item>
+    <lastBuildDate>Tue, 05 Apr 2022 00:00:00 +0000</lastBuildDate>
     <item>
       <title>Grateful Network</title>
       <dc:creator>Kristina Becvar</dc:creator>
@@ -28,6 +21,13 @@ data analytics for social sciences in the wild
       <description>Ongoing network creation project representing the co-writing network of Grateful Dead songs &amp; songwriters</description>
       <category>Grateful Network</category>
       <guid>https://www.kristinabecvar.com/projects/2022-04-05-grateful-network</guid>
+      <pubDate>Tue, 05 Apr 2022 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Projects</title>
+      <link>https://www.kristinabecvar.com/projects/2022-04-04-grateful-networks</link>
+      <description>Research and Data Projects</description>
+      <guid>https://www.kristinabecvar.com/projects/2022-04-04-grateful-networks</guid>
       <pubDate>Mon, 04 Apr 2022 00:00:00 +0000</pubDate>
     </item>
   </channel>
