@@ -10,5 +10,25 @@
     "preview": {},
     "last_modified": "2022-04-04T01:11:30-05:00",
     "input_file": {}
+  },
+  {
+    "path": "projects/2022-04-05-grateful-network/",
+    "title": "Grateful Network",
+    "description": "Ongoing network creation project representing the co-writing network of Grateful Dead songs & songwriters",
+    "author": [
+      {
+        "name": "Kristina Becvar",
+        "url": {}
+      }
+    ],
+    "date": "2022-04-04",
+    "categories": [
+      "Grateful Network",
+      "networks"
+    ],
+    "contents": "\r\n\r\nData Repository\r\nTo check out the data I have put together on the network of Grateful Dead songs & songwriters, click here for the project GitHub repository. The repo is very much under construction, and contributions are welcome.\r\nAvailable Data\r\nThe data currently in the repository “_data” file consists of:\r\ngd_nodes: A 2-column list with “node.id” (simple numbering), and “name”, representing each person credited with contributing to writing an original Grateful Dead song in the database.\r\n\r\n  ï..node.id           name\r\n1          1  Eric Andersen\r\n2          2    John Barlow\r\n3          3    Bob Bralove\r\n4          4 Andrew Charles\r\n5          5    John Dawson\r\n6          6   Willie Dixon\r\n\r\ngd_songlist: A 2-column list with “song.id” (simple numbering), and “song.name”, representing each song that I have gathered as a known original Grateful Dead song in the database.\r\n\r\n  ï..song.id           song.name\r\n1          1     Alabama Getaway\r\n2          2 Alice D Millionaire\r\n3          3           Alligator\r\n4          4              Althea\r\n5          5   Attics Of My Life\r\n6          6   Believe It Or Not\r\n\r\ngd_affiliation_matrix: This is a simple affiliation matrix, 26 x 183, indicating a (0,1) matrix relationship where 0 = no relationship and 1 = a writer contributed to the corresponding song.\r\ngd_clean_data: a 4-column list with 558 observations. For this data sheet, “writer.1” and “writer.2” are non-directed relationships between songwriters, represented by their “node.id”. For a given “song.id”, there will be multiple combinations of “writer.1” and “writer.2”. The last column is “times.played”, which is how many times the corresponding “song.id” was played in live concerts (estimated, and using the default values from the Allan analysis in the source credits, for now).\r\n\r\n  ï..writer.1 writer.2 song.id           song.name times.played\r\n1           7       14       1     Alabama Getaway          141\r\n2           7       25       2 Alice D Millionaire            3\r\n3           7       15       2 Alice D Millionaire            3\r\n4           7       22       2 Alice D Millionaire            3\r\n5           7       17       2 Alice D Millionaire            3\r\n6          15        7       2 Alice D Millionaire            3\r\n\r\nSources for Grateful Network Data:\r\nAllan, Alex; Grateful Dead Lyric & Song Finder: https://whitegum.com/~acsa/intro.htm\r\nASCAP. 18 March 2022.\r\nDodd, David; The Annotated Grateful Dead Lyrics: http://artsites.ucsc.edu/gdead/agdl/\r\nSchofield, Matt; The Grateful Dead Family Discography: http://www.deaddisc.com/\r\nThis information is intended for private research only, and not for any commercial use. Original Grateful Dead songs are ©copyright Ice Nine Music\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2022-04-05T09:50:40-05:00",
+    "input_file": "grateful-network.knit.md"
   }
 ]
