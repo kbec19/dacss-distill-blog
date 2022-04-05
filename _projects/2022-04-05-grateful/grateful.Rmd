@@ -3,6 +3,9 @@ title: "Grateful Network"
 description: |
     Ongoing network creation project representing the co-writing network of Grateful Dead songs & songwriters
 image: "gd-network.png"
+categories:
+  - Grateful Dead
+  - Co-Writing Network
 author: Kristina Becvar
 date: 2022-04-05
 slug: grateful
