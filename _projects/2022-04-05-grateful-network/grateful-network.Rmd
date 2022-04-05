@@ -4,7 +4,6 @@ description: |
   Ongoing network creation project representing the co-writing network of Grateful Dead songs & songwriters
 categories:
   - Grateful Network
-  - networks
 author: Kristina Becvar
 slug: grateful_network
 date: 2022-04-04
