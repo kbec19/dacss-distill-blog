@@ -10,9 +10,6 @@ repository_url: https://github.com/kbec19/dacss-distill-blog
 theme: css/theme.css
 google_analytics: "G-8HBE170NLD"
 navbar:
-  logo:
-    image: data/images/square-profile.jpg
-    href: https://www.kristinabecvar.com
   right:
     - text: "Home"
       href: index.html

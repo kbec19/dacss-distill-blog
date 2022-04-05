@@ -654,6 +654,13 @@
               observer.observe(document.body, { childList: true });
             });
           </script>
+          <script type="text/javascript" cookie-consent="tracking" async src="https://www.googletagmanager.com/gtag/js?id=G-8HBE170NLD"></script>
+          <script type="text/javascript" cookie-consent="tracking">
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-8HBE170NLD');
+          </script>
           <!--/radix_placeholder_site_in_header-->
           
           <style type="text/css">
@@ -1006,16 +1013,30 @@
           <header class="header header--fixed" role="banner">
           <nav class="distill-site-nav distill-site-header">
           <div class="nav-left">
-          <a class="logo" href="https://www.kristinabecvar.com">
-          <img src="data/images/square_profile.jpg" alt="Logo"/>
+          <a href="index.html" class="title">Kristina Becvar | Academic Blog</a>
+          <a href="index.xml">
+          <i class="fa fa-rss" aria-hidden="true"></i>
           </a>
-          <a href="index.html" class="title">Kristina Becvar | DACSS Blog</a>
           <input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
           </div>
           <div class="nav-right">
           <a href="index.html">Home</a>
           <a href="blog.html">Blog</a>
+          <div class="nav-dropdown">
+          <button class="nav-dropbtn">
+          Projects
+           
+          <span class="down-arrow">&#x25BE;</span>
+          </button>
+          <div class="nav-dropdown-content">
+          <a href="projects.html">Project List</a>
+          <a href="_projects/grateful-networks.html">Grateful Network</a>
+          </div>
+          </div>
           <a href="about.html">About</a>
+          <a href="https://github.com/kbec19/dacss-distill-blog" aria-label="Link to source">
+          <i class="fab fa-github" aria-hidden="true"></i>
+          </a>
           <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
           </div>
           </nav>
