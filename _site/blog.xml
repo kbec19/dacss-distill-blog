@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
   <channel>
-    <title>Kristina Becvar | DACSS Blog</title>
+    <title>Kristina Becvar | Academic Blog</title>
     <link>https://www.kristinabecvar.com/</link>
     <atom:link href="https://www.kristinabecvar.com/blog.xml" rel="self" type="application/rss+xml"/>
     <description>My academic and transitional personal site. Course projects and some posts on issues involving 
 data analytics for social sciences in the wild
 </description>
     <image>
-      <title>Kristina Becvar | DACSS Blog</title>
-      <url>https://www.kristinabecvar.com/data/images/initials.png</url>
+      <title>Kristina Becvar | Academic Blog</title>
+      <url>https://www.kristinabecvar.com/data/images/square-profile.png</url>
       <link>https://www.kristinabecvar.com/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 31 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 05 Apr 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>DACSS 697D Post 5</title>
+      <dc:creator>Kristina Becvar</dc:creator>
+      <link>https://www.kristinabecvar.com/posts/2022-04-05-dacss-697d-post-5</link>
+      <description>Assignment 5 for DACSS 697D Course 'Text as Data': "Representing Texts"</description>
+      <category>text as data</category>
+      <category>homework</category>
+      <guid>https://www.kristinabecvar.com/posts/2022-04-05-dacss-697d-post-5</guid>
+      <pubDate>Tue, 05 Apr 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://www.kristinabecvar.com/posts/2022-04-05-dacss-697d-post-5/distill-preview.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>DACSS 603 Assignment 3</title>
       <dc:creator>Kristina Becvar</dc:creator>

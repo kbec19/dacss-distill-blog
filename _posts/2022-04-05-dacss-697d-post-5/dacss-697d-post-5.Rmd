@@ -1,0 +1,189 @@
+---
+title: "DACSS 697D Post 5"
+description: |
+  Assignment 5 for DACSS 697D Course 'Text as Data': "Representing Texts"
+categories:
+  - text as data
+  - homework
+author:
+  - name: Kristina Becvar
+    url: https://www.kristinabecvar.com
+date: 2022-04-05
+output:
+  distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Getting Started
+
+I have begun pulling the data I will be analyzing for my final project in the course. So far, I have pulled a collection of articles by month beginning January 2020 through December 2021 from the New York Times using their "article search" API for the search query "Afghanistan". I have not limited my search by any filter at this time. However, I have been limited in that the article search API for the New York Times does not pull the entire article; rather, I have been able to pull the abstract/summary, lead paragraph, and snippet for each article as well as the keywords, authors, sections, and url. In addition, I can get the article titles for both the print and online versions of the article.
+
+```{r include=FALSE}
+# load libraries
+library(plyr)
+library(tidytext)
+library(tidyverse)
+library(quanteda)
+library(quanteda.textplots)
+```
+
+Loading the data from my collection phase:
+
+```{r echo=TRUE}
+#load data
+load("afghanistan.articles.table.RData")
+afghanistan_lead <- read.csv("lead.paragraph.table.csv")
+afghanistan_articles <- as.data.frame(afghanistan_lead)
+```
+
+Creating a corpus from the data:
+
+```{r echo=TRUE}
+afghanistan_corpus <- corpus(afghanistan_articles)
+afghanistan_summary <- summary(afghanistan_corpus)
+head(afghanistan_corpus)
+```
+
+This time I'm going to add an indicator of the search term used for this corpus, in case I want to add more search terms in the future.
+
+```{r echo=TRUE}
+#of the search term used
+afghanistan_articles$term <- "Afghanistan"
+# add the metadata
+docvars(afghanistan_corpus, field = "term") <- afghanistan_articles$term
+```
+
+And create a dataframe of tokens:
+
+```{r echo=TRUE}
+afghanistan_tokens <- tokens(afghanistan_corpus)
+print(afghanistan_tokens)
+```
+
+Now I'll use quanteda to generate the document-feature matrix from the corpus object:
+
+```{r echo=TRUE}
+afghanistan_dfm <- dfm(tokens(afghanistan_corpus))
+afghanistan_dfm
+```
+
+This is a bit more difficult to navigate given that my data is not subdivided by chapter, rather there is an individual record for each of the 3,442 articles. Perhaps I will do some pre-processing as part of the matrix creation. Going Removing punctuation, numbers, capitalization, and stopwords as a comparison:
+
+```{r echo=TRUE}
+# create the dfm
+afghanistan_dfm <- tokens(afghanistan_corpus,
+                                    remove_punct = TRUE,
+                                    remove_numbers = TRUE) %>%
+                           dfm(tolower=TRUE) %>%
+                           dfm_remove(stopwords('english'))
+# find out a quick summary of the dfm
+afghanistan_dfm
+```
+
+With the more simplified version, I can look at the most frequent terms (features), starting with the top 20 frequent terms.
+
+```{r echo=TRUE}
+topfeatures(afghanistan_dfm, 20)
+```
+
+I would really like to be able to look at the most frequent terms by month/year/section, but have not been able to get that command to run properly yet.
+
+```{r echo=TRUE}
+#world_words <- as.vector(colSums(afghanistan_dfm) == afghanistan_dfm$section.name["World"])
+#head(colnames(afghanistan_dfm)[world_words])
+```
+
+## Looking at word frequencies
+
+```{r echo=TRUE}
+# programs often work with random initializations, yielding different outcomes.
+# we can set a standard starting point though to ensure the same output.
+set.seed(1234)
+# draw the wordcloud
+textplot_wordcloud(afghanistan_dfm, min_count = 50, random_order = FALSE)
+```
+
+Taking a look at the distribution of word frequencies, I first create a dataframe. Unfortunately, I still need to figure out how to remove the top 2 more frequent occurrences as not relevant to the analysis, likely an import failure from the NYT.
+
+```{r echo=TRUE}
+# first, we need to create a word frequency variable and the rankings
+word_counts <- as.data.frame(sort(colSums(afghanistan_dfm),dec=T))
+colnames(word_counts) <- c("Frequency")
+word_counts$Rank <- c(1:ncol(afghanistan_dfm))
+head(word_counts)
+```
+
+Until I do so, plotting the results isn't very informative.
+
+```{r echo=TRUE}
+ggplot(word_counts, mapping = aes(x = Rank, y = Frequency)) + 
+  geom_point() +
+  labs(title = "Zipf's Law", x = "Rank", y = "Frequency") + 
+  theme_bw()
+```
+
+## Perhaps I can update the dataframe to exclude those top jibberish results.
+
+```{r echo=TRUE}
+# trim based on the overall frequency (i.e., the word counts) with a max at the top "non-gibberish" term.
+smaller_dfm <- dfm_trim(afghanistan_dfm, max_termfreq = 1043)
+# trim based on the proportion of documents that the feature appears in; here, 
+# the feature needs to appear in more than 5% of documents (articles)
+smaller_dfm <- dfm_trim(smaller_dfm, min_docfreq = 0.05, docfreq_type = "prop")
+smaller_dfm
+```
+
+Now I can take a look again at the wordcloud and word frequency metrics:
+
+```{r echo=TRUE}
+# programs often work with random initializations, yielding different outcomes.
+# we can set a standard starting point though to ensure the same output.
+set.seed(1234)
+# draw the wordcloud
+textplot_wordcloud(smaller_dfm, min_count = 1, random_order = FALSE)
+```
+```{r echo=TRUE}
+# first, we need to create a word frequency variable and the rankings
+word_counts <- as.data.frame(sort(colSums(smaller_dfm),dec=T))
+colnames(word_counts) <- c("Frequency")
+word_counts$Rank <- c(1:ncol(smaller_dfm))
+word_counts
+```
+```{r echo=TRUE}
+ggplot(word_counts, mapping = aes(x = Rank, y = Frequency)) + 
+  geom_point() +
+  labs(title = "Zipf's Law", x = "Rank", y = "Frequency") + 
+  theme_bw()
+```
+
+On initial review, I have successfully reduced the sparsity from over 99$ to ~90%. But that's still quite a sparsity percentage. I could drop terms found in the updated word count list such as "one", "two" and "get", if I'm sure they are not relevant to the context of my research.
+
+## Feature Co-Occurrence Matrix
+
+I'm going to again try to exclude the jibberisy, and increase the number of articles being evaluated to represent those in more than 1% of the articles rather than 5%.
+
+Now I can take a look at this network of feature co-occurrences:
+
+```{r echo=TRUE}
+# create fcm from dfm
+smaller_fcm <- fcm(smaller_dfm)
+# check the dimensions (i.e., the number of rows and the number of columnns)
+# of the matrix we created
+dim(smaller_fcm)
+# pull the top features
+myFeatures <- names(topfeatures(smaller_fcm, 30))
+# retain only those top features as part of our matrix
+even_smaller_fcm <- fcm_select(smaller_fcm, pattern = myFeatures, selection = "keep")
+# check dimensions
+dim(even_smaller_fcm)
+# compute size weight for vertices in network
+size <- log(colSums(even_smaller_fcm))
+# create plot
+textplot_network(even_smaller_fcm, vertex_size = size / max(size) * 3)
+```
+
+I am still not confident that the models I am creating are truly able to assist me with my original project topic, but this tutorial and process has definitely expanded my knowledge of the area of representing texts through these methods.
+
