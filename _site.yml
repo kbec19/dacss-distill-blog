@@ -22,7 +22,7 @@ navbar:
       menu:
         - text: "Project List"
           href: projects.html
-        _ text: "Grateful Network"
+        - text: "Grateful Network"
           href: _projects/grateful-networks.html
     - text: "About"
       href: about.html
