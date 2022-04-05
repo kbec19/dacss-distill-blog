@@ -7,7 +7,7 @@ categories:
   - Grateful Dead
   - Co-Writing Network
 author: Kristina Becvar
-date: 2022-04-05
+date: 2022-04-02
 slug: grateful
 base_url: https://www.kristinabecvar.com
 output:
