@@ -16,11 +16,7 @@ navbar:
     - text: "Blog"
       href: blog.html
     - text: "Projects"
-      menu:
-        - text: "Project List"
-          href: projects.html
-        - text: "Grateful Network"
-          href: projects/grateful-network.html
+      href: projects.html
     - text: "About"
       href: about.html
   left:
