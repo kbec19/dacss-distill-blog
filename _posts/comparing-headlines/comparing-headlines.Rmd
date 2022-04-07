@@ -18,11 +18,11 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ```
 
-# Getting Started
+## Getting Started
 
 In my previous posts, I have used the data pulled by the New York Times "article search" API to analyze the 3,442 results of the search query "Afghanistan". The search parameters have been of the years 2020 and 2021, and my overall goal has been to analyze the articles for differences in framing and use of sources compared to the sentiment of the relevant article. However, I have been limited in that the article search API for the New York Times does not pull the entire article; rather, I have been able to pull the abstract/summary, lead paragraph, and snippet for each article as well as the keywords, authors, sections, and url. In addition, I can get the article titles for both the print and online versions of the article. That last bit is important to my next phase of research, and touches on the research conducted on the same topic in last semester's Research Design course.
 
-# New Research Path: Comparing Different Headlines
+## New Research Path: Comparing Different Headlines
 
 In that course, our research group hand coded PDF copies of articles resulting from a simple search on the websites of the New York Times and Wall Street Journal from Feburary 29, 2020 through September 30, 2021 using the term "Afghanistan withdrawal". One thing I noticed was that when loading the PDF articles into NVivo for coding, it was difficult to match the New York Times articles to the citation information in Zotero for many of the articles because the article titles did not match. I realized that in the process of saving the articles in Zotero, they were saved with a title viewable on the web version of the article; however, once the article had been preserved by using the site's "Print to PDF" function, the article title that it used as a default file name was different than the web version.
 
@@ -82,7 +82,7 @@ print_summary <- summary(print_corpus)
 head(main_summary)
 ```
 
-Now I'll add an indicator for the deadline type for later usage, if necessary. However, I cannot execute this function as the "summary" versions only return 100 obervations. I'll leave this for a follow up dicsussion.
+At this point, I would like to add an indicator for the deadline type for later usage, if necessary. However, I cannot execute this function as the "summary" versions only return 100 observations. I'll leave this for a follow up discussion.
 
 ```{r echo=TRUE}
 main_summary$type <- "Main Headline"
@@ -90,6 +90,8 @@ print_summary$type <- "Print Headline"
 #docvars(main_corpus, field = "type") <- main_summary$type
 #docvars(print_corpus, field = "type") <- print_summary$type
 ```
+
+## Tokenization
 
 For now, I'll move on to tokenization
 
