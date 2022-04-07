@@ -22,6 +22,8 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 In my previous posts, I have used the data pulled by the New York Times "article search" API to analyze the 3,442 results of the search query "Afghanistan". The search parameters have been of the years 2020 and 2021, and my overall goal has been to analyze the articles for differences in framing and use of sources compared to the sentiment of the relevant article. However, I have been limited in that the article search API for the New York Times does not pull the entire article; rather, I have been able to pull the abstract/summary, lead paragraph, and snippet for each article as well as the keywords, authors, sections, and url. In addition, I can get the article titles for both the print and online versions of the article. That last bit is important to my next phase of research, and touches on the research conducted on the same topic in last semester's Research Design course.
 
+# New Research Path: Comparing Different Headlines
+
 In that course, our research group hand coded PDF copies of articles resulting from a simple search on the websites of the New York Times and Wall Street Journal from Feburary 29, 2020 through September 30, 2021 using the term "Afghanistan withdrawal". One thing I noticed was that when loading the PDF articles into NVivo for coding, it was difficult to match the New York Times articles to the citation information in Zotero for many of the articles because the article titles did not match. I realized that in the process of saving the articles in Zotero, they were saved with a title viewable on the web version of the article; however, once the article had been preserved by using the site's "Print to PDF" function, the article title that it used as a default file name was different than the web version.
 
 Since I am somewhat limited in my research on the articles pulled by the API due to the fact that I only have the lead paragraph and not the entire article, I want to look at the differences in the fields for the "main headline" and "print headline" pulled from the API for similarity.
@@ -186,16 +188,8 @@ smaller_print_dfm <- dfm_trim(print_dfm, max_termfreq = 461)
 #smaller_print_dfm
 ```
 
-Now I can take a look at the wordcloud and updated word frequency metrics:
+Now I can take a look at the updated word frequency metrics:
 
-```{r echo=TRUE}
-# programs often work with random initializations, yielding different outcomes.
-# we can set a standard starting point though to ensure the same output.
-set.seed(1234)
-# draw the wordcloud
-textplot_wordcloud(smaller_main_dfm, min_count = 10, random_order = FALSE)
-textplot_wordcloud(smaller_print_dfm, min_count = 10, random_order = FALSE)
-```
 ```{r echo=TRUE}
 # first, we need to create a word frequency variable and the rankings
 word_counts <- as.data.frame(sort(colSums(smaller_main_dfm),dec=T))
