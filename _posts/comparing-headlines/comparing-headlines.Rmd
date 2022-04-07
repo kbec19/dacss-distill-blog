@@ -1,0 +1,288 @@
+---
+title: "DACSS 697D Post 6"
+description: |
+  Assignment 5 for DACSS 697D Course 'Text as Data': "Comparing New York Times Print v. Web Headlines"
+categories:
+  - text as data
+  - homework
+author:
+  - name: Kristina Becvar
+    url: https://www.kristinabecvar.com
+date: 2022-04-07
+output:
+  distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+
+```
+
+# Getting Started
+
+In my previous posts, I have used the data pulled by the New York Times "article search" API to analyze the 3,442 results of the search query "Afghanistan". The search parameters have been of the years 2020 and 2021, and my overall goal has been to analyze the articles for differences in framing and use of sources compared to the sentiment of the relevant article. However, I have been limited in that the article search API for the New York Times does not pull the entire article; rather, I have been able to pull the abstract/summary, lead paragraph, and snippet for each article as well as the keywords, authors, sections, and url. In addition, I can get the article titles for both the print and online versions of the article. That last bit is important to my next phase of research, and touches on the research conducted on the same topic in last semester's Research Design course.
+
+In that course, our research group hand coded PDF copies of articles resulting from a simple search on the websites of the New York Times and Wall Street Journal from Feburary 29, 2020 through September 30, 2021 using the term "Afghanistan withdrawal". One thing I noticed was that when loading the PDF articles into NVivo for coding, it was difficult to match the New York Times articles to the citation information in Zotero for many of the articles because the article titles did not match. I realized that in the process of saving the articles in Zotero, they were saved with a title viewable on the web version of the article; however, once the article had been preserved by using the site's "Print to PDF" function, the article title that it used as a default file name was different than the web version.
+
+Since I am somewhat limited in my research on the articles pulled by the API due to the fact that I only have the lead paragraph and not the entire article, I want to look at the differences in the fields for the "main headline" and "print headline" pulled from the API for similarity.
+
+```{r include=FALSE}
+# load libraries
+library(plyr)
+library(tidytext)
+library(tidyverse)
+library(quanteda)
+library(quanteda.textplots)
+library(quanteda.textmodels)
+library(dplyr)
+library(tm)
+library(textdata)
+library(spacyr)
+library(readtext)
+
+suppressWarnings(expr)
+```
+
+I'll start by loading the whole of the data from my collection phase and looking at the headlines in  more detail.
+
+```{r echo=TRUE}
+#load data
+afghanistan_articles <- read.csv("afghanistan.articles.headlines.csv")
+afghanistan_articles <- as.data.frame(afghanistan_articles)
+#create subset to analyze
+small_df <- afghanistan_articles %>%
+  select(date, section.name, news.desk, headline.main, headline.print, material)
+head(small_df)
+```
+
+I can see that there is not always a pair of headlines/titles to review; to find our how many I'll use the "complete.cases()" function. It tells me that of the 3,442 observations (articles), 1,547 of them have only one of the two headlines indicated. Here, I need to make a decision about inclusion/exclusion as part of pre-processing. I think that in making a text analysis, I'll want to leave the data in.
+
+```{r echo=TRUE, eval=FALSE}
+small_df[!complete.cases(small_df),]
+```
+
+Now I need to look at the article headlines, independently, and create a corpus.
+
+```{r echo=TRUE}
+#load individual data
+main_headlines <- read_csv("main_headlines.csv")
+print_headlines <- read_csv("print_headlines.csv")
+
+head(main_headlines)
+head(print_headlines)
+```
+
+```{r echo=TRUE}
+main_corpus <- corpus(main_headlines)
+print_corpus <- corpus(print_headlines)
+main_summary <- summary(main_corpus)
+print_summary <- summary(print_corpus)
+head(main_summary)
+```
+
+Now I'll add an indicator for the deadline type for later usage, if necessary. However, I cannot execute this function as the "summary" versions only return 100 obervations. I'll leave this for a follow up dicsussion.
+
+```{r echo=TRUE}
+main_summary$type <- "Main Headline"
+print_summary$type <- "Print Headline"
+#docvars(main_corpus, field = "type") <- main_summary$type
+#docvars(print_corpus, field = "type") <- print_summary$type
+```
+
+For now, I'll move on to tokenization
+
+```{r echo=TRUE}
+# the default breaks on white space
+main_tokens <- tokens(main_corpus)
+print(main_tokens)
+```
+```{r echo=TRUE}
+# the default breaks on white space
+print_tokens <- tokens(print_corpus)
+print(print_tokens)
+```
+This is a bit difficult to navigate given that it is clear that not all of the returned articles had a primary focus on Afghanistan, rather, many of them simply will have included the term "Afghanistan" somewhere in the article, even if it is ancillary to the topic. In addition, many of the results are news briefs with quick run downs of facts and very little in the way of context or framing.
+
+I will again do some pre-processing, removing punctuation. I do not want to remove numbers, as they may represent data on the situation in Afghanstan such as deaths, attacks, etc.
+
+```{r echo=TRUE}
+
+main_tokens <- tokens(main_corpus,
+                   remove_punct = TRUE)
+print_tokens <- tokens(print_corpus,
+                   remove_punct = TRUE)
+main_tokens
+print_tokens
+```
+
+With the data frame subset version, I can look at the most frequent terms (features), starting with the top 20 frequent terms. it's clear that the frequency of the "briefings" will skew my analysis. It's also clear that the "remove_punct()" command did not remove the top result, a symbol.
+
+```{r echo=TRUE}
+main_df <- corpus_subset(main_corpus) %>%
+    tokens(remove_punct = TRUE) %>%
+    dfm()
+topfeatures(main_df, n=20)
+
+print_df <- corpus_subset(print_corpus) %>%
+    tokens(remove_punct = TRUE) %>%
+    dfm()
+topfeatures(print_df, n=20)
+
+```
+
+Taking a look at the distribution of word frequencies, I create a data frame. Just from looking at the data frame of the main headlines, it is clear I need to also remove stop words from my analysis.
+
+```{r echo=TRUE}
+word_counts <- as.data.frame(sort(colSums(main_df),dec=T))
+colnames(word_counts) <- c("Frequency")
+word_counts$Rank <- c(1:ncol(main_df))
+head(word_counts)
+```
+
+Until I do so, analyzing the results will not be very meaningful.
+
+```{r echo=TRUE}
+main_tokens <- tokens(main_corpus)
+main_tokens <- tokens_tolower(main_tokens)
+main_tokens <- tokens_select(main_tokens, 
+                             pattern = stopwords("en"),
+                             selection = "remove")
+
+main_dfm <- dfm(main_tokens)
+
+length(main_tokens)
+print(main_tokens)
+
+print_tokens <- tokens(print_corpus)
+print_tokens <- tokens_tolower(print_tokens)
+print_tokens <- tokens_select(print_tokens, 
+                             pattern = stopwords("en"),
+                             selection = "remove")
+
+
+length(print_tokens)
+print(print_tokens)
+
+```
+
+Now I can use quanteda to generate the document-feature matrices
+
+```{r echo=TRUE}
+
+main_dfm <- dfm(main_tokens)
+main_dfm
+
+print_dfm <- dfm(print_tokens)
+print_dfm
+
+# trim based on the overall frequency (i.e., the word counts) with a max at the top "non-gibberish" term.
+smaller_main_dfm <- dfm_trim(main_dfm, max_termfreq = 1137)
+smaller_print_dfm <- dfm_trim(print_dfm, max_termfreq = 461)
+# trim based on the proportion of documents that the feature appears in; here, 
+# the feature needs to appear in more than 5% of documents (articles)
+#smaller_main_dfm <- dfm_trim(smaller_main_dfm, min_docfreq = 0.10, docfreq_type = "prop")
+#smaller_main_dfm
+#smaller_print_dfm <- dfm_trim(smaller_print_dfm, min_docfreq = 0.10, docfreq_type = "prop")
+#smaller_print_dfm
+```
+
+Now I can take a look at the wordcloud and updated word frequency metrics:
+
+```{r echo=TRUE}
+# programs often work with random initializations, yielding different outcomes.
+# we can set a standard starting point though to ensure the same output.
+set.seed(1234)
+# draw the wordcloud
+textplot_wordcloud(smaller_main_dfm, min_count = 10, random_order = FALSE)
+textplot_wordcloud(smaller_print_dfm, min_count = 10, random_order = FALSE)
+```
+```{r echo=TRUE}
+# first, we need to create a word frequency variable and the rankings
+word_counts <- as.data.frame(sort(colSums(smaller_main_dfm),dec=T))
+colnames(word_counts) <- c("Frequency")
+word_counts$Rank <- c(1:ncol(smaller_main_dfm))
+head(word_counts)
+```
+
+On initial review, I have successfully reduced the sparsity from over 99% to >90%. But that's still quite a sparsity percentage. I could drop terms found in the updated word count list that appear to still be punctuation and letters, if I'm sure they are not relevant to the context of my research. Also, rather than dropping the term "briefing", I will run this analysis again, but selecting only certain types of news desks, and excluding "briefing" types of entries.
+
+## Feature Co-Occurrence Matrix
+
+I'm going to again try to exclude the jibberish, and increase the number of articles being evaluated to represent those in more than 1% of the articles rather than 5%.
+
+Now I can take a look at this network of feature co-occurrences for the main headlines:
+
+```{r echo=TRUE}
+# create fcm from dfm
+smaller_main_fcm <- fcm(smaller_main_dfm)
+# check the dimensions (i.e., the number of rows and the number of columnns)
+# of the matrix we created
+dim(smaller_main_fcm)
+# pull the top features
+myFeatures <- names(topfeatures(smaller_main_fcm, 20))
+# retain only those top features as part of our matrix
+even_smaller_main_fcm <- fcm_select(smaller_main_fcm, pattern = myFeatures, selection = "keep")
+# check dimensions
+dim(even_smaller_main_fcm)
+# compute size weight for vertices in network
+size <- log(colSums(even_smaller_main_fcm))
+# create plot
+textplot_network(even_smaller_main_fcm, vertex_size = size / max(size) * 3)
+```
+
+and for the print headlines:
+
+```{r echo=TRUE}
+# create fcm from dfm
+smaller_print_fcm <- fcm(smaller_print_dfm)
+# check the dimensions (i.e., the number of rows and the number of columnns)
+# of the matrix we created
+dim(smaller_print_fcm)
+# pull the top features
+myFeatures <- names(topfeatures(smaller_print_fcm, 20))
+# retain only those top features as part of our matrix
+even_smaller_print_fcm <- fcm_select(smaller_print_fcm, pattern = myFeatures, selection = "keep")
+# check dimensions
+dim(even_smaller_print_fcm)
+# compute size weight for vertices in network
+size <- log(colSums(even_smaller_print_fcm))
+# create plot
+textplot_network(even_smaller_print_fcm, vertex_size = size / max(size) * 3)
+```
+
+Finally, I'm trying something new I found for pre-processing and word cloud modeling before going back to the start and using what I've learned here on the data tomorrow!
+
+```{r echo=TRUE}
+
+preprocessing = function (doc){
+  doc = gsub("[^[:alnum:]]"," ",doc)
+  #create corpus
+  corpus = Corpus(VectorSource(doc))
+  #Removal of punctuation
+  corpus = tm_map(corpus, removePunctuation)
+  #customize my stopwords
+  mystopword = "briefing"
+  #Removal of stopwords
+  corpus = tm_map(corpus, removeWords, c(stopwords("english"),mystopword))
+  #retun result
+  return(corpus)
+}
+
+main_clean = preprocessing(main_corpus)
+print_clean = preprocessing(print_corpus)
+
+set.seed(1234)
+# draw the wordcloud
+library(wordcloud)
+
+par(mfrow=c(1,2)) # 1x2 panel plot
+par(mar=c(1, 3, 1, 3)) # Set the plot margin
+par(bg="black") # set background color as black
+par(col.main="white") # set title color as white
+wordcloud(main_clean, scale=c(4,.5),min.freq=3, max.words=Inf, random.order=F, 
+          colors = brewer.pal(8, "Set3"))   
+title("Main Website Headlines")
+wordcloud(print_clean, scale=c(4,.5),min.freq=3, max.words=Inf, random.order=F, 
+          colors = brewer.pal(8, "Set3"))   
+title("Print Headlines")
+```
