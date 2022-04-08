@@ -1,0 +1,129 @@
+---
+title: "DACSS 603 Homework 4"
+description: |
+  Transformations & Logistic Regression and Final Project Status
+categories:
+  - statistics
+  - homework
+author:
+  - name: Kristina Becvar
+    url: https://www.kristinabecvar.com
+slug: dacss603hw4
+date: 2022-04-09
+output:
+  distill::distill_article:
+    toc: true
+    
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(smss)
+library(alr4)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(Hmisc)
+library(broom)
+library(ggiraphExtra)
+library(gcookbook)
+```
+
+# Part 1
+
+## Question 1
+
+*(SMSS 14.3, 14.4, merged & modified, using data file "house.selling.price.2" from smss R package)*
+
+*For the house.selling.price.2 data the tables show a correlation matrix and a model fit using four predictors of selling price. With these four predictors,*
+
+### A
+
+*For backward elimination, which variable would be deleted first? Why?*
+
+#### Answer
+
+First, I will re-create the correlation matrix and the model fit table from the question.
+
+```{r code_folding = TRUE}
+#load the data and create a data frame
+data("house.selling.price.2")
+df1a <- as_tibble(house.selling.price.2)
+#assign column names to represent variables accurately
+colnames(df1a) <- c("Price", "Size", "Beds", "Baths", "New")
+#create a correlation matrix and round to 3 decimals
+df1acorr <- cor(df1a)
+round(df1acorr, 3)
+
+#run the linear model
+lm1a <- lm(Price ~ ., data = df1a)
+tidylm1a <- tidy(lm1a, conf.int = FALSE) 
+tidylm1a %>%
+  mutate_if(is.numeric, round, 4)
+
+```
+
+### B
+
+*For forward selection, which variable would be added first? Why?*
+
+### C
+ 
+*Why do you think that BEDS has such a large P-value in the multiple regression model, even though it has a substantial correlation with PRICE?*
+
+### D
+
+*Using software with these four predictors, find the model that would be selected using each criterion:*
+
+* R2
+* Adjusted R2
+* PRESS
+* AIC
+* BIC
+
+### E
+
+*Explain which model you prefer and why.*
+
+
+## Question 2
+
+*From the documentation:*
+
+*"This data set provides measurements of the diameter, height and volume of timber in 31 felled black cherry trees. Note that the diameter (in inches) is erroneously labelled Girth in the data. It is measured at 4 ft 6 in above the ground.”*
+
+*Tree volume estimation is a big deal, especially in the lumber industry. Use the trees data to build a basic model of tree volume prediction. In particular,*
+
+### A
+
+*fit a multiple regression model with  the Volume as the outcome and Girth  and Height as the explanatory variables*
+
+### B
+
+*Run regression diagnostic plots on the model. Based on the plots, do you think any of the regression assumptions is violated?*
+
+## Question 3
+
+*In the 2000 election for U.S. president, the counting of votes in Florida was controversial. In Palm Beach County in south Florida, for example, voters used a so-called butterfly ballot. Some believe that the layout of the ballot caused some voters to cast votes for Buchanan when their intended choice was Gore.*
+
+*The data has variables for the number of votes for each candidate—Gore, Bush, and Buchanan. Run a simple linear regression model where the Buchanan vote is the outcome and the Bush vote is the explanatory variable. Produce the regression diagnostic plots. Is Palm Beach County an outlier based on the diagnostic plots? Why or why not?*
+
+# Part 2 (Course Final Project)
+
+## Question 1
+
+*What is your research question for the final project?*
+
+## Question 2
+
+*What is your hypothesis (i.e. an answer to the research question) that you want to test?*
+
+## Question 3
+
+*Present some exploratory analysis. In particular:*
+
+* Numerically summarize (e.g. with the summary() function) the variables of interest (the outcome, the explanatory variable, the control variables).
+
+* Plot the relationships between key variables. You can do this any way you want, but one straightforward way of doing this would be with the pairs() function or other scatter plots / box plots. Interpret what you see.
+
