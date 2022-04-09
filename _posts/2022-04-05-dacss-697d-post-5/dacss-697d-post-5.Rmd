@@ -163,7 +163,7 @@ On initial review, I have successfully reduced the sparsity from over 99$ to ~90
 
 ## Feature Co-Occurrence Matrix
 
-I'm going to again try to exclude the jibberisy, and increase the number of articles being evaluated to represent those in more than 1% of the articles rather than 5%.
+I'm going to again try to exclude the jibberish, and increase the number of articles being evaluated to represent those in more than 1% of the articles rather than 5%.
 
 Now I can take a look at this network of feature co-occurrences:
 

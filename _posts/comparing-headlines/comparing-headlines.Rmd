@@ -1,7 +1,7 @@
 ---
 title: "DACSS 697D Post 6"
 description: |
-  Assignment 5 for DACSS 697D Course 'Text as Data': "Comparing New York Times Print v. Web Headlines"
+  Assignment 6 for DACSS 697D Course 'Text as Data': "Comparing New York Times Print v. Web Headlines"
 categories:
   - text as data
   - homework
