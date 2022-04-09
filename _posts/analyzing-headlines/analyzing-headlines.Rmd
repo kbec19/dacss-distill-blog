@@ -1,23 +1,316 @@
 ---
-title: "Analyzing Headlines"
+title: "DACSS 697D Post 7"
 description: |
-  A short description of the post.
+  Assignment 7 for DACSS 697D Course 'Text as Data': "Analyzing Print v. Web Headlines using Dictionary Methods"
+categories:
+  - text as data
+  - homework
 author:
   - name: Kristina Becvar
     url: https://www.kristinabecvar.com
-date: 2022-04-08
+date: 2022-04-09
 output:
   distill::distill_article:
-    self_contained: false
+    toc: TRUE
 ---
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Distill is a publication format for scientific and technical writing, native to the web.
+## New Research Path: Comparing Different Headlines
 
-Learn more about using Distill at <https://rstudio.github.io/distill>.
+As I mentioned in my last post on this topic, last semester my research group hand coded PDF copies of articles resulting from a simple search on the websites of the New York Times and Wall Street Journal from Feburary 29, 2020 through September 30, 2021 using the term "Afghanistan withdrawal". One thing I noticed was that when loading the PDF articles into NVivo for coding, it was difficult to match the New York Times articles to the citation information in Zotero for many of the articles because the article titles did not match. I realized that in the process of saving the articles in Zotero, they were saved with the title viewable on the web version of the article; however, once the article had been preserved by using the site's "Print to PDF" function, the article title that it used as a default file name was different than the web version.
+
+After taking an initial look at the differences, I have cleaned the data further, and now want to look more closely at the differences in the fields for the "main headline" and "print headline" pulled from the API for similarity.
+
+## Making Choices on Inclusion of Observations
+
+In my initial look at the data, it was clear that not all of the articles had different headlines; some are the same entries, and some have "N/A" in the "print" version only, indicating they were online-only stories. Although I initially felt inclined to leave the "N/A" observations in the analysis, I removed those observations as they would not be relevant to my new research questions comparing the framing for different audiences.
+
+I also removed whole sections where the API returned an observation as there was apparently use of the word "Afghanistan" somewhere in the article/entry, but the type of entry was clearly not being represented in the headline. For example, "Obituary" entries had headlines consisting primarily of just the name of the deceased and no further information. Similarly, "Corrections" entries have headlines consisting only of the term "Corrections" and the corresponding date. Similar choices were made on the "Books", "Movies", "Theater", and "Food" sections when entries are primarily the names of the things being reviewed that may have a reference to Afghanistan somewhere in the text, but it is not relevant specifically to the withdrawal time period being analyzed.
+
+At this point, I included the entirety of the "U.S." and "World" news sections, even if the content related to Afghanistan is not readily observable.
+
+```{r include=FALSE}
+# load libraries
+library(plyr)
+library(tidytext)
+library(tidyverse)
+library(quanteda)
+library(quanteda.textplots)
+library(quanteda.textmodels)
+library(quanteda.sentiment)
+library(quanteda.dictionaries)
+library(dplyr)
+library(tm)
+library(textdata)
+library(spacyr)
+library(readtext)
+library(corrplot)
+
+suppressWarnings(expr)
+```
+
+I'll start by loading the smaller headline data in  more detail.
+
+```{r code_folding = TRUE}
+#load data
+head_main <- read.csv("main_headlines.csv")
+main_headlines <- as.data.frame(head_main)
+#turn into data frame
+head_print <- read.csv("print_headlines.csv")
+print_headlines <- as.data.frame(head_print)
+#check the headers of the new data frames
+head(main_headlines)
+head(print_headlines)
+```
+
+I want to create a corpus of each of the headline data frames for next step analysis:
+
+```{r code_folding = TRUE}
+main_corpus <- corpus(main_headlines, docid_field = "doc.id", text_field = "headline.main")
+print_corpus <- corpus(print_headlines, docid_field = "doc.id", text_field = "headline.print")
+main_summary <- summary(main_corpus)
+print_summary <- summary(print_corpus)
+head(main_summary)
+head(print_summary)
+```
 
 
+
+```{r code_folding = TRUE}
+main_summary$type <- "Main Headline"
+print_summary$type <- "Print Headline"
+#docvars(main_corpus, field = "type") <- main_summary$type
+#docvars(print_corpus, field = "type") <- print_summary$type
+```
+
+## Tokenization
+
+I finally realized how to remove the "�" symbol that has plagued me since starting working with this API by using "remove_symbols=TRUE" in addition to removing the punctuation when tokenizing:
+
+```{r code_folding = TRUE}
+main_tokens <- tokens(main_corpus,
+                   remove_punct = TRUE,
+                   remove_symbols = TRUE)
+print_tokens <- tokens(print_corpus,
+                   remove_punct = TRUE,
+                   remove_symbols = TRUE)
+main_tokens
+print_tokens
+```
+
+Now that I have been able to remove the symbols, I should be able to get a better dfm result. In addition to removing the punctuation, symbols, and stopwords, I also want to remove my new top result, "s", because the tokenization removing contractoins left many stranded "s" characters.
+
+First, for the main headlines:
+
+```{r code_folding = TRUE}
+main_tokens <- tokens(main_corpus) %>%
+  tokens(main_corpus, remove_punct = TRUE) %>%
+  tokens(main_corpus, remove_symbols = TRUE) %>%
+  tokens_remove(stopwords("english")) %>%
+  tokens_remove(c("s"))
+
+
+main_dfm <- dfm(main_tokens)
+
+length(main_tokens)
+print(main_tokens)
+```
+
+Then the print headlines:
+
+```{r echo=TRUE}
+print_tokens <- tokens(print_corpus, remove_punct = TRUE) %>%
+  tokens(print_corpus, remove_symbols = TRUE) %>%
+  tokens_remove(stopwords("english")) %>%
+  tokens_remove(c("s"))
+
+
+main_dfm <- dfm(print_tokens)
+
+length(print_tokens)
+print(print_tokens)
+```
+Now I can use quanteda to generate the document-feature matrices
+
+```{r echo=TRUE}
+main_dfm <- dfm(main_tokens)
+main_dfm
+print_dfm <- dfm(print_tokens)
+print_dfm
+
+#create a word frequency variable and the rankings
+main_counts <- as.data.frame(sort(colSums(main_dfm),dec=T))
+colnames(main_counts) <- c("Frequency")
+main_counts$Rank <- c(1:ncol(main_dfm))
+head(main_counts)
+
+print_counts <- as.data.frame(sort(colSums(print_dfm),dec=T))
+colnames(print_counts) <- c("Frequency")
+print_counts$Rank <- c(1:ncol(print_dfm))
+head(print_counts)
+```
+
+Now I can take a look at this network of feature co-occurrences for the main headlines:
+
+```{r code_folding = TRUE}
+# create fcm from dfm
+main_fcm <- fcm(main_dfm)
+# check the dimensions (i.e., the number of rows and the number of columnns)
+# of the matrix we created
+dim(main_fcm)
+# pull the top features
+myFeatures <- names(topfeatures(main_fcm, 20))
+# retain only those top features as part of our matrix
+smaller_main_fcm <- fcm_select(main_fcm, pattern = myFeatures, selection = "keep")
+# check dimensions
+dim(smaller_main_fcm)
+# compute size weight for vertices in network
+size <- log(colSums(smaller_main_fcm))
+# create plot
+textplot_network(smaller_main_fcm, vertex_size = size / max(size) * 3)
+```
+
+and for the print headlines:
+
+```{r code_folding = TRUE}
+# create fcm from dfm
+print_fcm <- fcm(print_dfm)
+# check the dimensions (i.e., the number of rows and the number of columnns)
+# of the matrix we created
+dim(print_fcm)
+# pull the top features
+myFeatures <- names(topfeatures(print_fcm, 20))
+# retain only those top features as part of our matrix
+smaller_print_fcm <- fcm_select(print_fcm, pattern = myFeatures, selection = "keep")
+# check dimensions
+dim(smaller_print_fcm)
+# compute size weight for vertices in network
+size <- log(colSums(smaller_print_fcm))
+# create plot
+textplot_network(smaller_print_fcm, vertex_size = size / max(size) * 3)
+```
+
+This brings me to where I had previously stopped in my comparison and analysis, and now that I'm able to produce a cleaner result, I'll move on to further analysis using the quanteda dictionary.
+
+## Dictionary Analysis
+
+```{r echo=TRUE}
+# convert tokens from each headline data set to DFM using the dictionary "NRC"
+main_nrc <- dfm(main_tokens) %>%
+  dfm_lookup(data_dictionary_NRC)
+print_nrc <- dfm(print_tokens) %>%
+  dfm_lookup(data_dictionary_NRC)
+
+dim(main_nrc)
+main_nrc
+dim(print_nrc)
+print_nrc
+```
+
+And use the information in a data frame to plot the output:
+
+```{r echo=TRUE}
+#for the main headlines
+df_main_nrc <- convert(main_nrc, to = "data.frame")
+df_main_nrc$polarity <- (df_main_nrc$positive - df_main_nrc$negative)/(df_main_nrc$positive + df_main_nrc$negative)
+df_main_nrc$polarity[which((df_main_nrc$positive + df_main_nrc$negative) == 0)] <- 0
+
+ggplot(df_main_nrc) + 
+  geom_histogram(aes(x=polarity)) + 
+  theme_bw()
+#and the print headlines
+df_print_nrc <- convert(print_nrc, to = "data.frame")
+df_print_nrc$polarity <- (df_print_nrc$positive - df_print_nrc$negative)/(df_print_nrc$positive + df_print_nrc$negative)
+df_print_nrc$polarity[which((df_print_nrc$positive + df_print_nrc$negative) == 0)] <- 0
+
+ggplot(df_print_nrc) + 
+  geom_histogram(aes(x=polarity)) + 
+  theme_bw()
+```
+
+Looking at the headlines that are indicated as "1", or positive in sentiment, it's clear that this dictionary is not capturing the sentiment accurately.
+
+```{r echo=TRUE}
+head(main_corpus[which(df_main_nrc$polarity == 1)])
+head(print_corpus[which(df_print_nrc$polarity == 1)])
+```
+
+I am going to want to look at multiple dictionaries to see if one can best apply to this data. First, the LSD 2015 dictionary:
+
+```{r echo=TRUE}
+# convert main corpus to DFM using the LSD2015 dictionary
+main_lsd2015 <- dfm(tokens(main_corpus, remove_punct = TRUE),
+                              tolower = TRUE) %>%
+                          dfm_lookup(data_dictionary_LSD2015)
+# create main polarity measure for LSD2015
+main_lsd2015 <- convert(main_lsd2015, to = "data.frame")
+main_lsd2015$polarity <- (main_lsd2015$positive - main_lsd2015$negative)/(main_lsd2015$positive + main_lsd2015$negative)
+main_lsd2015$polarity[which((main_lsd2015$positive + main_lsd2015$negative) == 0)] <- 0
+# convert print corpus to DFM using the LSD2015 dictionary
+print_lsd2015 <- dfm(tokens(print_corpus, remove_punct = TRUE),
+                              tolower = TRUE) %>%
+                          dfm_lookup(data_dictionary_LSD2015)
+# create print polarity measure for LSD2015
+print_lsd2015 <- convert(print_lsd2015, to = "data.frame")
+print_lsd2015$polarity <- (print_lsd2015$positive - print_lsd2015$negative)/(print_lsd2015$positive + print_lsd2015$negative)
+print_lsd2015$polarity[which((print_lsd2015$positive + print_lsd2015$negative) == 0)] <- 0
+```
+
+and the General Inquirer dictionary:
+
+```{r echo=TRUE}
+# convert main corpus to DFM using the General Inquirer dictionary
+main_geninq <- dfm(tokens(main_corpus, remove_punct = TRUE),
+                             tolower = TRUE) %>%
+                    dfm_lookup(data_dictionary_geninqposneg)
+# create main polarity measure for GenInq
+main_geninq <- convert(main_geninq, to = "data.frame")
+main_geninq$polarity <- (main_geninq$positive - main_geninq$negative)/(main_geninq$positive + main_geninq$negative)
+main_geninq$polarity[which((main_geninq$positive + main_geninq$negative) == 0)] <- 0
+# convert print corpus to DFM using the General Inquirer dictionary
+print_geninq <- dfm(tokens(print_corpus, remove_punct = TRUE),
+                             tolower = TRUE) %>%
+                    dfm_lookup(data_dictionary_geninqposneg)
+# create print polarity measure for GenInq
+print_geninq <- convert(print_geninq, to = "data.frame")
+print_geninq$polarity <- (print_geninq$positive - print_geninq$negative)/(print_geninq$positive + print_geninq $negative)
+print_geninq$polarity[which((print_geninq$positive + print_geninq$negative) == 0)] <- 0
+```
+
+Now I'm going to be able to compare the different dictionary scores in one data frame for each type of headline.
+
+```{r code_folding = TRUE}
+# create unique names for each main headline dataframe
+colnames(df_main_nrc) <- paste("nrc", colnames(df_main_nrc), sep = "_")
+colnames(main_lsd2015) <- paste("lsd2015", colnames(main_lsd2015), sep = "_")
+colnames(main_geninq) <- paste("geninq", colnames(main_geninq), sep = "_")
+# now let's compare our estimates
+main_sent <- merge(df_main_nrc, main_lsd2015, by.x = "nrc_doc_id", by.y = "lsd2015_doc_id")
+main_sent <- merge(main_sent, main_geninq, by.x = "nrc_doc_id", by.y = "geninq_doc_id")
+head(main_sent)
+
+# create unique names for each print headline dataframe
+colnames(df_print_nrc) <- paste("nrc", colnames(df_print_nrc), sep = "_")
+colnames(print_lsd2015) <- paste("lsd2015", colnames(print_lsd2015), sep = "_")
+colnames(print_geninq) <- paste("geninq", colnames(print_geninq), sep = "_")
+# now let's compare our estimates
+print_sent <- merge(df_print_nrc, print_lsd2015, by.x = "nrc_doc_id", by.y = "lsd2015_doc_id")
+print_sent <- merge(print_sent, print_geninq, by.x = "nrc_doc_id", by.y = "geninq_doc_id")
+head(print_sent)
+```
+
+Now that we have them all in a single data frame, it's straightforward to figure out a bit about how well our different measures of polarity agree across the different approaches by looking at their correlation using the "cor()" function.
+
+```{r echo=TRUE}
+cor(main_sent$nrc_polarity, main_sent$lsd2015_polarity)
+cor(main_sent$nrc_polarity, main_sent$geninq_polarity)
+cor(main_sent$lsd2015_polarity, main_sent$geninq_polarity)
+```
+```{r echo=TRUE}
+cor(print_sent$nrc_polarity, print_sent$lsd2015_polarity)
+cor(print_sent$nrc_polarity, print_sent$geninq_polarity)
+cor(print_sent$lsd2015_polarity, print_sent$geninq_polarity)
+```
