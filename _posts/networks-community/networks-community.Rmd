@@ -1,0 +1,187 @@
+---
+title: "Networks: Community"
+description: |
+  A short description of the post.
+author:
+  - name: Kristina Becvar
+    url: https://www.kristinabecvar.com
+date: 2022-04-09
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+I am continuing to use the Grateful Dead song writing data set that I used in [previous assignments](https://www.kristinabecvar.com/blog.html#category:grateful_network){target="_blank"} to examine co-writing links and centrality. The data set consists of the links between co-writers of songs played by the Grateful Dead over their 30-year touring career that I compiled. 
+
+There are 26 songwriters that contributed to the songs played over the course of the Grateful Dead history, resulting in 26 nodes in the dataset.
+
+There are a total of 183 (updated and still under review!) unique songs played, and the varies combinations of co-writing combinations are now represented in a binary affiliation matrix.
+
+```{r echo=FALSE, results=FALSE}
+
+library(ggplot2) 
+library(readr) 
+library(igraph)
+library(ggraph)
+library(tidyverse)
+library(dplyr)
+library(corrr)
+library(magrittr)
+
+set.seed(19)
+suppressWarnings(expr)
+
+```
+
+This week I will calculate community clusters using various algorithms. First, I will get my data into an igraph network object and inspect it.
+
+```{r code_folding=TRUE}
+#import data
+gd_vertices <- read.csv("gd_nodes.csv", header=T, stringsAsFactors=F)
+gd_affiliation <- read.csv("gd_affiliation_matrix.csv", row.names = 1, header = TRUE, check.names = FALSE)
+gd_matrix <- as.matrix(gd_affiliation)
+gd_projection <- gd_matrix%*%t(gd_matrix)
+#Create igraph object
+gd_network_ig <- graph.adjacency(gd_projection,mode="undirected")
+```
+
+```{r echo=FALSE}
+set.seed(5)
+plot(gd_network_ig, loops=FALSE, displaylabels=T, vertex.cex=3, label.cex=1, edge.col=rgb(150,150,150,100, maxColorValue = 255), label.pos=5, vertex.col="lightblue")
+```
+
+## Creating a function to extract the giant component
+
+```{r code_folding=TRUE}
+giant.component <- function(graph) {
+  cl <- clusters(graph)
+  induced.subgraph(graph, which(cl$membership == which.max(cl$csize)))
+}
+```
+
+```{r echo=TRUE}
+#extract giant component
+gd_giant<-giant.component(gd_network_ig)
+```
+
+## Fast and Greedy Community
+
+```{r code_folding=TRUE}
+#load fast and greedy list
+fg_gd <- readRDS("fg_gd.RData")
+#inspect
+names(fg_gd)
+```
+
+```{r code_folding=TRUE}
+igraph::groups(fg_gd)
+```
+
+```{r code_folding=TRUE}
+#Inspect community membership vector
+fg_gd$membership
+```
+
+```{r code_folding=TRUE}
+#Compare to vertex names vector
+fg_gd$names
+```
+
+Confirming which of the 4 membership groups each songwriter is part of:
+
+```{r code_folding=TRUE}
+#Membership function
+membership(fg_gd)
+```
+
+## Plot the Network with Community Colors
+
+```{r code_folding=TRUE}
+#plot network with community coloring
+plot(fg_gd,gd_giant)
+```
+
+## Walktrap Community Detection and Plot
+
+The walktrap community detection made two communities; one community is the lone isolate, and the rest of the songwriters are in the other community.
+
+```{r code_folding=TRUE}
+#load walktrap list
+wt_gd <- readRDS("wt_gd.RData")
+#inspect
+names(wt_gd)
+#plot network with community coloring
+plot(wt_gd,gd_giant)
+```
+
+## Compare Community Partitions - Fast and Greedy and Walktrap
+
+```{r code_folding=TRUE}
+#compare community partition modularity scores
+modularity(fg_gd)
+```
+
+```{r code_folding=TRUE}
+#compare community partition modularity scores
+modularity(wt_gd)
+```
+
+## Leading Label Propagation Community Detection
+
+```{r code_folding=TRUE}
+#load leading label list
+lab_gd <- readRDS("lab_gd.RData")
+#inspect
+names(lab_gd)
+#plot network with community coloring
+plot(lab_gd,gd_giant)
+```
+
+## Edge Betweenness Community Detection
+
+```{r code_folding=TRUE}
+#load edge betweenness list
+edge_gd <- readRDS("edge_gd.RData")
+#inspect
+names(edge_gd)
+#plot network with community coloring
+plot(edge_gd,gd_giant)
+```
+
+## Eigenvector Community Detection
+
+```{r code_folding=TRUE}
+#load eigenvector list
+eigen_gd <- readRDS("eigen_gd.RData")
+#inspect
+names(eigen_gd)
+#plot network with community coloring
+plot(eigen_gd,gd_giant)
+```
+
+## Spinglass Community Detection
+
+```{r code_folding=TRUE}
+#load walktrap list
+spin_gd <- readRDS("spin_gd.RData")
+#inspect
+names(spin_gd)
+#plot network with community coloring
+plot(spin_gd,gd_giant)
+```
+
+## Adding Community Membership to Node Info
+
+I have already added each of the community membership evaluations to a dataframe so I will load that data so I can continue to evaluate it.
+
+```{r code_folding=TRUE}
+#import data
+gd_nodes <- read_csv("giant_df.csv")
+gd_nodes
+```
+
+

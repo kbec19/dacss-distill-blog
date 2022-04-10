@@ -9,12 +9,12 @@ categories:
 author:
   - name: Kristina Becvar
     url: https://www.kristinabecvar.com
-slug: kbec2022networks5
+slug: network-roles
 date: 03-27-2022
 base_url: https://www.kristinabecvar.com
 output:
   distill::distill_article:
-    self_contained: false
+    toc: TRUE
 ---
 
 ```{r setup, include=FALSE} 

@@ -1,0 +1,44 @@
+---
+title: "DACSS 697D Post 8"
+description: |
+  Assignment 8 for DACSS 697D Course 'Text as Data': "Supervised Learning"
+categories:
+  - text as data
+  - homework
+author:
+  - name: Kristina Becvar
+    url: https://www.kristinabecvar.com
+date: 2022-04-10
+output:
+  distill::distill_article:
+    toc: TRUE
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Research Path: Comparing Different Headlines
+
+
+
+```{r include=FALSE}
+# load libraries
+library(plyr)
+library(tidytext)
+library(tidyverse)
+library(quanteda)
+library(quanteda.textplots)
+library(quanteda.textmodels)
+library(quanteda.sentiment)
+library(quanteda.dictionaries)
+library(dplyr)
+library(tm)
+library(textdata)
+library(spacyr)
+library(readtext)
+library(corrplot)
+
+suppressWarnings(expr)
+```
