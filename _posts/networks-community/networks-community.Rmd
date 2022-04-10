@@ -8,7 +8,7 @@ author:
 date: 2022-04-09
 output:
   distill::distill_article:
-    self_contained: false
+    toc: true
 ---
 
 ```{r setup, include=FALSE} 
@@ -54,7 +54,7 @@ set.seed(5)
 plot(gd_network_ig, loops=FALSE, displaylabels=T, vertex.cex=3, label.cex=1, edge.col=rgb(150,150,150,100, maxColorValue = 255), label.pos=5, vertex.col="lightblue")
 ```
 
-## Creating a function to extract the giant component
+## Creating a function to extract the giant component. Two of the functions will not evaluate unconnected graphs, so I did this step first. The one isolate node, "Bruce Hornsby", is the only songwriter who wrote only a song without collaborating with anyone, and in the fast & greedy, walktrap, and spinglass models the isolate was treated as a separate community.
 
 ```{r code_folding=TRUE}
 giant.component <- function(graph) {
@@ -107,7 +107,7 @@ plot(fg_gd,gd_giant)
 
 ## Walktrap Community Detection and Plot
 
-The walktrap community detection made two communities; one community is the lone isolate, and the rest of the songwriters are in the other community.
+The walktrap community detection originally made two communities; one community was the lone isolate, and the rest of the songwriters were in the other community. With just the giant component, there is just the one community.
 
 ```{r code_folding=TRUE}
 #load walktrap list
@@ -132,6 +132,8 @@ modularity(wt_gd)
 
 ## Leading Label Propagation Community Detection
 
+In this evaluation, each of the nodes was indicated to be in its' own community.
+
 ```{r code_folding=TRUE}
 #load leading label list
 lab_gd <- readRDS("lab_gd.RData")
@@ -142,6 +144,8 @@ plot(lab_gd,gd_giant)
 ```
 
 ## Edge Betweenness Community Detection
+
+Again, each of the nodes was indicated to be in its' own community.
 
 ```{r code_folding=TRUE}
 #load edge betweenness list
@@ -154,6 +158,8 @@ plot(edge_gd,gd_giant)
 
 ## Eigenvector Community Detection
 
+And again, each of the nodes was indicated to be in its' own community.
+
 ```{r code_folding=TRUE}
 #load eigenvector list
 eigen_gd <- readRDS("eigen_gd.RData")
@@ -164,6 +170,8 @@ plot(eigen_gd,gd_giant)
 ```
 
 ## Spinglass Community Detection
+
+This is the other result that actually gave the songwriters communities outside of one giant community or each in their individual community. 
 
 ```{r code_folding=TRUE}
 #load walktrap list
