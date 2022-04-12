@@ -9,12 +9,12 @@ categories:
 author:
   - name: Kristina Becvar
     url: https://www.kristinabecvar.com
-slug: kbec2022networks4
+slug: brokerage-betweenness
 date: 03-26-2022
 base_url: https://www.kristinabecvar.com
 output:
   distill::distill_article:
-    self_contained: false
+    toc: true
 ---
 
 ```{r setup, include=FALSE} 
@@ -22,6 +22,8 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 ![](7-30-70-GD.jpg) 
+
+## Network Details
 
 I am continuing to use the Grateful Dead song writing data set that I used in [previous assignments](https://www.kristinabecvar.com/blog.html#category:grateful_network){target="_blank"} to examine co-writing links and centrality.
 
@@ -206,7 +208,37 @@ centrality_gd%>%
 
 ```
 
-This evaluation is more difficult as the range is made up of much little less clearly defined scores, 
+This evaluation is more difficult as the range is made up of much less clearly defined scores.
+
+## Network Constraint (Burt)
+
+Constraint is a measure of the redundancy of a node’s connections. It is bound between 0 and 1, with 0 being a complete lack, and 1 being complete redundancy.
+
+```{r code_folding=TRUE}
+constraint(gd_network_ig)
+```
+
+Finally, I'm going to save all of this data into a .csv file for future analysis.
+
+```{r code_folding=TRUE}
+centrality_gd <-data.frame(id=1:vcount(gd_network_ig),
+                        name=V(gd_network_ig)$name,
+                        degree_all=igraph::degree(gd_network_ig),
+                        degree_norm=igraph::degree(gd_network_ig,normalized=T),
+                        BC_power=power_centrality(gd_network_ig),
+                        EV_cent=centr_eigen(gd_network_ig,directed = F)$vector,
+                        reflect_EV=gd_reflective*centr_eigen(gd_network_ig,directed = F)$vector,
+                        derive_EV=gd_derived*centr_eigen(gd_network_ig,directed = F)$vector,
+                        close=closeness(gd_network_ig),
+                        between=betweenness(gd_network_ig, directed=FALSE),
+                        burt=constraint(gd_network_ig))
+
+write.csv(centrality_gd, file = "centrality_df.csv")
+
+```
+
+
+
 
 *Citations:*
 
