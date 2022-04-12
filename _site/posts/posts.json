@@ -1,5 +1,26 @@
 [
   {
+    "path": "posts/protest-network-diffusion/",
+    "title": "Network Article Review",
+    "description": "The Dynamics of Protest Recruitment Through an Online Network",
+    "author": [
+      {
+        "name": "Kristina Becvar",
+        "url": "https://www.kristinabecvar.com"
+      }
+    ],
+    "date": "2022-04-11",
+    "categories": [
+      "networks",
+      "presentation",
+      "analysis"
+    ],
+    "contents": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2022-04-11T22:58:46-05:00",
+    "input_file": "protest-network-diffusion.knit.md"
+  },
+  {
     "path": "posts/dacss603hw4/",
     "title": "DACSS 603 Homework 4",
     "description": "Transformations & Logistic Regression and Final Project Status",
