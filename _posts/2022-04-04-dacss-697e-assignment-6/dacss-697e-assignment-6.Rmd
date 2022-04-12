@@ -129,7 +129,6 @@ Because I am again having an issue with using igraph and statnet in one knit doc
 #write csv for retrieval in knitting document
 #write.csv(gd_nodes, file = "gd_nodes6.csv")
 ```
-
 ```{r echo=TRUE}
 gd_nodes <- read.csv("gd_nodes6.csv")
 
@@ -138,38 +137,34 @@ head(gd_nodes)
 
 ## Structural Equivalence
 
-Creating the matrix element then taking a look at the summary using the equivalence function "sedist", the default measure of assessing the approximate structural equivalence of actors, or "complete":
+Creating the matrix element then taking a look at the summary using the equivalence function "sedist", the default measure of assessing the approximate structural equivalence of actors, or "complete".
+
+### "Complete"
 
 ```{r, code_folding=TRUE}
-
 #calculate equivalence from specified distance marix
 gd_stat_se<-equiv.clust(gd_network_stat, equiv.fun="sedist", method="hamming",mode="graph")
-
 ```
 
 ```{r, echo=TRUE}
-
 #summary of object produced by sedist()
 summary(gd_stat_se)
-
 #plot equivalence clustering
 plot(gd_stat_se,labels=gd_stat_se$glabels)
-
 ```
 
-I need to look at the other methods of clustering as well. First, "average":
+I need to look at the other methods of clustering as well. 
+
+### First, "average":
 
 ```{r code_folding=TRUE}
-
 #with average cluster.method
 gd_avg_se<-equiv.clust(gd_network_stat, equiv.fun="sedist", cluster.method="average", method="hamming",mode="graph")
-
 #plot:
 plot(gd_avg_se,labels=gd_stat_se$glabels)
-
 ```
 
-Then "single":
+### Then "single":
 
 ```{r code_folding=TRUE}
 
@@ -180,7 +175,8 @@ gd_sing_se<-equiv.clust(gd_network_stat, equiv.fun="sedist", cluster.method="sin
 plot(gd_sing_se,labels=gd_stat_se$glabels)
 
 ```
-Finally, "ward.D":
+
+### Finally, "ward.D":
 
 ```{r code_folding=TRUE}
 
@@ -198,6 +194,8 @@ It is interesting, because none of these dendograms represent fully what I *feel
 
 I understand that the number of partitions (or roles) will depend on the height at which the dendrogram is cut. Using the tutorial example, I set the height at 15 and the result is 5 clusters. Using the alternate view from the tutorial, I also set the height at 10, and identify 8 distinct clusters or roles.
 
+### Height= 15
+
 ```{r code_folding=TRUE}
 
 #plot equivalence clustering
@@ -205,6 +203,8 @@ plot(gd_stat_se,labels=gd_stat_se$glabels)
 #partition the clusters
 rect.hclust(gd_stat_se$cluster,h=15)
 ```
+
+### Height= 10
 
 ```{r code_folding=TRUE}
 
@@ -214,10 +214,11 @@ plot(gd_stat_se,labels=gd_stat_se$glabels)
 rect.hclust(gd_stat_se$cluster,h=10)
 ```
 
+### Height= 3
+
 For my own experimenting, looking at it with an even lower height ("3"), it spreads the clusters out to 16.
 
 ```{r code_folding=TRUE}
-
 #plot equivalence clustering
 plot(gd_stat_se,labels=gd_stat_se$glabels)
 #partition the clusters
@@ -228,10 +229,9 @@ rect.hclust(gd_stat_se$cluster,h=3)
 
 Inspecting the goodness of fit of the partitions that result from the clustering steps above using blockmodeling to try and get a better sense of how well the partitioning worked. Using the blockmodel command in statnet and specifying "k=x" means that "x" will indicate how many partitions to create, and "h=x" means that "x" will indicate the height to cut the dendogram.
 
-First, a 2-partition blockmodel:
+### First, a 2-partition blockmodel:
 
 ```{r code_folding=TRUE}
-
 #blockmodel and select partitions
 blk_mod<-blockmodel(gd_network_stat,gd_stat_se,k=2)
 #print blockmodel object
@@ -239,7 +239,6 @@ blk_mod
 ```
 
 ```{r code_folding=TRUE}
-
 plot.block<-function(x=blk_mod, main=NULL, cex.lab=1){
   plot.sociomatrix(x$blocked.data, labels=list(x$plabels,x$plabels),
                    main=main, drawlines = FALSE, cex.lab=cex.lab)
@@ -247,17 +246,12 @@ plot.block<-function(x=blk_mod, main=NULL, cex.lab=1){
                                      x$block.membership[j-1]) 
     abline(v = j - 0.5, h = j - 0.5, lty = 3, xpd=FALSE)
 }
-
-
 plot.block(blk_mod,main="Grateful Dead Songwriting: 2 Partitions", cex.lab=.4)
-
-
 ```
 
-And a 5-partition blockmodel:
+### And a 5-partition blockmodel:
 
 ```{r code_folding=TRUE}
-
 #blockmodel and select partitions
 blk_mod2<-blockmodel(gd_network_stat,gd_stat_se,k=5)
 #print blockmodel object
@@ -278,28 +272,24 @@ blk_mod3<-blockmodel(gd_network_stat,gd_stat_se,k=5)
 
 ```{r code_folding=TRUE}
 
+detach("package:igraph", unload=TRUE)
 #plot network using "role" to color nodes: statnet
-#GGally::ggnet2(gd_network_stat,
-               #node.color="role", 
-               #node.size=degree(gd_network_stat),
-               #node.label = "vertex.names",
-               #node.alpha = .3)
+GGally::ggnet2(gd_network_stat,
+               node.color="role", 
+               node.size=degree(gd_network_stat),
+               node.label = "vertex.names",
+               node.alpha = .3)
 
-knitr::include_graphics("photo9.png") 
-
-
-
+#knitr::include_graphics("photo9.png") 
 ```
 
 ```{r code_folding=TRUE}
+library(igraph)
 
 V(gd_network_ig)$role<-blk_mod3$block.membership[match(V(gd_network_ig)$name,blk_mod3$plabels)]
 
 #plot network using "role" to color nodes: igraph
-plot.igraph(gd_network_ig, 
-            vertex.color=V(gd_network_ig)$role,
-            vertex.size=2+(igraph::degree(gd_network_ig)*8))
-
+plot(gd_network_ig, layout=layout_with_kk, vertex.color=V(gd_network_ig)$role)
 ```
 
 ## Centrality by Network Role
@@ -358,13 +348,17 @@ blk_mod$block.model
 plot.block(blk_mod,main="Grateful Dead Songwriting, Concor 4 Partitions", cex.lab=.5)
 #assign block membership to vertex attribute
 gd_network_stat%v%"role"<-blks$block[match(gd_network_stat%v%"vertex.names",blks$vertex)]
-#plot network using "role" to color nodes
-#GGally::ggnet2(gd_network_stat,
-               #node.color="role", 
-               #node.size=degree(gd_network_stat),
-               #node.label = "vertex.names",
-               #node.alpha = .6)
+```
 
+
+```{r echo=TRUE}
+detach("package:igraph", unload=TRUE)
+#plot network using "role" to color nodes
+GGally::ggnet2(gd_network_stat,
+               node.color="role", 
+               node.size=degree(gd_network_stat),
+               node.label = "vertex.names",
+               node.alpha = .6)
 ```
 
 Finally, I want to look at the "optimized" 5 partition model, which in the end seems to represent the network most intuitively of the models I've explored so far.
