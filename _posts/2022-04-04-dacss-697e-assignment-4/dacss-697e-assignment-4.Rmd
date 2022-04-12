@@ -9,12 +9,12 @@ categories:
 author:
   - name: Kristina Becvar
     url: https://www.kristinabecvar.com
-slug: kbec2022networks3
+slug: status-centrality
 date: 03-25-2022
 base_url: https://www.kristinabecvar.com
 output:
   distill::distill_article:
-    self_contained: false
+    toc: true
 ---
 
 ```{r setup, include=FALSE} 
@@ -23,7 +23,9 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ![](gd_1970.png) 
 
-I am continuing to use the Grateful Dead song writing data set that I used in assignment 3 to examine co-writing links and centrality.
+## Network Details
+
+I am continuing to use the Grateful Dead song writing data set that I am using in [this series of posts](https://www.kristinabecvar.com/blog.html#category:grateful_network){target="_blank"} to examine co-writing links and centrality.
 
 The data set consists of the links between co-writers of songs played by the Grateful Dead over their 30-year touring career that I compiled. 
 
@@ -48,52 +50,48 @@ suppressWarnings(expr)
 
 ```
 
+### Affiliation Matrix
+
 Loading the dataset and creating the network to begin this assignment:
 
-```{r echo=TRUE}
-
+```{r code_folding=TRUE}
 gd_vertices <- read.csv("gd_nodes.csv", header=T, stringsAsFactors=F)
 gd_affiliation <- read.csv("gd_affiliation_matrix.csv", row.names = 1, header = TRUE, check.names = FALSE)
 gd_matrix <- as.matrix(gd_affiliation)
-
 ```
 
 Inspecting the first 8 columns of the data structure in the affiliation matrix format: 
 
-```{r echo=TRUE}
-
+```{r code_folding=TRUE}
 dim(gd_matrix)
 gd_matrix[1:10, 1:4]
-
 ```
+
+### Bipartite Projection
 
 Now I can create the single mode network and examine the bipartite projection. After converting the matrix to a square adjacency matrix, I can look at the full matrix.
 
 I can also call the adjacency matrix count for co-writing incidences between certain songwriters, such as between writing partners Jerry Garcia and Robert Hunter and between John Barlow and Bob Weir.
 
-```{r echo=TRUE}
-
+```{r code_folding=TRUE}
 gd_projection <- gd_matrix%*%t(gd_matrix)
 dim(gd_projection)
 gd_projection[1:10, 1:4]
 gd_projection["Jerry Garcia", "Robert Hunter"]
 gd_projection["John Barlow", "Bob Weir"]
-
 ```
 
-Now I will use this adjacency matrix to create both igraph and statnet network objects and take a look at their resulting feature.
+### Network Creation
 
-This is a non-directed, unweighted dataset.
+Now I will use this adjacency matrix to create both igraph and statnet network objects and take a look at their resulting features. This is a non-directed, unweighted dataset.
 
-```{r echo=TRUE}
-
+```{r code_folding=TRUE}
 #Create Igraph and Statnet Objects
 
 gd_network_ig <- graph.adjacency(gd_projection,mode="undirected") #igraph object
 gd_network_stat <- network(gd_projection, directed=F, matrix.type="adjacency") #statnet object
 
 #Inspect New Objects
-
 print(gd_network_stat)
 
 igraph::vertex_attr_names(gd_network_ig)
@@ -104,13 +102,13 @@ head(V(gd_network_ig)$name)
 is_directed(gd_network_ig)
 is_weighted(gd_network_ig)
 is_bipartite(gd_network_ig)
-
-
 ```
+
+### Dyad & Triad Census
 
 Looking at the dyad/triad census info in igraph and statnet:
 
-```{r echo=TRUE}
+```{r code_folding=TRUE}
 
 igraph::dyad.census(gd_network_ig)
 igraph::triad.census(gd_network_ig)
@@ -131,10 +129,11 @@ sum(igraph::triad.census(gd_network_ig))
 
 ```
 
-Looking next at the global v. average local transitivity of the network in igraph and confirming global transitivity in statnet:
+### Transitivity
 
-```{r echo=TRUE}
+Looking next at the global v. average local transitivity of the network in igraph and confirming global transitivity in statnet and igraph (Statnet and igraph network transitivity = 0.5241, igraph local transitivity = 0.7756)
 
+```{r code_folding=TRUE}
 #network transitivity: statnet
 gtrans(gd_network_stat)
 
@@ -142,22 +141,23 @@ gtrans(gd_network_stat)
 transitivity(gd_network_ig, type="global")
 #average local clustering coefficient: igraph
 transitivity(gd_network_ig, type="average")
-
 ```
 
-This transitivity tells me that the average local network transitivity is significantly higher than the global transitivity, indicating, again from my still naive network knowledge, that the overall network is generally more loose, and that there is a more connected sub-network.
+These transitivity results tells me that the average local network transitivity is significantly higher than the global transitivity, indicating, again from my still naive network knowledge, that the overall network is generally more loose, and that there is a more connected sub-network.
 
-Looking at the geodesic distance tells me that on average, I can confirm that the path length is just over 2, so on average, each node is two "stops" from each other on the geodisic path.
+### Geodesic Distance
 
-```{r echo=TRUE}
+Looking at the geodesic distance tells me that on average, I can confirm that the path length is just over 2, so on average, each node is two "stops" from each other on the geodesic path.
 
+```{r code_folding=TRUE}
 average.path.length(gd_network_ig,directed=F)
-
 ```
+
+### Components
 
 Getting a look at the components of the network comfirms that there are 2 components in the network, and 25 of the 26 nodes make up the giant component with 1 isolate.
 
-```{r echo=TRUE}
+```{r code_folding=TRUE}
 
 names(igraph::components(gd_network_ig))
 igraph::components(gd_network_ig)$no 
@@ -165,19 +165,20 @@ igraph::components(gd_network_ig)$csize
 
 ```
 
-Next I can get to looking at the network density, centrality, and centralization.
+### Density
 
 The network density measure: First with just the call "graph.density" and then with adding "loops=TRUE". In igraph, I know that its' default output assumes that loops are not included but does not remove them, which wwe had corrected with the addition of "loops=TRUE" per the course tutorials when comparing output to statnet. In this case, the statnet output is far different, so I am not sure what is happening with this aspect of the network.
 
-```{r echo=TRUE}
+```{r code_folding=TRUE}
 
 graph.density(gd_network_ig, loops=TRUE)
 
 network.density(gd_network_stat)
-
 ```
 
-The network degree measure: This gives me a clear output showing the degree of each particular node (songwriter). It is not suprising, knowing my subject matter, that Jerry Garcia is the highest degree node in this network as the practical and figurative head of the band. The other band members' degree measures are not necessarily what I expected, though. I did not anticipate that his songwriting partner, Robert Hunter, would have a lower degree than band members Phil Lesh and Bob Weir. Further, I did not anticipate that the degree measure of band member 'Pigpen' would be so high given his early death in the first years of the band's touring life.
+## Degree Centrality
+
+The network degree measure: This gives me a clear output showing the degree of each particular node (songwriter). It is not surprising, knowing my subject matter, that Jerry Garcia is the highest degree node in this network as the practical and figurative head of the band. The other band members' degree measures are not necessarily what I expected, though. I did not anticipate that his songwriting partner, Robert Hunter, would have a lower degree than band members Phil Lesh and Bob Weir. Further, I did not anticipate that the degree measure of band member 'Pigpen' would be so high given his early death in the first years of the band's touring life.
 
 ```{r code_folding=TRUE}
 
@@ -187,38 +188,44 @@ sna::degree(gd_network_stat)
 
 ```
 
-To look further I will create a dataframe in igraph first, then statnet:
+To look further I will create a dataframe in igraph first, then statnet.
+
+### Igraph
 
 ```{r code_folding=TRUE}
 
 ig_nodes<-data.frame(name=V(gd_network_ig)$name, degree=igraph::degree(gd_network_ig))
-
-ig_nodes
+head(ig_nodes)
 
 ```
+
+### Statnet
 
 ```{r code_folding=TRUE}
 
 stat_nodes<-data.frame(name=gd_network_stat%v%"vertex.names", degree=sna::degree(gd_network_stat))
-
-stat_nodes
+head(stat_nodes)
 
 ```
 
 The igraph and statnet dataframes give very different results.
 
+### Summary Statistics
+
 A quick look at the summary statistics confirms for me the minimum, maximum, median, and mean node degree data using each package.
 
-```{r echo=TRUE}
+```{r code_folding=TRUE}
 
 summary(ig_nodes)
 summary(stat_nodes)
 
 ```
 
+### Statnet v. Igraph Degree Treatment
+
 I'm taking a look at the dataframe of the degree nodes, though since it is not a directed network the in and out degrees are not measured or relevant to our network. But it is still interesting to look at how igraph and statnet handle these datasets differently.
 
-## Statnet
+#### Statnet
 
 ```{r code_folding=TRUE}
 
@@ -234,7 +241,7 @@ arrange(gd_stat_nodes, desc(totdegree))%>%slice(1:5)
 
 ```
 
-## Igraph
+#### Igraph
 
 ```{r code_folding=TRUE}
 
@@ -250,7 +257,7 @@ arrange(gd_ig_nodes, desc(degree))%>%slice(1:5)
 
 ```
 
-## Overall Eigenvector Score
+### Overall Eigenvector Score
 
 The Eigenvector centrality score for each node can be accessed by calling "vector", and I can examine the top eigenvector scores in the igraph network:
 
@@ -264,7 +271,7 @@ arrange(eigen_gd_ig[1], desc(vector))%>%slice(1:10)
 
 ```
 
-## Bonacich Power
+### Bonacich Power
 
 The Bonacich power centrality score for each node can be accessed first just using defaults, including setting the index to "1"; then, I can "rescale" so that all of the scores sum "1". 
 
@@ -301,7 +308,7 @@ totalbonpow
 
 ```
 
-Creating a dataframe summarizing all of this information and doing basic visualization on a couple of them:
+Creating a data frame summarizing all of this information and doing basic visualization on a couple of them:
 
 ```{r code_folding=TRUE}
 
@@ -315,8 +322,7 @@ gd_reflective <- ifelse(is.nan(gd_reflective),0,gd_reflective)
 #calculate derived centrality
 gd_derived <- 1-diag(as.matrix(gd_adjacency_2))/rowSums(as.matrix(gd_adjacency_2))
 gd_derived <- ifelse(is.nan(gd_derived),1,gd_derived)
-
-
+#create data frame of centrality measures
 centrality_gd <-data.frame(id=1:vcount(gd_network_ig),
                         name=V(gd_network_ig)$name,
                         degree_all=igraph::degree(gd_network_ig),
@@ -328,10 +334,11 @@ centrality_gd <-data.frame(id=1:vcount(gd_network_ig),
 
 row.names(centrality_gd)<-NULL
 centrality_gd
-
 ```
 
-```{r, echo=TRUE}
+### Graphing Centrality Scores
+
+```{r code_folding=TRUE}
 attach(centrality_gd)
 breaks<-round(vcount(gd_network_ig))
 hist(degree_all,breaks=breaks,
@@ -345,22 +352,20 @@ hist(BC_power,breaks=breaks,
      xlab="Bonacich Power Score")
 ```
 
-I can independently look at the correlations between all scores now. Using prompts from this week's tutorial, it looks that all of the variables except Bonacich power are strongly correlated, so I think I'll want to begin subsetting my network to get more meaninful interpretations.
+I can independently look at the correlations between all scores now. Using prompts from this week's tutorial, it looks that all of the variables except Bonacich power are strongly correlated, so I think I'll want to begin subsetting my network to get more meaningful interpretations.
 
-```{r, echo=TRUE}
+```{r code_folding=TRUE}
 names(centrality_gd) #Find the columns we want to run the correlation on
 cols<-c(3:8) #All except the id and name in this instance
 corMat<-cor(centrality_gd[,cols],use="complete.obs") #Specify those in the bracket
 corMat #Let's look at it, which variables are most strongly correlated?
 ```
 
-However, I will also make a pretty visualization of the correlation matrix, because this is a lot of work, and fun should be had as well!
+However, I will also make a pretty visualization of the correlation matrix, just because.
 
 ```{r message=FALSE, warning=FALSE}
 library(corrplot)
-    
 corrplot(corMat)
-
 ```
 
 *Citations:*
