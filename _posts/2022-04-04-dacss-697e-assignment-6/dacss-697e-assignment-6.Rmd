@@ -64,9 +64,11 @@ gd_network_stat <- network(gd_projection, directed=F, matrix.type="adjacency") #
 
 ```
 
-## Inspecting the Network Structure
+## Network Structure
 
-This is a non-directed, unweighted statnet object. It has two components; one large component with one isolate.
+The network is an undirected, unweighted network. It has two components; one large component with one isolate.
+
+The statnet object has a density of 0.2 and a transitivity of 0.5241.
 
 ```{r code_folding=TRUE}
 
@@ -111,7 +113,7 @@ get.brokerage<-function(net, attr="attr"){
 }
 ```
 
-Because I am again having an issue with using igraph and statnet in one knit document, I need to save my dataframe then recall it to knit.
+Because I am again having an issue with using igraph and statnet in one knit chunk, I need to save my data frame then recall it to knit.
 
 ```{r code_folding=TRUE}
 
@@ -155,7 +157,7 @@ plot(gd_stat_se,labels=gd_stat_se$glabels)
 
 I need to look at the other methods of clustering as well. 
 
-### First, "average":
+### "Average"
 
 ```{r code_folding=TRUE}
 #with average cluster.method
@@ -164,7 +166,7 @@ gd_avg_se<-equiv.clust(gd_network_stat, equiv.fun="sedist", cluster.method="aver
 plot(gd_avg_se,labels=gd_stat_se$glabels)
 ```
 
-### Then "single":
+### "Single"
 
 ```{r code_folding=TRUE}
 
@@ -176,7 +178,7 @@ plot(gd_sing_se,labels=gd_stat_se$glabels)
 
 ```
 
-### Finally, "ward.D":
+### "Ward.D"
 
 ```{r code_folding=TRUE}
 
@@ -229,7 +231,7 @@ rect.hclust(gd_stat_se$cluster,h=3)
 
 Inspecting the goodness of fit of the partitions that result from the clustering steps above using blockmodeling to try and get a better sense of how well the partitioning worked. Using the blockmodel command in statnet and specifying "k=x" means that "x" will indicate how many partitions to create, and "h=x" means that "x" will indicate the height to cut the dendogram.
 
-### First, a 2-partition blockmodel:
+### 2-partition blockmodel
 
 ```{r code_folding=TRUE}
 #blockmodel and select partitions
@@ -249,7 +251,7 @@ plot.block<-function(x=blk_mod, main=NULL, cex.lab=1){
 plot.block(blk_mod,main="Grateful Dead Songwriting: 2 Partitions", cex.lab=.4)
 ```
 
-### And a 5-partition blockmodel:
+### 5-partition blockmodel
 
 ```{r code_folding=TRUE}
 #blockmodel and select partitions
@@ -262,7 +264,7 @@ plot.block(blk_mod2,main="Grateful Dead Songwriting, 5 Partitions", cex.lab=.5)
 
 ## Plotting Network Roles
 
-To do this, I will assign "block.membership" as a vertex attribute to my 5-partition blockmodel, then use the role attribute to change the color of plotted nodes in a network plot. I am using this part of the tutorial as well because graphics are always a fun thing to do in the middile of learning new concepts and coding all day! I will definitely want to investigate another aspect of this data and graphing options more later because the results show me that this network is not exactly graphing in a familiar way.
+To do this, I will assign "block.membership" as a vertex attribute to my 5-partition blockmodel, then use the role attribute to change the color of plotted nodes in a network plot. I am using this part of the tutorial as well because graphics are always a fun thing to do in the middle of learning new concepts and coding all day! I will definitely want to investigate another aspect of this data and graphing options more later because the results show me that this network is not exactly graphing in a familiar way.
 
 ```{r code_folding=TRUE}
 
@@ -270,18 +272,11 @@ blk_mod3<-blockmodel(gd_network_stat,gd_stat_se,k=5)
 
 ```
 
-```{r code_folding=TRUE}
+### Statnet
 
-detach("package:igraph", unload=TRUE)
-#plot network using "role" to color nodes: statnet
-GGally::ggnet2(gd_network_stat,
-               node.color="role", 
-               node.size=degree(gd_network_stat),
-               node.label = "vertex.names",
-               node.alpha = .3)
+![](photo9.png) 
 
-#knitr::include_graphics("photo9.png") 
-```
+### Igraph
 
 ```{r code_folding=TRUE}
 library(igraph)
@@ -299,31 +294,16 @@ I am attempting to use the "gd_nodes" table created earlier and adding the role 
 Yet again, I am finding that the code used for this process using both igraph and statnet worked until I knit the document, but is giving me trouble at that point, so I will revisit this process. 
 
 ```{r code_folding=TRUE}
-
+library(igraph)
 #attach role to .nodes dataframe
-#gd_new_nodes <- gd_nodes$role<-V(gd_network_ig)$role
-
-#gd_new_nodes<-data.frame(writer=gd_network_ig%v%"vertex.names",
-        #degree=sna::degree(gd_network_ig,gmode="graph"),
-        #bonpow=bonpow(gd_network_stat),
-        #betweenness=betweenness(gd_network_stat, gmode="graph"),
-        #close=sna::closeness(gd_network_stat, gmode="graph"),
-        #constraint=constraint(gd_network_ig),
-        #role=V(gd_network_ig)$role)
-
-#summarize various network statistics by role
-#gd_new_nodes%>%
-  #group_by(role)%>%
-  #summarise_all(mean, na.rm=TRUE)%>%
-  #as.matrix()%>%
-  #print(digits=2)
-
+gd_new_nodes <- gd_nodes$role<-V(gd_network_ig)$role
 ```
+
+## ConcoR
 
 Utilizing the "concoR" package
 
 ```{r code_folding=TRUE}
-
 library(concoR)
 #select partitions with concor
 concoR::concor_hca(list(gd_projection), p=2)
@@ -332,46 +312,35 @@ concoR::concor_hca(list(gd_projection), p=2)
 Taking this output and plotting it as I tried earlier, I get a better visualization of the blockmodeling:
 
 ```{r echo=FALSE}
-
 #select partitions with concor
 blks<-concoR::concor_hca(list(gd_projection), p=2)
 #blockmodel with concor
 blk_mod <- blockmodel(gd_network_stat, blks$block, plabels=blks$vertex) 
 #print blockmodel object
 blk_mod$block.model
-
 ```
 
 ```{r code_folding=TRUE}
-
 #plot blockmodel partitions
 plot.block(blk_mod,main="Grateful Dead Songwriting, Concor 4 Partitions", cex.lab=.5)
-#assign block membership to vertex attribute
-gd_network_stat%v%"role"<-blks$block[match(gd_network_stat%v%"vertex.names",blks$vertex)]
 ```
 
-
-```{r echo=TRUE}
-detach("package:igraph", unload=TRUE)
-#plot network using "role" to color nodes
-GGally::ggnet2(gd_network_stat,
-               node.color="role", 
-               node.size=degree(gd_network_stat),
-               node.label = "vertex.names",
-               node.alpha = .6)
-```
+## Best model
 
 Finally, I want to look at the "optimized" 5 partition model, which in the end seems to represent the network most intuitively of the models I've explored so far.
 
 ```{r echo=FALSE, eval=FALSE}
-
 #select partitions with optimization
 blks<-blockmodeling::optRandomParC(gd_projection, k=5, rep=10, approaches="ss", blocks="com")
 #blockmodel with optimized partition
 blk_mod <- blockmodel(gd_projection, blks$best$best1$clu, plabels=rownames(gd_projection)) 
 #print blockmodel object
 blk_mod$block.model
+```
+
+```{r code_folding=TRUE}
 #plot blockmodel partitions
+plot.block(blk_mod,main="Grateful Dead Songwriting, Optimized 5 Partitions", cex.lab=.5)
 ```
 
 I have more evaluations to do but I continue to struggle with using igraph and statnet in the same .rmd file, so I will revisit this process in future posts.
