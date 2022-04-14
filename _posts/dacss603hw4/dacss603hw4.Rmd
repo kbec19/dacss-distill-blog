@@ -9,7 +9,7 @@ author:
   - name: Kristina Becvar
     url: https://www.kristinabecvar.com
 slug: dacss603hw4
-date: 2022-04-09
+date: 2022-04-13
 output:
   distill::distill_article:
     toc: true
@@ -24,10 +24,7 @@ library(alr4)
 library(tidyverse)
 library(dplyr)
 library(ggplot2)
-library(Hmisc)
 library(broom)
-library(ggiraphExtra)
-library(gcookbook)
 ```
 
 # Part 1
@@ -38,54 +35,127 @@ library(gcookbook)
 
 *For the house.selling.price.2 data the tables show a correlation matrix and a model fit using four predictors of selling price. With these four predictors,*
 
-### A
-
-*For backward elimination, which variable would be deleted first? Why?*
-
-#### Answer
+## Answer
 
 First, I will re-create the correlation matrix and the model fit table from the question.
 
 ```{r code_folding = TRUE}
 #load the data and create a data frame
 data("house.selling.price.2")
-df1a <- as_tibble(house.selling.price.2)
+df1 <- as_tibble(house.selling.price.2)
 #assign column names to represent variables accurately
-colnames(df1a) <- c("Price", "Size", "Beds", "Baths", "New")
+colnames(df1) <- c("Price", "Size", "Beds", "Baths", "New")
 #create a correlation matrix and round to 3 decimals
-df1acorr <- cor(df1a)
-round(df1acorr, 3)
+df1corr <- cor(df1)
+round(df1corr, 3)
 
 #run the linear model
-lm1a <- lm(Price ~ ., data = df1a)
-tidylm1a <- tidy(lm1a, conf.int = FALSE) 
-tidylm1a %>%
-  mutate_if(is.numeric, round, 4)
-
+lm1 <- lm(Price ~ ., data = df1)
+#create a data frame from the model results
+tidylm1 <- tidy(lm1, conf.int = FALSE) 
+#round the results to 3 decimal points
+tidylm1 %>%
+  mutate_if(is.numeric, round, 3)
 ```
+
+### A
+
+*For backward elimination, which variable would be deleted first? Why?*
+
+For backward elimination, the first variable to be deleted would be the "Beds" variable. The p-value of 0.467 is the largest value of the options, meaning it is the least signficant variable.  
 
 ### B
 
 *For forward selection, which variable would be added first? Why?*
 
+For forward selection, the first variable to be added would be "Size". Both "Size" and "New" have p-values < 0.001. However, when looking at the correlation matrix, the "Size" variable is more positively correlated with the "Price" variable by a significant difference.
+
 ### C
  
 *Why do you think that BEDS has such a large P-value in the multiple regression model, even though it has a substantial correlation with PRICE?*
+
+The "Beds" variable has a large p-value despite a substantial correlation with "Price" (0.590) most likely because there is nothing about the correlation that adds something to the model that is not already represented by another variable. Since the "Beds" variable is even more correlated (0.669) with the "Size" variable than "Price", the number of bedrooms and size of the home may be redundant.
 
 ### D
 
 *Using software with these four predictors, find the model that would be selected using each criterion:*
 
-* R2
-* Adjusted R2
-* PRESS
-* AIC
-* BIC
+* *R2*
+* *Adjusted R2*
+
+For "R2" and "Adjusted R2", I will use the "summary" function on my "lm()" call.
+
+```{r code_folding = TRUE}
+#use the "summary()" functionl
+summary(lm1)
+```
+
+* *PRESS*
+
+For "PRESS", I will create the "PRESS" function and run it on my "lm()" call.
+
+```{r code_folding = TRUE}
+#create the "PRESS" function
+PRESS <- function(linear.model) {
+    pr <- residuals(linear.model)/(1 - lm.influence(linear.model)$hat)
+    sum(pr^2)
+}
+#use the "PRESS()" function
+PRESS(lm1)
+```
+
+* *AIC*
+
+For "AIC", I will use the "AIC" function on my "lm()" call.
+
+```{r code_folding = TRUE}
+#use the "AIC" function 
+AIC(lm1)
+```
+
+* *BIC*
+
+For the "R2" and "Adjusted R2", I will use the "summary" function on my "lm()" call.
+
+```{r code_folding = TRUE}
+#use the "summary()" function 
+BIC(lm1)
+```
 
 ### E
 
 *Explain which model you prefer and why.*
 
+To develop a response, I want to look at the models with different predictors. Specifically, I'll look at the house data and exclude the "Beds" variable.
+
+```{r code_folding = TRUE}
+#run the new linear model
+lm1b <- lm(Price ~ . -Beds, data = df1)
+#create a data frame from the model results
+tidylm1b <- tidy(lm1b, conf.int = FALSE) 
+#round the results to 3 decimal points
+tidylm1b %>%
+  mutate_if(is.numeric, round, 3)
+```
+
+```{r code_folding = TRUE}
+#use the "summary()" function 
+summary(lm1b)
+```
+```{r code_folding = TRUE}
+#use the "PRESS()" function 
+PRESS(lm1b)
+```
+
+```{r code_folding = TRUE}
+#use the "AIC" function 
+AIC(lm1b)
+```
+
+```{r code_folding = TRUE}
+#use the "BIC" function 
+BIC(lm1b)
+```
 
 ## Question 2
 
@@ -93,21 +163,96 @@ tidylm1a %>%
 
 *"This data set provides measurements of the diameter, height and volume of timber in 31 felled black cherry trees. Note that the diameter (in inches) is erroneously labelled Girth in the data. It is measured at 4 ft 6 in above the ground.”*
 
-*Tree volume estimation is a big deal, especially in the lumber industry. Use the trees data to build a basic model of tree volume prediction. In particular,*
+*Tree volume estimation is a big deal, especially in the lumber industry. Use the trees data to build a basic model of tree volume prediction.*
+
+## Answer
+
+First, I will import the data from base R:
+
+```{r code_folding = TRUE}
+#load the data and create a data frame
+data("trees")
+df2 <- as_tibble(trees)
+#assign column names to represent variables accurately
+colnames(df2) <- c("Diameter", "Height", "Volume")
+head(df2)
+#create a correlation matrix and round to 3 decimals
+df2corr <- cor(df2)
+round(df2corr, 3)
+```
 
 ### A
 
-*fit a multiple regression model with  the Volume as the outcome and Girth  and Height as the explanatory variables*
+*Fit a multiple regression model with the Volume as the outcome and Girth (Diameter) and Height as the explanatory variables*
+
+```{r code_folding = TRUE}
+#run the linear model
+lm2 <- lm(Volume ~ ., data = df2)
+#create a data frame from the model results
+tidylm2 <- tidy(lm2, conf.int = FALSE) 
+#round the results to 3 decimal points
+tidylm2 %>%
+  mutate_if(is.numeric, round, 3)
+```
 
 ### B
 
-*Run regression diagnostic plots on the model. Based on the plots, do you think any of the regression assumptions is violated?*
+*Run regression diagnostic plots on the model.* 
+
+```{r code_folding = TRUE}
+par(mfrow = c(2,2))
+plot(lm2)
+```
+
+### C
+
+*Based on the plots, do you think any of the regression assumptions is violated?*
 
 ## Question 3
 
 *In the 2000 election for U.S. president, the counting of votes in Florida was controversial. In Palm Beach County in south Florida, for example, voters used a so-called butterfly ballot. Some believe that the layout of the ballot caused some voters to cast votes for Buchanan when their intended choice was Gore.*
 
 *The data has variables for the number of votes for each candidate—Gore, Bush, and Buchanan. Run a simple linear regression model where the Buchanan vote is the outcome and the Bush vote is the explanatory variable. Produce the regression diagnostic plots. Is Palm Beach County an outlier based on the diagnostic plots? Why or why not?*
+
+## Answer
+
+First, I will import the data from the "alr" package:
+
+```{r code_folding = TRUE}
+#load the data and create a data frame
+data("florida")
+df3 <- as.data.frame(florida)
+head(df3)
+```
+
+Running a simple linear regression model where the Buchanan vote is the outcome and the Bush vote is the explanatory variable:
+
+```{r code_folding = TRUE}
+#run the linear model
+lm3 <- lm(Buchanan ~ Bush, data = df3)
+options(scipen = 999)
+summary(lm3)
+```
+
+Produce the regression diagnostic plots. Is Palm Beach County an outlier based on the diagnostic plots? Why or why not?
+
+```{r code_folding = TRUE}
+#produce the regression diagnostic plots
+par(mfrow = c(2,3)); plot(lm3, which = 1:6)
+```
+
+Reviewing the diagnostic plots, Palm Beach County is definitely an outlier.
+
+```{r}
+model.diag.metrics <- augment(lm3)
+head(model.diag.metrics)
+```
+
+```{r}
+model.diag.metrics %>%
+  top_n(3, wt = .cooksd)
+```
+
 
 # Part 2 (Course Final Project)
 
