@@ -64,8 +64,17 @@ gd_network_ig <- graph.adjacency(gd_projection,mode="undirected")
 ### Basic Visualization
 
 ```{r echo=FALSE}
-set.seed(5)
-plot(gd_network_ig, loops=FALSE, displaylabels=T, vertex.cex=3, label.cex=1, edge.col=rgb(150,150,150,100, maxColorValue = 255), label.pos=5, vertex.col="lightblue")
+set.seed(11)
+net <- simplify(gd_network_ig, ed)
+plot(gd_network_ig, edge.size=.4, 
+     edge.curved=.1,
+     vertex.color="purple",
+     vertex.frame.color="#555555",
+     vertex.label.color="black", 
+     vertex.label.cex=.7,
+     vertex.label.dist=1,
+     vertex.size=7,
+     layout=layout_on_sphere)
 ```
 ## Cleaning
 
