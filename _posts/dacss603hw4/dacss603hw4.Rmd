@@ -157,32 +157,24 @@ Comparing all 5 of the criterion, all of them are lower in the second model exce
 
 ## Answer
 
-First, I will import the data from base R:
+First, I will import the data from base R and take a look at it. While doing so, I will correct the variable "Girth" to read "Diameter":
 
 ```{r code_folding = TRUE}
 #load the data and create a data frame
 data("trees")
-df2 <- as_tibble(trees)
-#assign column names to represent variables accurately
-colnames(df2) <- c("Diameter", "Height", "Volume")
+df2 <- trees %>%
+  rename(Diameter = Girth)
 head(df2)
-#create a correlation matrix and round to 3 decimals
-df2corr <- cor(df2)
-round(df2corr, 3)
 ```
 
 ### A
 
-*Fit a multiple regression model with the Volume as the outcome and Girth (Diameter) and Height as the explanatory variables*
+*Fit a multiple regression model with the "Volume" as the outcome and "Diameter" and "Height" as the explanatory variables*
 
 ```{r code_folding = TRUE}
 #run the linear model
 lm2 <- lm(Volume ~ ., data = df2)
-#create a data frame from the model results
-tidylm2 <- tidy(lm2, conf.int = FALSE) 
-#round the results to 3 decimal points
-tidylm2 %>%
-  mutate_if(is.numeric, round, 3)
+summary(lm2)
 ```
 
 ### B
@@ -190,13 +182,40 @@ tidylm2 %>%
 *Run regression diagnostic plots on the model.* 
 
 ```{r code_folding = TRUE}
-par(mfrow = c(2,2))
-plot(lm2)
+par(mfrow = c(1,1))
+plot(lm2, 1:6)
 ```
 
 ### C
 
 *Based on the plots, do you think any of the regression assumptions is violated?*
+
+For **Residuals vs Fitted**, I can see that the assumption of **_linearity_** has been violated since we do not have residuals bouncing randomly around a horizontal line. Additionally, the assumption of  **_constant variance_** is violated due to the funnel shape of the regression line rather than appearing as a horizontal band.
+
+For **Normal Q-Q**, I can see that the assumption of **_normality_** is seemingly upheld by the observations generally falling along the line. However, to check more formally for normality in the Normal Q-Q plot, I will use the Shapiro-Wilk Test:
+
+```{r code_folding=TRUE}
+shapiro.test(df2$Diameter)
+shapiro.test(df2$Height)
+```
+
+Both the p-values given for Diameter and Height in the Shapiro-Wilk normality test are <0.5, so it seems reasonable that we should not reject the null hypothesis that the distribution is normal for each set of observations. \
+
+Both visual inspection of the Normal Q-Q test and the calculations of the Shapiro-Wilk tests help me to observe that the normality assumption is not being violated. However, having n=31 for observations, I am also mindful that the low sample size should leave some room for uncertainty.
+
+For **Scale-Location**, the assumption of **_constant variance_** seems to be violated, as the residuals do not follow an approximately horizontal line. However, to check more formally for heteroskedasticity in the Scale-Location plot, I will use the Breusch Pagan Test:
+
+```{r code_folding=TRUE}
+library(lmtest)
+bptest(lm2)
+```
+
+The resulting p-value indicates that I cannot rule out the null hypothesis of homoskedasticity.
+
+For **Cook's Distance**, I can see that there are clearly several observations that violate the assumption of **_influential observations_**. Using the guideline of looking at observations larger than 4/n (0.129), I can see that observation #13 is far beyond that threshold. This tells me that observation is highly influential and not representative of the dataset as a whole.
+
+Looking at **Residuals vs Leverage** and **Cook's Distance vs Leverage**, at least one observation (31) in each model indicates a larger potential influence on the regression model than we want to see.
+
 
 ## Question 3
 
