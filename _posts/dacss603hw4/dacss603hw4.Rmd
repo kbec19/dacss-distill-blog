@@ -247,21 +247,23 @@ Produce the regression diagnostic plots. Is Palm Beach County an outlier based o
 
 ```{r code_folding = TRUE}
 #produce the regression diagnostic plots
-par(mfrow = c(2,3)); plot(lm3, which = 1:6)
+par(mfrow = c(1,1))
+plot(lm3, which = 1:6)
 ```
 
-Reviewing the diagnostic plots, Palm Beach County is definitely an outlier.
+Reviewing the diagnostic plots, Palm Beach County is definitely an outlier in every one of the diagnostic plots. 
 
-```{r}
-model.diag.metrics <- augment(lm3)
-head(model.diag.metrics)
+With the exception of the outliers Dade and Palm Beach counties, the Normal Q-Q plot seems to represent an otherwise normal distribution.
+
+Using the "augment() function from the "broom" package, I can look at the Cook's values and separate out the 3 highest Cook's values to confirm the level to which both Dade and Palm Beach counties show significantly high leverage than the third highest value.
+
+```{r code_folding=TRUE}
+#calculate cook's distance and select top 3 values
+aug_lm3 <- augment(lm3) %>%
+  select(.rownames, .cooksd) %>%
+  slice_max(.cooksd, n=3)
+knitr::kable(aug_lm3)
 ```
-
-```{r}
-model.diag.metrics %>%
-  top_n(3, wt = .cooksd)
-```
-
 
 # Part 2 (Course Final Project)
 
