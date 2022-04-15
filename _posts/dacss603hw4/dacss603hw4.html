@@ -1555,11 +1555,11 @@ Show code
 </summary>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co">#run the linear model</span>
-<span class="va">lm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Price</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">df1</span><span class="op">)</span>
+<span class="va">lm1a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Price</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">df1</span><span class="op">)</span>
 <span class="co">#create a data frame from the model results</span>
-<span class="va">tidylm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">lm1</span>, conf.int <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> 
+<span class="va">tidylm1a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">lm1a</span>, conf.int <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> 
 <span class="co">#round the results to 3 decimal points</span>
-<span class="va">tidylm1</span> <span class="op">%&gt;%</span>
+<span class="va">tidylm1a</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_if</a></span><span class="op">(</span><span class="va">is.numeric</span>, <span class="va">round</span>, <span class="fl">3</span><span class="op">)</span>
 </code></pre>
 </div>
@@ -1587,45 +1587,78 @@ Show code
 <ul>
 <li><em>R2</em></li>
 <li><em>Adjusted R2</em></li>
+<li><em>AIC</em></li>
+<li><em>BIC</em></li>
 </ul>
-<p>For “R2” and “Adjusted R2”, I will use the “summary” function on my “lm()” call.</p>
+<p>For “R2” and “Adjusted R2”, I could use the “summary” function on my “lm()” call.</p>
+<p>However, I can use the “broom” package “glance()” function to view the AIC and BIC scores, among other relevant information:</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
 Show code
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#use the &quot;summary()&quot; functionl</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#using the &quot;glance&quot; function in the &quot;broom&quot; package</span>
+<span class="va">tidylm1a</span> <span class="op">&lt;-</span> <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html">glance</a></span><span class="op">(</span><span class="va">lm1a</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_if</a></span><span class="op">(</span><span class="va">is.numeric</span>, <span class="va">round</span>, <span class="fl">4</span><span class="op">)</span>
+
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">tidylm1a</span><span class="op">)</span>
 </code></pre>
 </div>
 </details>
-<pre><code>
-Call:
-lm(formula = Price ~ ., data = df1)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--36.212  -9.546   1.277   9.406  71.953 
-
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  -41.795     12.104  -3.453 0.000855 ***
-Size          64.761      5.630  11.504  &lt; 2e-16 ***
-Beds          -2.766      3.960  -0.698 0.486763    
-Baths         19.203      5.650   3.399 0.001019 ** 
-New           18.984      3.873   4.902  4.3e-06 ***
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-
-Residual standard error: 16.36 on 88 degrees of freedom
-Multiple R-squared:  0.8689,    Adjusted R-squared:  0.8629 
-F-statistic: 145.8 on 4 and 88 DF,  p-value: &lt; 2.2e-16</code></pre>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 13%" />
+<col style="width: 7%" />
+<col style="width: 9%" />
+<col style="width: 7%" />
+<col style="width: 2%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 11%" />
+<col style="width: 4%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">r.squared</th>
+<th style="text-align: right;">adj.r.squared</th>
+<th style="text-align: right;">sigma</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+<th style="text-align: right;">df</th>
+<th style="text-align: right;">logLik</th>
+<th style="text-align: right;">AIC</th>
+<th style="text-align: right;">BIC</th>
+<th style="text-align: right;">deviance</th>
+<th style="text-align: right;">df.residual</th>
+<th style="text-align: right;">nobs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.8689</td>
+<td style="text-align: right;">0.8629</td>
+<td style="text-align: right;">16.3599</td>
+<td style="text-align: right;">145.7634</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">-389.3113</td>
+<td style="text-align: right;">790.6225</td>
+<td style="text-align: right;">805.8181</td>
+<td style="text-align: right;">23552.98</td>
+<td style="text-align: right;">88</td>
+<td style="text-align: right;">93</td>
+</tr>
+</tbody>
+</table>
 </div>
 <ul>
 <li><em>PRESS</em></li>
 </ul>
-<p>For “PRESS”, I will create the “PRESS” function and run it on my “lm()” call.</p>
+<p>For “PRESS”, I will create the “PRESS” function and save the result to my data frame</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -1638,49 +1671,24 @@ Show code
     <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">pr</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>
 <span class="op">}</span>
 <span class="co">#use the &quot;PRESS()&quot; function</span>
-<span class="fu">PRESS</span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span>
+<span class="fu">PRESS</span><span class="op">(</span><span class="va">lm1a</span><span class="op">)</span>
 </code></pre>
 </div>
 </details>
 <pre><code>[1] 28390.22</code></pre>
-</div>
-<ul>
-<li><em>AIC</em></li>
-</ul>
-<p>For “AIC”, I will use the “AIC” function on my “lm()” call.</p>
-<div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
 Show code
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#use the &quot;AIC&quot; function </span>
-<span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#save to data frame</span>
+<span class="va">press1a</span> <span class="op">&lt;-</span> <span class="fu">PRESS</span><span class="op">(</span><span class="va">lm1a</span><span class="op">)</span>
+<span class="va">tidylm1a</span><span class="op">$</span><span class="va">press</span> <span class="op">&lt;-</span> <span class="va">press1a</span>
 </code></pre>
 </div>
 </details>
-<pre><code>[1] 790.6225</code></pre>
 </div>
-<ul>
-<li><em>BIC</em></li>
-</ul>
-<p>For the “R2” and “Adjusted R2”, I will use the “summary” function on my “lm()” call.</p>
-<div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#use the &quot;summary()&quot; function </span>
-<span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">BIC</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span>
-</code></pre>
-</div>
-</details>
-<pre><code>[1] 805.8181</code></pre>
-</div>
-<h3 id="e">E</h3>
-<p><em>Explain which model you prefer and why.</em></p>
-<p>To develop a response, I want to look at the models with different predictors. Specifically, I’ll look at the house data and exclude the “Beds” variable.</p>
+<p>I want to now follow that same process with the model excluding the “Beds” variable:</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
@@ -1689,93 +1697,117 @@ Show code
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co">#run the new linear model</span>
 <span class="va">lm1b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Price</span> <span class="op">~</span> <span class="va">.</span> <span class="op">-</span><span class="va">Beds</span>, data <span class="op">=</span> <span class="va">df1</span><span class="op">)</span>
-<span class="co">#create a data frame from the model results</span>
-<span class="va">tidylm1b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">lm1b</span>, conf.int <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> 
-<span class="co">#round the results to 3 decimal points</span>
-<span class="va">tidylm1b</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_if</a></span><span class="op">(</span><span class="va">is.numeric</span>, <span class="va">round</span>, <span class="fl">3</span><span class="op">)</span>
-</code></pre>
-</div>
-</details>
-<pre><code># A tibble: 4 x 5
-  term        estimate std.error statistic p.value
-  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
-1 (Intercept)    -48.0      8.21     -5.85       0
-2 Size            62.3      4.34     14.4        0
-3 Baths           20.1      5.50      3.65       0
-4 New             18.4      3.76      4.88       0</code></pre>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#use the &quot;summary()&quot; function </span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lm1b</span><span class="op">)</span>
-</code></pre>
-</div>
-</details>
-<pre><code>
-Call:
-lm(formula = Price ~ . - Beds, data = df1)
+<span class="co">#using the &quot;glance&quot; function in the &quot;broom&quot; package</span>
+<span class="va">tidylm1b</span> <span class="op">&lt;-</span> <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html">glance</a></span><span class="op">(</span><span class="va">lm1b</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_if</a></span><span class="op">(</span><span class="va">is.numeric</span>, <span class="va">round</span>, <span class="fl">4</span><span class="op">)</span>
+<span class="co">#save PRESS evaluation to data frame</span>
+<span class="va">press1b</span> <span class="op">&lt;-</span> <span class="fu">PRESS</span><span class="op">(</span><span class="va">lm1b</span><span class="op">)</span>
+<span class="va">tidylm1b</span><span class="op">$</span><span class="va">press</span> <span class="op">&lt;-</span> <span class="va">press1b</span>
 
-Residuals:
-    Min      1Q  Median      3Q     Max 
--34.804  -9.496   0.917   7.931  73.338 
 
-Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  -47.992      8.209  -5.847 8.15e-08 ***
-Size          62.263      4.335  14.363  &lt; 2e-16 ***
-Baths         20.072      5.495   3.653 0.000438 ***
-New           18.371      3.761   4.885 4.54e-06 ***
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-
-Residual standard error: 16.31 on 89 degrees of freedom
-Multiple R-squared:  0.8681,    Adjusted R-squared:  0.8637 
-F-statistic: 195.3 on 3 and 89 DF,  p-value: &lt; 2.2e-16</code></pre>
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">tidylm1b</span><span class="op">)</span>
+</code></pre>
 </div>
+</details>
+<table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+<col style="width: 2%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 10%" />
+<col style="width: 4%" />
+<col style="width: 7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">r.squared</th>
+<th style="text-align: right;">adj.r.squared</th>
+<th style="text-align: right;">sigma</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+<th style="text-align: right;">df</th>
+<th style="text-align: right;">logLik</th>
+<th style="text-align: right;">AIC</th>
+<th style="text-align: right;">BIC</th>
+<th style="text-align: right;">deviance</th>
+<th style="text-align: right;">df.residual</th>
+<th style="text-align: right;">nobs</th>
+<th style="text-align: right;">press</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.8681</td>
+<td style="text-align: right;">0.8637</td>
+<td style="text-align: right;">16.3128</td>
+<td style="text-align: right;">195.3127</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">-389.5683</td>
+<td style="text-align: right;">789.1366</td>
+<td style="text-align: right;">801.7996</td>
+<td style="text-align: right;">23683.53</td>
+<td style="text-align: right;">89</td>
+<td style="text-align: right;">93</td>
+<td style="text-align: right;">27860.05</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Now I can combine the data into one data frame and choose the relevant columns to examine them more easily:</p>
 <div class="layout-chunk" data-layout="l-body">
 <details>
 <summary>
 Show code
 </summary>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#use the &quot;PRESS()&quot; function </span>
-<span class="fu">PRESS</span><span class="op">(</span><span class="va">lm1b</span><span class="op">)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#join the data frames</span>
+<span class="va">compare_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join</a></span><span class="op">(</span><span class="va">tidylm1a</span>, <span class="va">tidylm1b</span><span class="op">)</span>
+<span class="va">tidylm1c</span> <span class="op">&lt;-</span> <span class="va">compare_df</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate_all.html">mutate_if</a></span><span class="op">(</span><span class="va">is.numeric</span>, <span class="va">round</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="st">&quot;r.squared&quot;</span>, <span class="st">&quot;adj.r.squared&quot;</span>, <span class="st">&quot;AIC&quot;</span>, <span class="st">&quot;BIC&quot;</span>, <span class="st">&quot;press&quot;</span><span class="op">)</span>
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">tidylm1c</span><span class="op">)</span>
 </code></pre>
 </div>
 </details>
-<pre><code>[1] 27860.05</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">r.squared</th>
+<th style="text-align: right;">adj.r.squared</th>
+<th style="text-align: right;">AIC</th>
+<th style="text-align: right;">BIC</th>
+<th style="text-align: right;">press</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.8689</td>
+<td style="text-align: right;">0.8629</td>
+<td style="text-align: right;">790.6225</td>
+<td style="text-align: right;">805.8181</td>
+<td style="text-align: right;">28390.22</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.8681</td>
+<td style="text-align: right;">0.8637</td>
+<td style="text-align: right;">789.1366</td>
+<td style="text-align: right;">801.7996</td>
+<td style="text-align: right;">27860.05</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#use the &quot;AIC&quot; function </span>
-<span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">lm1b</span><span class="op">)</span>
-</code></pre>
-</div>
-</details>
-<pre><code>[1] 789.1366</code></pre>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<details>
-<summary>
-Show code
-</summary>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#use the &quot;BIC&quot; function </span>
-<span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">BIC</a></span><span class="op">(</span><span class="va">lm1b</span><span class="op">)</span>
-</code></pre>
-</div>
-</details>
-<pre><code>[1] 801.7996</code></pre>
-</div>
+<h3 id="e">E</h3>
+<p><em>Explain which model you prefer and why.</em></p>
+<p>Comparing all 5 of the criterion, all of them are lower in the second model except the adjusted r squared. Although adjusted r squared is an important criterion, the difference (+0.0008) is negligible. Given the strong message from the other 4 criteria and the fact that the second model removed a predictor variable that was not statistically significant by any reasonable degree, I feel confident in saying the second model is the best.</p>
 <h2 id="question-2">Question 2</h2>
 <p><em>From the documentation:</em></p>
 <p><em>“This data set provides measurements of the diameter, height and volume of timber in 31 felled black cherry trees. Note that the diameter (in inches) is erroneously labelled Girth in the data. It is measured at 4 ft 6 in above the ground.”</em></p>
@@ -1980,7 +2012,7 @@ Show code
 <li><p>Numerically summarize (e.g. with the summary() function) the variables of interest (the outcome, the explanatory variable, the control variables).</p></li>
 <li><p>Plot the relationships between key variables. You can do this any way you want, but one straightforward way of doing this would be with the pairs() function or other scatter plots / box plots. Interpret what you see.</p></li>
 </ul>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

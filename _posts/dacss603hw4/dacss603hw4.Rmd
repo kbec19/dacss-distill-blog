@@ -50,11 +50,11 @@ df1corr <- cor(df1)
 round(df1corr, 3)
 
 #run the linear model
-lm1 <- lm(Price ~ ., data = df1)
+lm1a <- lm(Price ~ ., data = df1)
 #create a data frame from the model results
-tidylm1 <- tidy(lm1, conf.int = FALSE) 
+tidylm1a <- tidy(lm1a, conf.int = FALSE) 
 #round the results to 3 decimal points
-tidylm1 %>%
+tidylm1a %>%
   mutate_if(is.numeric, round, 3)
 ```
 
@@ -82,17 +82,23 @@ The "Beds" variable has a large p-value despite a substantial correlation with "
 
 * *R2*
 * *Adjusted R2*
+* *AIC*
+* *BIC*
 
-For "R2" and "Adjusted R2", I will use the "summary" function on my "lm()" call.
+For "R2" and "Adjusted R2", I could use the "summary" function on my "lm()" call.
 
-```{r code_folding = TRUE}
-#use the "summary()" functionl
-summary(lm1)
+However, I can use the "broom" package "glance()" function to view the AIC and BIC scores, among other relevant information:
+
+```{r code_folding=TRUE}
+#using the "glance" function in the "broom" package
+tidylm1a <- broom::glance(lm1a) %>%
+  mutate_if(is.numeric, round, 4)
+
+knitr::kable(tidylm1a)
 ```
-
 * *PRESS*
 
-For "PRESS", I will create the "PRESS" function and run it on my "lm()" call.
+For "PRESS", I will create the "PRESS" function and save the result to my data frame
 
 ```{r code_folding = TRUE}
 #create the "PRESS" function
@@ -101,61 +107,45 @@ PRESS <- function(linear.model) {
     sum(pr^2)
 }
 #use the "PRESS()" function
-PRESS(lm1)
+PRESS(lm1a)
+#save to data frame
+press1a <- PRESS(lm1a)
+tidylm1a$press <- press1a
 ```
 
-* *AIC*
-
-For "AIC", I will use the "AIC" function on my "lm()" call.
+I want to now follow that same process with the model excluding the "Beds" variable: 
 
 ```{r code_folding = TRUE}
-#use the "AIC" function 
-AIC(lm1)
+#run the new linear model
+lm1b <- lm(Price ~ . -Beds, data = df1)
+#using the "glance" function in the "broom" package
+tidylm1b <- broom::glance(lm1b) %>%
+  mutate_if(is.numeric, round, 4)
+#save PRESS evaluation to data frame
+press1b <- PRESS(lm1b)
+tidylm1b$press <- press1b
+
+
+knitr::kable(tidylm1b)
 ```
 
-* *BIC*
-
-For the "R2" and "Adjusted R2", I will use the "summary" function on my "lm()" call.
+Now I can combine the data into one data frame and choose the relevant columns to examine them more easily:
 
 ```{r code_folding = TRUE}
-#use the "summary()" function 
-BIC(lm1)
+#join the data frames
+compare_df <- full_join(tidylm1a, tidylm1b)
+tidylm1c <- compare_df %>%
+  mutate_if(is.numeric, round, 4) %>%
+  select("r.squared", "adj.r.squared", "AIC", "BIC", "press")
+knitr::kable(tidylm1c)
 ```
 
 ### E
 
 *Explain which model you prefer and why.*
 
-To develop a response, I want to look at the models with different predictors. Specifically, I'll look at the house data and exclude the "Beds" variable.
+Comparing all 5 of the criterion, all of them are lower in the second model except the adjusted r squared. Although adjusted r squared is an important criterion, the difference (+0.0008) is negligible. Given the strong message from the other 4 criteria and the fact that the second model removed a predictor variable that was not statistically significant by any reasonable degree, I feel confident in saying the second model is the best.
 
-```{r code_folding = TRUE}
-#run the new linear model
-lm1b <- lm(Price ~ . -Beds, data = df1)
-#create a data frame from the model results
-tidylm1b <- tidy(lm1b, conf.int = FALSE) 
-#round the results to 3 decimal points
-tidylm1b %>%
-  mutate_if(is.numeric, round, 3)
-```
-
-```{r code_folding = TRUE}
-#use the "summary()" function 
-summary(lm1b)
-```
-```{r code_folding = TRUE}
-#use the "PRESS()" function 
-PRESS(lm1b)
-```
-
-```{r code_folding = TRUE}
-#use the "AIC" function 
-AIC(lm1b)
-```
-
-```{r code_folding = TRUE}
-#use the "BIC" function 
-BIC(lm1b)
-```
 
 ## Question 2
 
