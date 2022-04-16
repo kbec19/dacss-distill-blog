@@ -271,15 +271,71 @@ knitr::kable(aug_lm3)
 
 *What is your research question for the final project?*
 
+My preliminary thought of an appropriate research question will be a question involving a combination of data sources.
+
+The first is a data set of observations from the World Values Survey conducted from 2017-2021 as a joint project between the World Values Survey and the European Values Studies. This data was released in July 2021, and contains responses from ~135,000 respondents among 95 countries.
+
+The second is a data set of observations from novice "hacking tool" users of a tool to engage in DDOS (denial of service) attacks against Russian targets in March 2022. The data contains a total of users cumulatively for each day of the series March 2 through March 11, and the users represent participants from 98 counties.
+
+Finally, the third is a data set of media coverage (media articles and social media mentions) of the Ukrainian minister's call for volunteers for the "IT Army of Ukraine" to help fight the invasion of Russia on the digital front.
+
+My working ideas are:
+
+1. Was the increase in DDOS participants increase with coverage of the call for volunteers in the media?
+
+2. What countries and regions were most represented in the DDOS participants?
+
+3. How does the representation of DDOS users relate to the sentiment of survey members from their respective countries to the World Values Survey questions regarding activism and political engagement?
+
 ## Question 2
 
 *What is your hypothesis (i.e. an answer to the research question) that you want to test?*
+
+I need to develop the hypothesis more thoroughly, but I feel so far that they will point in this direction:
+
+H(1): The increase in DDOS participants was independent of the coverage for calls for volunteers in the media.
+
+H(2): Countries in Europe and Western Asia were most represented in the DDOS participants.
+
+H(3): There is a positive correlation between the sentiment of survey respondents from the countries of DDOS participants.
+
+
 
 ## Question 3
 
 *Present some exploratory analysis. In particular:*
 
-* Numerically summarize (e.g. with the summary() function) the variables of interest (the outcome, the explanatory variable, the control variables).
+* *Numerically summarize (e.g. with the summary() function) the variables of interest (the outcome, the explanatory variable, the control variables).*
+
+The data I imported for this first exploration is a data frame consisting of 98 observations with the columns:
+
+* Country Name
+* Population (as indicated by the U.S. CIA World factbook website)
+* Region (as indicated by the UN classifications)
+* Columns representing the cumulative number of participants in the DDOS attack from each representative country as of a given day from March 2 to March 11, 2022.
+
+```{r code_folding = TRUE}
+#load the data
+ddos <- read_csv("fckptn active observations.csv")
+#assign column names to represent variables accurately
+colnames(ddos) <- c("Country", "Population", "Region", "March2", "March3", "March4", "March5", "March6", "March7", "March8", "March9", "March10", "March11")
+#summarize the data
+summary(ddos)
+```
+
+The total DDOS users as of the first day of observations, March 2, 2022, and the last day available for observation, March 11, 2022 began at 7,850 and grew to a total of 48,879.
+
+```{r code_folding = TRUE}
+sum(ddos$March2)
+sum(ddos$March11)
+```
 
 * Plot the relationships between key variables. You can do this any way you want, but one straightforward way of doing this would be with the pairs() function or other scatter plots / box plots. Interpret what you see.
+
+```{r code_folding=TRUE}
+#create plot
+ggplot(ddos, aes(x = log(Population), y = log(March11), color = Region)) +
+  geom_point () +
+  facet_wrap("Region")
+```
 
