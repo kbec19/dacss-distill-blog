@@ -13,7 +13,17 @@ data analytics for social sciences in the wild
       <link>https://www.kristinabecvar.com/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 13 Apr 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 15 Apr 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Importing and Analyzing PDF Documents</title>
+      <dc:creator>Kristina Becvar</dc:creator>
+      <link>https://www.kristinabecvar.com/posts/pdf-docs</link>
+      <description>Final Project Work for DACSS 697D Course 'Text as Data'</description>
+      <category>text as data</category>
+      <category>NYT text analysis project</category>
+      <guid>https://www.kristinabecvar.com/posts/pdf-docs</guid>
+      <pubDate>Fri, 15 Apr 2022 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>DACSS 603 Homework 4</title>
       <dc:creator>Kristina Becvar</dc:creator>
@@ -43,6 +53,7 @@ data analytics for social sciences in the wild
       <description>Assignment 7 for DACSS 697D Course 'Text as Data': "Analyzing Print v. Web Headlines using Dictionary Methods"</description>
       <category>text as data</category>
       <category>homework</category>
+      <category>NYT text analysis project</category>
       <guid>https://www.kristinabecvar.com/posts/analyzing-headlines</guid>
       <pubDate>Sat, 09 Apr 2022 00:00:00 +0000</pubDate>
     </item>
@@ -65,6 +76,7 @@ data analytics for social sciences in the wild
       <description>Assignment 6 for DACSS 697D Course 'Text as Data': "Comparing New York Times Print v. Web Headlines"</description>
       <category>text as data</category>
       <category>homework</category>
+      <category>NYT text analysis project</category>
       <guid>https://www.kristinabecvar.com/posts/comparing-headlines</guid>
       <pubDate>Thu, 07 Apr 2022 00:00:00 +0000</pubDate>
       <media:content url="https://www.kristinabecvar.com/posts/comparing-headlines/distill-preview.png" medium="image" type="image/png" width="1248" height="768"/>
