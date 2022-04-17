@@ -5,6 +5,7 @@ description: |
 categories:
   - text as data
   - homework
+  - NYT text analysis project
 author:
   - name: Kristina Becvar
     url: https://www.kristinabecvar.com
@@ -101,7 +102,7 @@ main_tokens
 print_tokens
 ```
 
-Now that I have been able to remove the symbols, I should be able to get a better dfm result. In addition to removing the punctuation, symbols, and stopwords, I also want to remove my new top result, "s", because the tokenization removing contractoins left many stranded "s" characters.
+Now that I have been able to remove the symbols, I should be able to get a better dfm result. In addition to removing the punctuation, symbols, and stopwords, I also want to remove my new top result, "s", because the tokenization removing contractions left many stranded "s" characters.
 
 First, for the main headlines:
 
