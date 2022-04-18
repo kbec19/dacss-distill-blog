@@ -13,16 +13,17 @@ data analytics for social sciences in the wild
       <link>https://www.kristinabecvar.com/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 15 Apr 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 16 Apr 2022 00:00:00 +0000</lastBuildDate>
     <item>
-      <title>Importing and Analyzing PDF Documents</title>
+      <title>Supervised Learning</title>
       <dc:creator>Kristina Becvar</dc:creator>
-      <link>https://www.kristinabecvar.com/posts/pdf-docs</link>
-      <description>Final Project Work for DACSS 697D Course 'Text as Data'</description>
+      <link>https://www.kristinabecvar.com/posts/supervised-learning</link>
+      <description>Assignment 8 for DACSS 697D Course 'Text as Data': "Supervised Learning"</description>
       <category>text as data</category>
+      <category>homework</category>
       <category>NYT text analysis project</category>
-      <guid>https://www.kristinabecvar.com/posts/pdf-docs</guid>
-      <pubDate>Fri, 15 Apr 2022 00:00:00 +0000</pubDate>
+      <guid>https://www.kristinabecvar.com/posts/supervised-learning</guid>
+      <pubDate>Sat, 16 Apr 2022 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>DACSS 603 Homework 4</title>
