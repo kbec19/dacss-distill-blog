@@ -1,0 +1,209 @@
+---
+title: "Spotify API"
+description: |
+  Final Project Work DACSS 697E course 'Social and Political Network Analysis'
+categories:
+  - networks
+  - homework
+  - grateful network
+author:
+  - name: Kristina Becvar
+    url: https://www.kristinabecvar.com
+slug: spotify-api
+date: 04-18-2022
+base_url: https://www.kristinabecvar.com
+output:
+  distill::distill_article:
+    toc: TRUE
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## "spotifyr" Package
+
+I have been discussing ways to examine the ongoing [Grateful Dead songwriting network data](https://www.kristinabecvar.com/blog.html#category:grateful_network){target="_blank"} more thoroughly, and was introduced to the ["spotifyr" package by Charlie Thompson](https://www.rcharlie.com/spotifyr/){target="_blank"}. 
+
+```{r code_folding=TRUE}
+library(dplyr)
+library(spotifyr)
+library(plotly)
+library(ggplot2)
+library(knitr)
+library(Hmisc)
+library(readr)
+```
+
+### Creating an Access Token
+
+Using the documentation for the "spotifyr" package and the [Spotify Developer site](https://developer.spotify.com/){target="_blank"}, I created my access token to pull the data from the Spotify API. I will not run it again in this post, but the process is documented:
+
+```{r echo=TRUE}
+#id <- 'xxxxx'
+#secret <- 'xxxxx'
+#Sys.setenv(SPOTIFY_CLIENT_ID = id)
+#Sys.setenv(SPOTIFY_CLIENT_SECRET = secret)
+#access_token <- get_spotify_access_token()
+```
+
+### Importing Data
+
+The "spotifyr" package offers functions such as "get_artist_audio_features()", which I pulled for the Grateful Dead, and wrote the data to a file for pulling back into this blog post. 
+
+```{r echo=TRUE}
+#grateful_dead <- get_artist_audio_features('grateful dead')
+grateful_dead <- read_rds("grateful_dead.rds")
+gd_spotify <- as_tibble(grateful_dead)
+gd_songs <- gd_spotify %>%
+  dplyr::select(danceability:tempo, track_name, track_number, track_id, album_name, album_id, time_signature, duration_ms, key_name, mode_name, key_mode)
+#saveRDS(grateful_dead, file = "grateful_dead.rds")
+write_csv(gd_songs, file = "gd_songs_spotify.csv")
+head(gd_songs) %>%
+  kable()
+```
+
+#### Data Details
+
+I saved the pulled data that is relevant to my purposes into a more manageable tibble indicating details such as Spotify's classification for the track name and ID, album name and ID, track number, song duration (in milliseconds), info about the time and key signature for each song, and classifying traits for song including:
+
+* acousticness (A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.)
+* danceability (Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.)
+* energy (Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.)
+* instumentalness (Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.)
+* key (The key the track is in. Integers map to pitches using standard Pitch Class notation. E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.)
+* liveness (Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.)
+* loudness (The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typically range between -60 and 0 db.)
+* mode (Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0.)
+* speechiness (Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.)
+* tempo (The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.)
+* time_signature (An estimated time signature. The time signature (meter) is a notational convention to specify how many beats are in each bar (or measure). The time signature ranges from 3 to 7 indicating time signatures of "3/4", to "7/4".)
+* valence (A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).)
+
+### Statistics
+
+#### Classification Means
+
+Grouping by album name, I'm calculating the mean valence, danceability, liveness, and tempo for examining further.
+
+```{r echo=TRUE}
+options(scipen = 999)
+gd_mean_by_album <- gd_songs %>%
+  group_by(album_name) %>%
+  summarise(mean_valence = mean(valence), 
+            mean_danceability = mean(danceability), 
+            mean_energy = mean(energy),
+            mean_liveness = mean(liveness),
+            mean_tempo = mean(tempo))
+head(gd_mean_by_album) %>%
+  kable()
+```
+
+### Top Tracks
+
+I also want to use the "spotifyr" function, "get_artist_top_tracks()" and pull the top 10 Grateful Dead tracks on Spotify. I'm saving the song and album IDs, song and album names, and popularity score, into its' own data frame for offline and future use as well.
+
+```{r echo=TRUE}
+#gd_top_tracks <- get_artist_top_tracks(id='4TMHGUX5WI7OOm53PqSDAT', market="US")
+gd_top_spotify <- read_csv("gd_top_spotify.csv")
+#gd_top_spotify <- gd_top_tracks %>%
+  #dplyr::select(id, name, popularity, track_number, album.id, album.name)
+#write_csv(gd_top_spotify, file = "gd_top_spotify.csv")
+head(gd_top_spotify) %>%
+  kable()
+```
+
+## Vizualizations
+
+### Heat Map
+
+The first thing I want to look at it the density heat map looking at the mean energy and mean valence of each album. I'm not sure how this may serve my purposes going forward, so I want to look at another visualization.
+
+```{r echo=TRUE}
+sf <- ggplot(gd_mean_by_album, aes(mean_valence, mean_energy)) +
+  geom_point(color = "lightgray")
+
+sf + geom_density_2d() +
+   stat_density_2d(aes(fill = ..level..), geom = "polygon") +
+  scale_fill_gradientn(colors = c("#FFEDA0", "#FEB24C", "#F03B20"))
+```
+
+### Quantiles
+
+Another way to represent the meaningfulness of the mean valence scores is to look at them by quantile.
+
+```{r code_folding=TRUE}
+valence_percentile_00 <- min(gd_mean_by_album$mean_valence)
+valence_percentile_25 <- quantile(gd_mean_by_album$mean_valence, 0.25)
+valence_percentile_50 <- quantile(gd_mean_by_album$mean_valence, 0.50)
+valence_percentile_75 <- quantile(gd_mean_by_album$mean_valence, 0.75)
+valence_percentile_100 <- max(gd_mean_by_album$mean_valence)
+
+gd_val_percentiles = rbind(valence_percentile_00, valence_percentile_25, valence_percentile_50, valence_percentile_75, valence_percentile_100)
+dimnames(gd_val_percentiles)[[2]] = "Value"
+gd_val_percentiles
+```
+
+```{r echo=TRUE}
+gd_mean_by_album$Valence_Quartile[gd_mean_by_album$mean_valence >= valence_percentile_00 & gd_mean_by_album$mean_valence < valence_percentile_25]  = "1st Quartile"
+gd_mean_by_album$Valence_Quartile[gd_mean_by_album$mean_valence >= valence_percentile_25 & gd_mean_by_album$mean_valence < valence_percentile_50]  = "2nd Quartile"
+gd_mean_by_album$Valence_Quartile[gd_mean_by_album$mean_valence >= valence_percentile_50 & gd_mean_by_album$mean_valence < valence_percentile_75]  = "3rd Quartile"
+gd_mean_by_album$Valence_Quartile[gd_mean_by_album$mean_valence >= valence_percentile_75 & gd_mean_by_album$mean_valence <= valence_percentile_100]  = "4th Quartile"
+
+head(gd_mean_by_album) %>%
+  kable()
+```
+
+#### Scatterplots
+
+Basic scatterplots by quartile is somewhat interesting, but I don't really see that there is a meaningful pattern in the relationship between danceability and energy in the quartile scatterplots. 
+
+```{r echo=TRUE}
+(ggplot(data = gd_mean_by_album) + 
+  geom_point(mapping = aes(x = mean_energy, y = mean_danceability)) + 
+  facet_wrap(~ Valence_Quartile, nrow = 2))
+```
+
+#### Density Plots
+
+The density plots are a much better way to visualize the differences in the valence quartiles among classification values.
+
+##### Song Energy
+
+```{r echo=TRUE}
+library(cowplot)
+ggplot(gd_mean_by_album, aes(mean_energy, fill = Valence_Quartile)) + 
+  geom_density(alpha = 0.5) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
+  theme_minimal_hgrid(12)
+```
+
+##### Song Danceability
+
+```{r code_folding=TRUE}
+ggplot(gd_mean_by_album, aes(mean_danceability, fill = Valence_Quartile)) + 
+  geom_density(alpha = 0.5) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
+  theme_minimal_hgrid(12)
+```
+##### Song Tempo
+
+```{r code_folding=TRUE}
+library(cowplot)
+ggplot(gd_mean_by_album, aes(mean_tempo, fill = Valence_Quartile)) + 
+  geom_density(alpha = 0.5) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
+  theme_minimal_hgrid(12)
+```
+
+##### Song Liveness
+
+```{r code_folding=TRUE}
+library(cowplot)
+ggplot(gd_mean_by_album, aes(mean_liveness, fill = Valence_Quartile)) + 
+  geom_density(alpha = 0.5) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
+  theme_minimal_hgrid(12)
+```
+

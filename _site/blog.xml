@@ -13,7 +13,18 @@ data analytics for social sciences in the wild
       <link>https://www.kristinabecvar.com/</link>
     </image>
     <generator>Distill</generator>
-    <lastBuildDate>Sat, 16 Apr 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 18 Apr 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Spotify API</title>
+      <dc:creator>Kristina Becvar</dc:creator>
+      <link>https://www.kristinabecvar.com/posts/spotify-api</link>
+      <description>Final Project Work DACSS 697E course 'Social and Political Network Analysis'</description>
+      <category>networks</category>
+      <category>homework</category>
+      <category>grateful network</category>
+      <guid>https://www.kristinabecvar.com/posts/spotify-api</guid>
+      <pubDate>Mon, 18 Apr 2022 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Supervised Learning</title>
       <dc:creator>Kristina Becvar</dc:creator>
