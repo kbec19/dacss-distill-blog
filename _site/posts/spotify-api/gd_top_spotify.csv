@@ -1,11 +1,11 @@
-id,name,popularity,track_number,album.id,album.name
-5ZLzl6T8JwqMTMdoE0nCbU,Friend of the Devil,63,2,7rqgm1BnAZ8I4d6hukpkdg,American Beauty
-7M7AwtGvWdMYudqx5Iuh1m,Althea - 2013 Remaster,62,3,6x3mttp1a5pLHj8rDDSEbT,Go to Heaven
-7LbfuQVct78YoghmoPtsQ8,Casey Jones - 2013 Remaster,61,8,4jxokHekH1qSad1DcC82ku,Workingman's Dead
-0mJQlCl9YgxW7kyeltNiVk,Touch of Grey - 2013 Remaster,60,1,1KytsXm6VQcyX5B5m8HBNa,In the Dark
-1OE5l6sedVcIFELMuxQOPI,Ripple - 2013 Remaster,59,6,2UDDZVesmQwA4aYfa55diS,American Beauty (2013 Remaster)
-1I6l01BaBgBCVkfQCpIlR6,Truckin' - 2013 Remaster,58,10,2UDDZVesmQwA4aYfa55diS,American Beauty (2013 Remaster)
-1lNRVjK8MukRZpeurYssIx,Shakedown Street - 2013 Remaster,58,3,0MLCxvyIfAuh5xwPORv8p6,Shakedown Street
-3euDGpS2R0NC2Xssqxohva,Scarlet Begonias - 2013 Remaster,58,5,68jAZmtRB51enSAufOJBtJ,From the Mars Hotel
-4DpBfWl3q8e0gGB76lAaox,Fire on the Mountain - 2013 Remaster,56,5,0MLCxvyIfAuh5xwPORv8p6,Shakedown Street
-7x2xjJV3YAPeLQJ7u3Kjet,Box of Rain - 2013 Remaster,55,1,2UDDZVesmQwA4aYfa55diS,American Beauty (2013 Remaster)
+popularity,rank,track_name,album_name,track_number,track_id,album_id,danceability,energy,key,loudness,mode,speechiness,acousticness,instrumentalness,liveness,valence,tempo,time_signature,duration_ms,key_name,mode_name,key_mode
+63,1,Friend of the Devil,American Beauty,2,5ZLzl6T8JwqMTMdoE0nCbU,7rqgm1BnAZ8I4d6hukpkdg,0.642,0.628,7,-12.849,1,0.0358,0.334,8.29E-06,0.614,0.893,103.317,4,201866,G,major,G major
+62,2,Althea - 2013 Remaster,Go to Heaven,3,7M7AwtGvWdMYudqx5Iuh1m,6x3mttp1a5pLHj8rDDSEbT,0.783,0.284,9,-14.307,1,0.0365,0.679,0.282,0.0767,0.584,82.676,4,412595,A,major,A major
+61,3,Casey Jones - 2013 Remaster,Workingman's Dead,8,7LbfuQVct78YoghmoPtsQ8,4jxokHekH1qSad1DcC82ku,0.671,0.405,0,-10.052,1,0.0392,0.385,0,0.132,0.828,99.678,4,265067,C,major,C major
+60,4,Touch of Grey - 2013 Remaster,In the Dark,1,0mJQlCl9YgxW7kyeltNiVk,1KytsXm6VQcyX5B5m8HBNa,0.612,0.696,11,-11.34,1,0.0353,0.0785,9.40E-06,0.14,0.849,159.829,4,350862,B,major,B major
+59,5,Ripple - 2013 Remaster,American Beauty (2013 Remaster),6,1OE5l6sedVcIFELMuxQOPI,2UDDZVesmQwA4aYfa55diS,0.604,0.411,7,-14.258,1,0.034,0.427,5.74E-05,0.602,0.675,126.637,4,249733,G,major,G major
+58,6,Truckin' - 2013 Remaster,American Beauty (2013 Remaster),10,1I6l01BaBgBCVkfQCpIlR6,2UDDZVesmQwA4aYfa55diS,0.644,0.623,11,-13.862,0,0.059,0.389,0.0202,0.0617,0.676,126.553,4,306973,B,minor,B minor
+58,7,Shakedown Street - 2013 Remaster,Shakedown Street,3,1lNRVjK8MukRZpeurYssIx,0MLCxvyIfAuh5xwPORv8p6,0.809,0.575,0,-12.176,1,0.0298,0.156,1.65E-06,0.0799,0.85,109.447,4,300209,C,major,C major
+58,8,Scarlet Begonias - 2013 Remaster,From the Mars Hotel,5,3euDGpS2R0NC2Xssqxohva,68jAZmtRB51enSAufOJBtJ,0.537,0.559,4,-12.224,1,0.0315,0.314,7.95E-04,0.116,0.918,167.758,4,259702,E,major,E major
+56,9,Fire on the Mountain - 2013 Remaster,Shakedown Street,5,4DpBfWl3q8e0gGB76lAaox,0MLCxvyIfAuh5xwPORv8p6,0.788,0.461,1,-11.704,0,0.0556,0.528,2.69E-05,0.0886,0.906,76.669,1,229009,C#,minor,C# minor
+55,10,Box of Rain - 2013 Remaster,American Beauty (2013 Remaster),1,7x2xjJV3YAPeLQJ7u3Kjet,2UDDZVesmQwA4aYfa55diS,0.52,0.49,2,-12.828,1,0.0286,0.413,0,0.121,0.76,117.755,4,318929,D,major,D major

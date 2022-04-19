@@ -108,7 +108,7 @@ I also want to use the "spotifyr" function, "get_artist_top_tracks()" and pull t
 #gd_top_tracks <- get_artist_top_tracks(id='4TMHGUX5WI7OOm53PqSDAT', market="US")
 gd_top_spotify <- read_csv("gd_top_spotify.csv")
 #gd_top_spotify <- gd_top_tracks %>%
-  #dplyr::select(id, name, popularity, track_number, album.id, album.name)
+  #dplyr::select()
 #write_csv(gd_top_spotify, file = "gd_top_spotify.csv")
 head(gd_top_spotify) %>%
   kable()
@@ -207,3 +207,46 @@ ggplot(gd_mean_by_album, aes(mean_liveness, fill = Valence_Quartile)) +
   theme_minimal_hgrid(12)
 ```
 
+Cool.
+
+Now to wrap this information into my work on the network analysis aspect of the Grateful Dead.
+
+## Correlation
+
+### Top Song Features
+
+I was able to match the "track_id" from the top spotify songs result and match it up to the song features from the main data pull. This gives me the ability to look at the top songs and what classification values they have in common - and how those values are correlated.
+
+#### Features
+
+```{r code_folding=TRUE}
+#Valence
+valence_plot <- gd_top_spotify %>%
+  mutate(full_title = paste(track_name)) %>%
+  ggplot(aes(x=rank, y= valence, color=full_title)) +
+  geom_col() +
+  expand_limits(y=c(0, 1.5))+
+  labs(x='', y='Valence', caption='Valence of Top Spotify Songs') +
+  theme_cowplot()
+  theme(legend.position='none', axis.text  = element_text(colour = 'white'))
+
+valence_plot
+
+
+
+```
+
+#### Correlation
+
+```{r code_folding=TRUE}
+library(corrr)
+gd_top_spotify  %>%
+  select(danceability:loudness, speechiness:tempo) %>%
+  correlate() %>%
+  rearrange() %>%
+  shave() %>%
+  rplot(shape = 15, colours = c("darkorange", "white", "darkcyan")) +
+  labs(title = "Classification Features",
+       subtitle = "Top 10 Grateful Dead Spotify Tracks") +
+  theme_minimal_hgrid(12) 
+```
