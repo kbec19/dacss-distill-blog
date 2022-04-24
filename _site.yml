@@ -11,12 +11,19 @@ theme: css/theme.css
 google_analytics: "G-8HBE170NLD"
 navbar:
   right:
-    - text: "Home"
+    - icon: fas fa-home
+      text: "Home"
       href: index.html
     - text: "Blog"
       href: blog.html
     - text: "Projects"
-      href: projects.html
+      menu:
+        - text: "Grateful Networks"
+          href: grateful-network.html
+        - text: "NYT Headlines"
+          href: projects.html
+        - text: "IT Army of Ukraine"
+          href: projects.html
     - text: "About"
       href: about.html
   left:
