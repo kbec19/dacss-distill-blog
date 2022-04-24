@@ -1,0 +1,115 @@
+---
+title: "DACSS 603 Final Project"
+description: |
+  Final Project Work: "Analyzing Trends With IT Army of Ukraine"
+categories:
+  - statistics
+  - final project
+  - IT Army of Ukraine
+author:
+  - name: Kristina Becvar
+    url: https://www.kristinabecvar.com
+slug: it-army
+date: 2022-04-20
+output:
+  distill::distill_article:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(broom)
+```
+
+# Data Sources
+
+## DDOS User Observations
+
+The primary data is a set of observations of users of a novice "hacking tool" to engage in DDOS (denial of service) attacks against Russian targets in March 2022. The data contains a total of users cumulatively for each day of the series March 2 through March 11, and the users represent participants from 98 counties.
+
+## WVS/EVS
+
+I will also be using a data set of observations from the World Values Survey conducted from 2017-2021 as a joint project between the World Values Survey and the European Values Studies. This data was released in July 2021, and contains responses from ~135,000 respondents among 95 countries.
+
+## Spike/Newswhip
+
+The third is a data set of media coverage (media articles and social media mentions) of the Ukrainian minister's call for volunteers for the "IT Army of Ukraine" to help fight the invasion of Russia on the digital front. 
+
+# Background
+
+## Gathering DDOS User Data
+
+This data consists of a set of observations by day and by country where an IP address originated in the use of a popular DDOS tool used from March 2 through March 11, 2022. I will not be examining the time series in this project; rather, I will be looking at the cumulative total number of users across all countries as of the final day observed.
+
+## Gathering WVS/EVS Data
+
+## Gathering Spike/Newswhip Data
+
+
+
+# Hypothesis
+
+I am looking at a model where the outcome is the number of DDOS attacks originated from a given country and explanatory variables are WVS activism scores, media coverage, and other controls.
+
+
+# Data Analysis
+
+## DDOS Users
+
+The data I imported for this first exploration is a data frame consisting of 98 observations with the columns:
+
+* Country Name
+* Population (as indicated by the U.S. CIA World factbook website)
+* Region (as indicated by the UN classifications)
+* Cumulative total number of users of the DDOS attack tool from each representative country as of March 11, 2022
+
+```{r code_folding = TRUE}
+#load the data
+ddos <- read_csv("fckptn_cumulative_observations.csv")
+#summarize the data
+options(scipen = 999)
+summary(ddos)
+```
+
+```{r code_folding = TRUE}
+#load the data
+ddos <- read_csv("fckptn active observations.csv")
+#assign column names to represent variables accurately
+colnames(ddos) <- c("Country", "Population", "Region", "March2", "March3", "March4", "March5", "March6", "March7", "March8", "March9", "March10", "March11")
+#summarize the data
+options(scipen = 999)
+summary(ddos)
+```
+
+The total DDOS users as of the first day of observations, March 2, 2022, and the last day available for observation, March 11, 2022 began at 7,850 and grew to a total of 48,879.
+
+```{r code_folding = TRUE}
+sum(ddos$March2)
+sum(ddos$March11)
+```
+
+Plot the relationships between key variables of this dataset:
+
+```{r code_folding=TRUE}
+#create plot
+ggplot(ddos, aes(x = log(Population), y = log(March11), color = Region)) +
+  geom_point () +
+  facet_wrap("Region")
+```
+
+There is another way to look at the same data, via time series.
+
+```{r code_folding=TRUE}
+#load the data
+ddos_timeseries <- read_csv("fckptn daily observations.csv")
+
+plot.ts(ddos_timeseries$Total)
+
+library(ggplot2)
+library(reshape2)
+
+```

@@ -15,7 +15,14 @@ site: distill::distill_website
 
 Hi - I’m **Kristina**. I am a graduate student in the Department of Social and Behavioral Sciences at University of Massachusetts Amherst pursuing a M.S. in Data Analytics and Computation for Social Sciences.
 
-This is my personal website which contains info about my research and where I
-blog about various topics of interest in the realm of social sciences and data analytics.
+This is my personal website which contains info about my research and where I blog about various topics of interest in the realm of social sciences and data analytics.
 
 Please browse around, and feel free to leave a comment.
+
+While I am building my site, you can visit my project pages here:
+
+[Grateful Networks:](http://gratefulnetwork.live/) Grateful Dead Co-Songwriter Network Project
+
+[New York Times Headline Analysis:](https://kbec19.github.io/NYT-Analysis/) New York Times Print v. Website Headline Comparisons - Media framing around the U.S. withdrawal of troops from Afghanistan
+
+[Ukrainian IT Army:](https://github.com/kbec19/it-army) Study of characteristics of users of pre-made DDOS tools in the wake of Ukraine's call to create an 'IT Army' in the early weeks of the Russian invasion of Ukraine
