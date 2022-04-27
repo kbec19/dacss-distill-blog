@@ -17,13 +17,7 @@ navbar:
     - text: "Blog"
       href: blog.html
     - text: "Projects"
-      menu:
-        - text: "Grateful Networks"
-          href: grateful-network.html
-        - text: "NYT Headlines"
-          href: projects.html
-        - text: "IT Army of Ukraine"
-          href: projects.html
+      menu: projects.html
     - text: "About"
       href: about.html
   left:

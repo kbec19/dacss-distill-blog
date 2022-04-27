@@ -1,14 +1,5 @@
 ---
 title: "Projects"
-site: distill::distill_website
+listing: projects # List all blog posts
 ---
 
-This page under construction...
-
-While I am building my site, you can visit my project pages here:
-
-[Grateful Networks:](http://gratefulnetwork.live/) Grateful Dead Co-Songwriter Network Project
-
-[New York Times Headline Analysis:](https://kbec19.github.io/NYT-Analysis/) New York Times Print v. Website Headline Comparisons - Media framing around the U.S. withdrawal of troops from Afghanistan
-
-[Ukrainian IT Army:](https://github.com/kbec19/it-army) Study of characteristics of users of pre-made DDOS tools in the wake of Ukraine's call to create an 'IT Army' in the early weeks of the Russian invasion of Ukraine
