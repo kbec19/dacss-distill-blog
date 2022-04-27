@@ -1,5 +1,6 @@
 ---
 title: "Projects"
 listing: projects # List all blog posts
+
 ---
 
