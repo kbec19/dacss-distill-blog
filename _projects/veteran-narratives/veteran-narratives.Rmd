@@ -8,7 +8,7 @@ categories:
   - Research Proposals
   - Projects
 author: Kristina Becvar
-slug: research_interests
+slug: veteran-narratives
 base_url: https://www.kristinabecvar.com
 output:
   distill::distill_article
